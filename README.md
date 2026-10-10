@@ -4,6 +4,11 @@ A structured learning and reference repository for DevOps, cloud, Oracle DBA, an
 
 This repository began as an early Git/GitHub practice workspace. It has now been reorganized so each technical area has a clear purpose and navigation path.
 
+
+## Master Engineering Project
+
+- [Oracle Database Platform Automation](Oracle-Database-Platform-Automation/README.md) — the **single authoritative roadmap** applying the DevOps syllabus to Oracle DBA, OCI/Azure, GoldenGate one-way CDC, infrastructure automation, CI/CD, high availability and observability. This is one integrated project, not separate competing projects.
+
 ## Technical Tracks
 
 | Area | Purpose |
