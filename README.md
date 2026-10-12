@@ -54,7 +54,7 @@ This is primarily a **technical learning/reference workspace**. Larger portfolio
 
 Current portfolio repositories include:
 
-- [Nginx DevOps Assignment](https://github.com/omoriwor-commits/nginx-devops-project)
+- [Nginx DevOps Project](https://github.com/omoriwor-commits/nginx-devops-project)
 - [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 - [Enterprise Data Platform Labs](https://github.com/omoriwor-commits/enterprise-data-platform-labs)
 
