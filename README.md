@@ -1,4 +1,4 @@
-# DevOps Technical Lab
+# DevOps & Oracle Database Engineering Portfolio
 
 A structured learning and reference repository for DevOps, cloud, Oracle DBA, and GoldenGate study materials.
 
