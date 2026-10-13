@@ -14,11 +14,11 @@ Reference procedures for GoldenGate Microservices architecture, installation, ca
 
 06. [Integrated Replicat and Validation](06-integrated-replicat-and-validation.md) — checkpoint table, Integrated Replicat, SQL DML tests, reconciliation and troubleshooting.
 
-07. [Initial Load and SCN/CSN Coordination](07-initial-load-scn-csn-and-cutover.md) — Data Pump instantiation, file-based load, positioning, validation, and cutover/rollback.
+07. [Initial Load, SCN/CSN and Cutover](07-initial-load-scn-csn-and-cutover.md) — Data Pump instantiation, file-based load, positioning, validation, and cutover/rollback.
 
 08. [Monitoring, Checkpoints and Recovery](08-monitoring-lag-checkpoints-and-recovery.md) — diagnostics, heartbeat, retention, troubleshooting and recovery exercises.
 
-09. [Parameters, Filtering and Mapping](09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and validation exercises.
+09. [Parameters, Filtering, Mapping and Collisions](09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and validation exercises.
 
 10. [Security and Interoperability](10-security-credentials-and-interoperability.md) — accounts, TLS, credentials, and mixed-mode integration.
 
