@@ -248,7 +248,7 @@ Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) befor
 | Three separately proven DML tests and reconciliation | 15 |
 | One safely recovered failure with documented checkpoints | 5 |
 
-**Proposed grading:** pass at completion of all mandatory validation gates **and** satisfy mandatory safety conditions: no credential disclosure, no unacknowledged replication gap, valid initial baseline and all three DML tests passed. This is an internal lab assessment criteria, not an Oracle certification exam or score.
+**Operational acceptance:** all mandatory safety controls must pass: no credential disclosure, no unexplained replication gap, a verified initial baseline and successful INSERT/UPDATE/DELETE validation with retained evidence.
 
 ## 7. Evidence submission template
 
