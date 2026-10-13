@@ -3,7 +3,7 @@
 > **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 >
 
-## Learning goals
+## Scope and operational checks
 
 Understand where apply happens; select a compatible Replicat type; verify the target database and checkpoint table; add an Integrated Replicat with a correctly aligned trail; explain its parameters and checkpoint behavior; test committed INSERT/UPDATE/DELETE and reconciliation; diagnose apply errors without losing transactions.
 
@@ -86,7 +86,7 @@ A preexisting target data set requires a consistent instantiation boundary. The 
 6. Supply/validate a parameter file and decide whether to create without starting, allowing review first.
 7. Once approved, start the process and inspect status, reports, checkpoints and target data.
 
-### Admin Client example (change-controlled, reconstructed)
+### Admin Client configuration example (change-controlled)
 
 ~~~text
 DBLOGIN USERIDALIAS gg_target
@@ -102,7 +102,7 @@ Oracle's 26ai command reference documents the ADD REPLICAT structure with INTEGR
 
 ## 6. Explain each parameter line
 
-Example: these names and schemas are teaching placeholders and must be adapted to actual PDB scope and container-qualified source naming.
+Example: these names and schemas are placeholders and must be adapted to actual PDB scope and container-qualified source naming.
 
 ~~~text
 REPLICAT REPLAB
@@ -214,9 +214,9 @@ When schemas differ, substitute the target owner/table. Use a unique test identi
 | Apply lag grows | Target database load, contention, inbound apply workers, constraints, large transaction, trail backlog | Restarting repeatedly without identifying reason |
 | Gap/missing target trail sequence | Receiver output, purging, disk retention and checkpoint | Deleting trails or skipping sequences |
 
-**Collision-handling clarification:** The reference material recap's claim that HANDLECOLLISIONS is enabled by default should not be carried into the manual as a verified fact. Handling duplicates/missing rows can be helpful in particular initial synchronization strategies, but permanent suppression can conceal actual data divergence. Review the precise Oracle parameter and default for the installed build.
+**Collision handling:** Oracle documents NOHANDLECOLLISIONS as the default. HANDLECOLLISIONS is limited to supported initial synchronization workflows and may mask actual divergence if left enabled. Verify its compatibility with the configured Replicat mode; do not use it as a routine recovery technique.
 
-## 10. Evidence form for an actual teaching lab
+## 10. Implementation evidence
 
 ~~~text
 Date / operator / reviewer:
@@ -239,7 +239,7 @@ Replication result: VERIFIED / FAILED / PARTIAL / NOT TESTED
 Evidence file references (sanitized):
 ~~~
 
-## 11. Operational review questions
+## 11. Verification criteria
 
 1. What does the Oracle integrated inbound server do?
 2. Why is creating a checkpoint table useful for restart recovery?
@@ -250,7 +250,7 @@ Evidence file references (sanitized):
 
 **Answer summary:** Inbound server applies LCRs; checkpoints record durable apply position; Replicat normally auto-registers; target trail is the Receiver output; no, intermediate state must be checked; capture start/initial snapshot/target baseline and Replicat entry point must be consistent.
 
-## Evidence state
+## Verification status
 
 - **Vendor-confirmed:** Integrated Replicat mode, ADD REPLICAT syntax, checkpoint table guidance, GUI steps.
 - **reference-derived:** Replicat process overview, log/lag/collision discussion, initial-load distinction.
