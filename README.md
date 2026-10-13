@@ -1,99 +1,106 @@
 # Oracle Database Platform Engineering
 
-Hands-on Oracle database engineering across **Oracle Cloud Infrastructure (OCI), Azure, and local Oracle RAC labs**, focused on database migration, change data capture (CDC), high availability, backup and recovery, incident investigation, and automation.
+Oracle database engineering portfolio covering **migration, replication, backup and recovery, high availability, troubleshooting, and automation** across Oracle Cloud Infrastructure (OCI), Azure, and local VirtualBox environments.
 
-This portfolio links implementation runbooks, configuration examples, scripts, and test records from independent lab work. **Status refers to documented lab milestones, not production deployments.** Where validation evidence is not yet published, the limitation is identified.
+These are independent hands-on lab projects. The current goal is to bring the strongest existing Oracle DBA work into one repeatable, version-controlled **Oracle Database Platform Automation** platform using DevOps practices.
 
-## Featured engineering work
+## Featured project — Oracle Database Platform Automation
 
-### 1. OCI → Azure heterogeneous replication — implementation in progress
-
-[Explore the multi-cloud database platform lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
+[Architecture, phases, and engineering roadmap](Oracle-Database-Platform-Automation/README.md)
 
 ```text
-OCI: Oracle Database 26ai
-    |
-    | Private cross-cloud connectivity: IPsec/IKEv2 VPN + BGP
-    v
-Azure: Oracle GoldenGate hub
-    | Oracle Extract EXTORA → trail ea
-    | SQL Server Replicat REPSQL (apply validation pending)
-    v
-Azure: SQL Server 2022
+Git / GitHub
+     |
+     v
+Bash / Python -> GitHub Actions -> Terraform / Ansible (planned integration)
+     |
+     +-- Oracle 19c / 23ai / 26ai databases
+     +-- GoldenGate capture and replication
+     +-- RAC / ASM and Data Guard
+     +-- RMAN backup, restore and recovery
+     |
+     v
+Monitoring, validation, runbooks, and recovery testing
 ```
 
-**Documented milestones:** site-to-site network connectivity; Oracle source preparation; GoldenGate Oracle and SQL Server runtimes; Oracle Extract and trail capture; target SQL Server connectivity and checkpoint-table preparation.
+**Current platform:** Local VirtualBox hosts with Oracle 19c, Oracle 23/26ai, and GoldenGate 26ai available for further testing. Historical OCI and Azure labs are documented separately because free-tier access has expired.
 
-**Outstanding validation:** start and verify Replicat, reconcile target DML, prove restart/checkpoint behavior, and test recovery/cutover. Do not interpret successful Extract capture as completed end-to-end replication.
+## Engineering projects
 
-[Architecture, checkpoints, and troubleshooting](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/tree/main/docs)
+### Oracle 19c → OCI migration — completed historical lab
 
-### 2. Oracle Database 19c → Oracle AI Database 26ai — cross-version CDC lab
+Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. The implementation is part of the prior hands-on work being reconstructed for publication; original execution artifacts and final validation outputs are being collected before detailed claims are made.
 
-[Explore the migration project](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate)
+### RMAN backup and recovery — completed historical lab exercises
+
+Full and incremental backup, restore, and point-in-time recovery scenarios. The next documentation milestone is to publish sanitized RMAN scripts, relevant logs, and recovery validation from preserved lab records or repeatable local tests.
+
+### Oracle 19c → Oracle AI Database 26ai — GoldenGate migration
+
+[Migration architecture and implementation notes](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate)
 
 ```text
 Oracle 19c / PRODBHR (Oracle Linux 7.9)
-    → Remote Integrated Extract EXT19C
-    → GoldenGate trail
-    → Integrated Replicat REP26AI
-    → Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
+   -> Remote Integrated Extract EXT19C
+   -> GoldenGate trail
+   -> Integrated Replicat REP26AI
+   -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
 ```
 
-**Design:** off-box remote capture to avoid installing GoldenGate 26ai on the older source operating system; existing Oracle 19c Data Guard remains separate from the CDC path.
+**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. The lab work includes reported DML and DDL replication testing; the linked repository currently contains the architecture and will be expanded with sanitized configuration and execution evidence.
 
-The lab project description reports successful INSERT/UPDATE/DELETE and CREATE TABLE replication testing. **The linked repository currently publishes the architecture and planned validation, not the corresponding execution logs or sanitized parameter files.** Validation artifacts will be linked when available.
+### OCI → Azure heterogeneous CDC — captured and tested; target apply in progress when lab ended
 
-### 3. Oracle RAC / ASM — availability and incident investigation
+[Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 
-[Read the October 2026 node-startup investigation](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md)
+```text
+OCI Oracle 26ai
+   -> IPsec/IKEv2 VPN + BGP
+   -> Azure GoldenGate hub: Extract EXTORA / trail ea
+   -> SQL Server Replicat REPSQL
+   -> Azure SQL Server 2022
+```
 
-A two-node Oracle RAC lab incident was investigated across virtualization, operating-system services, security settings, and the Oracle cluster stack. Host availability was restored, but cluster-wide resource recovery and definitive root cause remain unverified in the available record. The report separates observed symptoms, hypotheses, workarounds, and outstanding validation.
+The documented lab validated VPN/BGP connectivity, the Oracle GoldenGate Extract and trail, SQL Server access, and target-side Replicat preparation. **End-to-end SQL Server apply was not completed in the published record.** The cloud environment is no longer active.
 
-### 4. Oracle Database Platform Automation — integrated workstream
+### Oracle RAC / ASM — two-node local lab
 
-[Platform architecture and technical roadmap](Oracle-Database-Platform-Automation/README.md)
+[October 2026 node startup investigation](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md)
 
-A phased project bringing together Oracle operations, GoldenGate, RMAN/Data Guard/RAC, shell automation, cloud infrastructure, CI/CD, and observability. The roadmap describes intended capabilities; it is **not** a claim that all phases are implemented.
+Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
 
-## Work status
+## DevOps integration roadmap
 
-| Workstream | Current evidence / boundary | Status |
-|---|---|---|
-| OCI ↔ Azure network | VPN/BGP and private database connectivity described in project records | Documented lab validation |
-| Oracle 26ai Extract | Extract, trail capture, and SQL Server connectivity documented | Documented lab validation |
-| Oracle → SQL Server Replicat | Configuration/checkpoint preparation; end-to-end apply not yet demonstrated | In progress |
-| Oracle 19c → 26ai GoldenGate | Migration architecture published; execution evidence still to be added | Evidence publication pending |
-| Oracle RAC / ASM | Node-startup troubleshooting documented; full cluster recovery unverified | Investigation ongoing |
-| RMAN / Data Guard | Supporting lab work referenced; publish specific recovery and HA verification outputs | Evidence pending |
-| Terraform / Ansible | Repeatable cloud/database provisioning | Planned |
-| Database CI/CD | Version-controlled database deployments | Planned |
-| Prometheus / Grafana | Health, backup, and CDC observability | Planned |
-
-## Repository navigation
-
-| Directory | Focus |
+| Capability | Position |
 |---|---|
-| [Oracle-Database-Platform-Automation](Oracle-Database-Platform-Automation/) | Architecture, project phases, incident investigations, and roadmap |
-| [Oracle-DBA](Oracle-DBA/) | Oracle administration and recovery reference materials |
-| [GoldenGate](GoldenGate/) | CDC configuration and replication references |
-| [OCI](OCI/) | OCI infrastructure and database platform notes |
-| [Azure](Azure/) | Azure connectivity and target platform notes |
-| [AWS](AWS/) | AWS database and infrastructure references |
-| [DevOps](DevOps/) | Git workflows, reusable scripts, and SSH setup documentation |
+| Git / GitHub project history and documentation | Implemented across existing repositories |
+| Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
+| Historical Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
+| OCI–Azure VPN, Extract, and SQL connectivity | Validated in historical lab |
+| SQL Server Replicat end-to-end apply | Incomplete in historical lab |
+| Automated Oracle health checks and RMAN controls | Next implementation phase |
+| Terraform / Ansible infrastructure automation | Planned |
+| Database CI/CD with GitHub Actions | Planned |
+| Prometheus / Grafana monitoring | Planned |
 
-Published scripts and working evidence vary by area; directory presence alone does not imply completed implementation.
+The roadmap tracks DevOps integration of prior Oracle skills, not a requirement to repeat every historical exercise.
 
-## Other portfolio repositories
+## Repository guide
 
-- [NGINX DevOps Project](https://github.com/omoriwor-commits/nginx-devops-project) — NGINX, Docker, Docker Hub, Kubernetes, and GitHub Actions lab.
-- [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI ↔ Azure networking, GoldenGate, SQL Server, and troubleshooting.
-- [Enterprise Data Platform Labs](https://github.com/omoriwor-commits/enterprise-data-platform-labs) — Oracle 19c-to-26ai migration architecture.
+| Location | Material |
+|---|---|
+| [Oracle Database Platform Automation](Oracle-Database-Platform-Automation/) | Integrated architecture, roadmap, and incident reports |
+| [Oracle DBA](Oracle-DBA/) | Database administration and recovery references |
+| [GoldenGate](GoldenGate/) | Replication references |
+| [OCI](OCI/) / [Azure](Azure/) / [AWS](AWS/) | Cloud engineering references |
+| [DevOps](DevOps/) | Git, SSH, and reusable shell tooling |
 
-## Engineering and evidence approach
+### Related project repositories
 
-For each substantive change, aim to publish the **configuration or script**, a reproducible procedure, sanitized **dated command/test output**, and an explicit success/failure criterion. Operational incidents should distinguish confirmed root cause from hypotheses and temporary workarounds.
+- [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure GoldenGate and SQL Server integration.
+- [Enterprise Data Platform Labs](https://github.com/omoriwor-commits/enterprise-data-platform-labs) — Oracle 19c–26ai migration.
+- [NGINX DevOps Project](https://github.com/omoriwor-commits/nginx-devops-project) — Docker, Kubernetes, Docker Hub, and GitHub Actions CI/CD.
 
-## Security
+## Publication practice
 
-Public examples should use test data and sanitized connection details. Review commands, logs, images, and Git history for secrets, private keys, wallet material, access tokens, credentials, and sensitive infrastructure identifiers before publication. This README does **not** assert that the repository's entire history has been audited.
+Code, configuration examples, logs, and screenshots are sanitized before publication. Sensitive credentials, private keys, wallet files, and confidential data must not be committed.
