@@ -1,8 +1,8 @@
 # Chapter 9 — Parameter Files, Filtering, Column Mapping, Collision Handling and Table Onboarding
 
-> **Evidence classification:** Oracle GoldenGate 26ai documentation-checked reference, synthesizing instructor recaps Days 11, 12, 16 and 17. **No new lab commands were executed.** All demonstration names and mappings are reconstructed examples.
+> **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 >
-> **Audience:** Database engineers, GoldenGate administrators, instructors, and students moving from basic replication to change control.
+> **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 
 ## Objectives
 
@@ -12,7 +12,7 @@ Readers should be able to locate and back up a process parameter file; explain d
 
 A GoldenGate process parameter file describes what a specific Extract or Replicat should capture/apply and how. A separate GLOBALS configuration can affect broader environment-level settings. In Microservices deployments, parameter/configuration files are normally associated with a deployment runtime home, rather than the installation binary home.
 
-Day 11 identified a site-specific location resembling:
+reference material identified a site-specific location resembling:
 `$DEPLOYMENT_HOME/etc/conf/ogg/`.
 
 **Verify your installation's actual home and use supported administration interfaces.** The training directory is a location example, not a universal filesystem path.
@@ -32,7 +32,7 @@ Day 11 identified a site-specific location resembling:
 
 ## 2. Understand scoped directives
 
-From Day 11:
+From reference material:
 
 ```text
 GETINSERTS
@@ -53,7 +53,7 @@ Always confirm DDL, TRUNCATE and DML support individually. A claim that GETTRUNC
 
 ## 3. WHERE and FILTER — selective replication
 
-Day 16 discusses WHERE for relatively simple selection conditions and FILTER for more complex row/operation logic. Both require testing with before and after images as appropriate.
+reference material discusses WHERE for relatively simple selection conditions and FILTER for more complex row/operation logic. Both require testing with before and after images as appropriate.
 
 **Conceptual filtering example** (exact release-specific expressions and column case need validation):
 
@@ -78,7 +78,7 @@ Check Extract/Replicat reports, not just final row count. Use separate transport
 
 ## 4. COLMAP and USEDEFAULTS
 
-Day 17 introduces `COLMAP` for columns whose source/target names differ, and `USEDEFAULTS` for same-name columns.
+reference material introduces `COLMAP` for columns whose source/target names differ, and `USEDEFAULTS` for same-name columns.
 
 ```text
 MAP APP_SRC.CUSTOMERS,
@@ -97,9 +97,9 @@ Oracle describes `COLMAP (USEDEFAULTS, target_column = source_expression)` and s
 
 Reference: [Oracle 26ai Parameters and Functions Reference (PDF)](https://docs.oracle.com/en/database/goldengate/core/26/reference/reference-oracle-goldengate.pdf).
 
-## 5. Collision handling — correction to Day 12
+## 5. Collision handling — correction to reference material
 
-The instructor's Day 12 recap states that HANDLECOLLISIONS is enabled by default. **That is incorrect for the Oracle 26ai documented parameter: the default is NOHANDLECOLLISIONS.**
+The instructor's reference material recap states that HANDLECOLLISIONS is enabled by default. **That is incorrect for the Oracle 26ai documented parameter: the default is NOHANDLECOLLISIONS.**
 
 Oracle's collision feature can attempt to handle duplicate INSERT, missing UPDATE and missing DELETE situations associated with some initial-load workflows. It is not a general data-repair mechanism and may hide divergence. Actual behavior and compatibility depend on process type and version.
 
@@ -210,7 +210,7 @@ Proof: vendor only / instructor only / lab executed with logs
 
 ## Sources and limits
 
-- **Training-derived:** Days 11–12 and 16–17 concepts and original examples.
+- **reference-derived:** Days 11–12 and 16–17 concepts and original examples.
 - **Vendor-verified correction:** NOHANDLECOLLISIONS default; scoped collision logic; per-table onboarding assumptions; COLMAP syntax.
 - **Reconstructed:** lab process names, table names, mapping examples and classroom exercises.
 - **Not tested here:** actual source/target configuration, collision experiments, new-table capture or successful mappings.
