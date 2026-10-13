@@ -1,65 +1,37 @@
-# Chapter 4 — Integrated Extract Configuration and Source Trail Management
+# Chapter 4 — Integrated Extract and Source Trails
 
-> **Status:** Oracle 26ai vendor-referenced teaching chapter. **No new Extract created, database changed or command executed.** All deployment names, aliases, trail prefixes and parameter blocks in this chapter are reconstructed teaching examples.  
+**Scope:** Oracle GoldenGate 26ai Microservices and Oracle source databases. Identifiers (`EXTLAB`, `gg_source`, `ea`, `HR.EMPLOYEES`) are placeholders. See the separately documented [Oracle 19c → 26ai migration project](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) for recorded `EXT19C` remote integrated capture and `REP26AI` apply.
 
-## Scope and operational checks
+**Prerequisite:** [Chapter 3 — Oracle Database Preparation](chapter-03-oracle-database-preparation.md), including archived redo, supplemental logging, appropriate source privileges, and an approved capture/initial-load boundary.
 
-1. Explain the function of an **integrated Extract** and how it interacts with Oracle database capture infrastructure.
-2. Distinguish a GoldenGate *deployment administration connection* from a *source database login*.
-3. Register an Extract **before** adding it, after verifying prerequisites and explicit initial capture position.
-4. Create a local trail and match its two-character prefix to the Extract's EXTTRAIL parameter.
-5. Diagnose checkpoints, reports, source logging, source capture registration and trail continuity.
-6. Assess whether an observed status demonstrates capture only, transport only or actual target-data correctness.
+## 1. Capture architecture
 
-## 1. What integrated Extract does
-
-Integrated Extract operates with Oracle's integrated capture infrastructure to extract logical changes from database redo. Its database registration and capture settings are distinct from the GoldenGate microservice that manages the process. It requires appropriate source privileges, logging and a supported database/platform combination.
+Integrated Extract interacts with Oracle's integrated capture infrastructure to read logical changes from database redo and write local GoldenGate trail files. Distribution and apply are separate components.
 
 ```text
-  Source Oracle database / redo
-            |
-            v
-  Database integrated capture infrastructure
-            |
-            v
-       Integrated Extract
-            |
-            v
-        Local trail ea#########
-            |
-            v
-    Distribution path (Chapter 5)
-            |
-            v
-        Target replication trail
-            |
-            v
-       Replicat (Chapter 6)
+Oracle redo -> integrated database capture -> Integrated Extract
+           -> local trail (ea#########) -> Distribution Path (Chapter 5)
+           -> target trail -> Replicat (Chapter 6)
 ```
 
-**Operational note:** A running Extract proves neither the distribution path nor the target Replicat is delivering correct data. Logs, checkpoint progression, trail sequence and target-row validation are different evidence.
+A RUNNING Extract does not establish that transport completed or target data is correct. Registration, trail writes, transport delivery, and target apply require distinct evidence.
 
-## 2. Preconditions and explicit decisions
+## 2. Preflight checklist
 
-Confirm each item before any writable administration command:
-
-| Precondition | Verification | Why it matters |
+| Check | Verification | Operational risk |
 |---|---|---|
-| Certified Oracle source/GoldenGate combination | Exact release and Oracle certification reference | Command availability and integrated capture support vary |
-| Proper database connection | Correct CDB/PDB service, `SHOW CON_NAME`, `DBLOGIN` | Wrong container or source compromises registration |
-| Oracle redo and capture configuration | Chapter 3 logging queries, required `TRANDATA` | Missing keys or required redo makes logical capture incomplete |
-| Capture account | Approved role-scoped privileges | Broad DBA privileges are not a safe default |
-| Service access | Correct secured deployment URL, GoldenGate administrative role | Avoid managing the wrong deployment |
-| Replication scope | Approved `TABLE` patterns and target design | Unintended schemas or unsupported objects must not be captured |
-| Initial capture boundary | Documented start point, current transaction state and initial-load approach | Prevent gaps and duplicate application |
-| Trail prefix/path | Writable deployment trail location, free space and retention | Extract must produce an unambiguous trail |
-| Change/recovery plan | Saved configuration, approved maintenance and monitoring | Registration/start can affect capture lifecycle |
+| Supported versions | Oracle certification for source database and exact GoldenGate release | Capture support and commands vary |
+| Database scope | `SHOW CON_NAME`, DB alias/service, `DBLOGIN` | Wrong CDB/PDB or mining database |
+| Redo/logging | Chapter 3 checks and `INFO TRANDATA` | Incomplete logical changes or lost redo |
+| Capture privileges | Version-specific capture roles/procedures | Blanket DBA privileges are not appropriate |
+| Deployment | Secured endpoint and authorized operator | Wrong deployment changes |
+| Table selection | Approved `TABLE` list and exclusions | Capturing unintended objects |
+| Start position | SCN/CSN and initial-load plan | Duplicate or missing transactions |
+| Trail storage | Data home, available space, purge/retention | Capture interruption or irrecoverable gaps |
 
-**Historical versus example:** Your separate Oracle 19c → 26ai project recorded `EXT19C` for remote integrated capture and `REP26AI` for apply. This chapter's process `EXTLAB`, alias `gg_source`, table `HR.EMPLOYEES` and trail `ea` are **not claimed as historical configuration**.
+**Database-version caveat:** Oracle Database 19c and Oracle AI Database 26ai have different supported capture privilege-granting approaches. Do not universally prescribe `DBMS_GOLDENGATE_AUTH` or `GRANT DBA`; validate the target database release and Oracle guidance.
 
-## 3. Inspect the source database (read-only)
-
-Use the correct SQL container and a sufficiently privileged account.
+## 3. Read-only source inspection
 
 ```sql
 SHOW CON_NAME;
@@ -71,82 +43,59 @@ FROM v$database;
 
 SHOW PARAMETER enable_goldengate_replication;
 
--- After registration: captures registered with the connected database.
 SELECT capture_name, status
 FROM dba_capture
 ORDER BY capture_name;
 ```
 
-**Interpretation:** A zero-row `DBA_CAPTURE` result *before* registration is normal. After registration, inspect the intended registered capture name/state in the correct source/mining database. It is not proof that Extract writes trail records successfully, nor that Replicat applied anything.
+Before registration, zero rows in `DBA_CAPTURE` can be expected. After registration, verify the intended capture exists in the correct source/mining database. This does not prove Extract has emitted trail records. Retain necessary redo for Extract's recovery checkpoint and other database recovery consumers.
 
-The source's archived redo retention must remain sufficient for normal lag and restart/recovery; do not purge redo or trails merely because an Extract shows RUNNING.
-
-## 4. Open Admin Client and connect to the right deployment
-
-**Where:** GoldenGate software host or a supported Admin Client installation. **Account:** authorized GoldenGate administrator. **Risk:** connecting is administrative access; avoid exposing passwords.
+## 4. Connect through Admin Client
 
 ```bash
 cd "$OGG_HOME/bin"
 ./adminclient
 ```
 
-Use the approved secured deployment endpoint, deployment identity and authenticated administrative account. Oracle documents deployment-specific `CONNECT` examples with credentials; **do not paste passwords into public commands or store them in shell history**. Prefer an approved secure credential method available for your release.
-
-Inside the intended Admin Client context, after the database connection alias has been configured in Administration Service:
+Authenticate to the correct secured GoldenGate deployment through a supported method without exposing a service password in shell history. Establish the database session using a configured credential alias:
 
 ```text
-DBLOGIN USERIDALIAS gg_source
+DBLOGIN USERIDALIAS gg_source DOMAIN OracleGoldenGate
 ```
 
-This is the **source Oracle database login**, not the Admin Client service login. Prove it points to the right source/PDB before registration. Reference: [Oracle 26ai — Add an Extract](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-primary-extract.html).
+This command authenticates to the **source database**, not to the GoldenGate administration service. Confirm the alias targets the intended source service and PDB before changing registration.
 
-## 5. Register an integrated Extract
-
-**Change-controlled, illustrative Admin Client commands:** execute only after validating privileges, selected database and start SCN/initial-load plan.
+## 5. Register Integrated Extract
 
 ```text
 REGISTER EXTRACT EXTLAB DATABASE
 ```
 
-Oracle's 26ai Extract guide explicitly requires integrated Extract registration **before** creation. Registration prepares the database integrated capture relationship. Names must satisfy GoldenGate length and naming limits. This registration can take time; inspect the Admin Client message and database-side status.
+Integrated Extract registration precedes the `ADD EXTRACT` operation. Inspect the Admin Client response and database capture metadata.
 
-For multitenant capture, Oracle also documents `REGISTER EXTRACT ... DATABASE CONTAINER (...)` variants. **Do not assume** that a generic root connection and a PDB-scoped registration are interchangeable. Source topology, remote/downstream mining and shared dictionary options alter valid syntax; refer to the applicable Oracle command reference before adding those clauses.
+For Oracle multitenant topologies, Oracle documents `REGISTER EXTRACT ... DATABASE CONTAINER (...)` options. Root, PDB and remote/downstream mining configurations are not interchangeable. Apply only the clause validated for the topology.
 
-**Validation (read-only):**
+Reference: [REGISTER EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/register-extract.html).
 
-```sql
-SELECT capture_name, status FROM dba_capture ORDER BY capture_name;
-```
-
-Vendor: [REGISTER EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/register-extract.html).
-
-## 6. Add an integrated Extract and trail
-
-**Change-controlled, reconstructed example in Admin Client:**
+## 6. Create Extract and local trail
 
 ```text
 ADD EXTRACT EXTLAB, INTEGRATED TRANLOG, BEGIN NOW
 ADD EXTTRAIL ea, EXTRACT EXTLAB, MEGABYTES 200
 ```
 
-**Exact role of each directive:**
-
-| Syntax | Meaning | Important qualification |
+| Directive | Purpose | Important qualification |
 |---|---|---|
-| `ADD EXTRACT` | Creates a managed Extract group | Does not itself confirm successful ongoing capture |
-| `INTEGRATED TRANLOG` | Selects integrated Oracle log capture | Requires prior database registration and support |
-| `BEGIN NOW` | Requests a starting boundary at creation/start time | **Not a generic initial-load instantiation strategy**; confirm consistency |
-| `ADD EXTTRAIL ea` | Configures a local Extract trail prefix | Does **not** immediately create on-disk trail files |
-| `EXTRACT EXTLAB` | Binds trail to one Extract group | Multiple Extracts cannot write the same trail |
-| `MEGABYTES 200` | Sets a maximum trail-file size | Capacity and defaults are release/context dependent |
+| `ADD EXTRACT` | Creates a managed Extract | Creation is not evidence of captured transactions |
+| `INTEGRATED TRANLOG` | Selects Oracle integrated capture | Requires prior successful registration |
+| `BEGIN NOW` | Chooses initial source read boundary | Not a safe default for an already populated target |
+| `ADD EXTTRAIL ea` | Binds the local trail prefix | Physical files appear after Extract writes data |
+| `EXTRACT EXTLAB` | Identifies the owning Extract | Do not bind competing Extracts to one trail |
+| `MEGABYTES 200` | Sets maximum size of each trail file | Size according to tested workload/retention |
 
-Oracle states that `ADD EXTTRAIL` defines the trail; the **actual trail files are generated as Extract writes data**. In 26ai the trail prefix is two characters and each file receives a nine-digit sequence suffix. Examples such as `ea000000001` are illustrative only.
+Sequence-based trail files use the configured prefix and GoldenGate-generated sequence, for example `ea000000001`. Confirm naming and sequence length for the actual build.
 
-Official references: [ADD EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-extract.html), [ADD EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-exttrail.html), [Add a Trail](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-trail.html).
-
-## 7. Extract parameter file
-
-**Illustrative teaching configuration, not a tested copy of your historical lab:**
+## 7. Parameter configuration
 
 ```text
 EXTRACT EXTLAB
@@ -155,106 +104,86 @@ EXTTRAIL ea
 TABLE HR.EMPLOYEES;
 ```
 
-**Line-by-line explanation:**
+`EXTRACT` identifies the process; `USERIDALIAS` references a credential store entry; `EXTTRAIL` must match the registered trail prefix; `TABLE` defines captured objects. In a multitenant environment the table may require a PDB-qualified form such as `PDB1.HR.EMPLOYEES` depending on the database connection and registration.
 
-1. `EXTRACT EXTLAB`: names the Extract whose parameters are being configured.
-2. `USERIDALIAS gg_source DOMAIN OracleGoldenGate`: uses a credential alias from the configured credential system rather than a plaintext database password. Confirm the domain and alias are actually available.
-3. `EXTTRAIL ea`: declares the local trail used by this Extract; its prefix must match the `ADD EXTTRAIL` binding.
-4. `TABLE HR.EMPLOYEES;`: captures the specified table in the appropriate source scope. **Multitenant naming may require a PDB-qualified pattern**, e.g. `PDB1.HR.EMPLOYEES`; don't interchange two-part and three-part object names without verifying connection and source topology.
+Manage parameter changes through Administration Service or the supported Admin Client editor. Preserve a previous version and assess downstream table mappings and initial-load impact before changing object scope.
 
-The Oracle 26ai MA guide provides an Extract parameter-file example containing `EXTRACT`, `USERIDALIAS`, `EXTTRAIL` and `TABLE` directives. In the Administration Service GUI, inspect the process parameter editor; for command-line administration, use the release-supported parameter-file management mechanism. The training mentions deployment runtime configuration under `$DEPLOYMENT_HOME/etc/conf/ogg`; verify the actual deployment variables and paths rather than hardcoding them.
-
-Reference: [Add an Extract — Parameter File](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-primary-extract.html).
-
-## 8. Starting and validating capture
-
-Only after registration, trail binding, parameter validation and an approved start boundary should the owner start the Extract through Administration Service or a supported Admin Client command.
-
-**Read-only Admin Client inspections:**
+## 8. Start and verify source capture
 
 ```text
+START EXTRACT EXTLAB
 INFO ALL
-INFO EXTRACT EXTLAB
+INFO EXTRACT EXTLAB, DETAIL
+INFO EXTRACT EXTLAB, SHOWCH
 STATS EXTRACT EXTLAB
+INFO EXTTRAIL *
 ```
 
-**OS-side observational checks (adapt to actual deployment location):**
+Verify supplemental logging separately after database login:
+
+```text
+DBLOGIN USERIDALIAS gg_source DOMAIN OracleGoldenGate
+INFO TRANDATA HR.EMPLOYEES
+```
+
+Inspect trail storage through the **actual deployment data directory**, not an assumed default:
 
 ```bash
-df -hT
-# Verify the true deployment data home first:
+# OGG_DATA_HOME is documented for MA trail artifacts; ensure it is set correctly.
+printf 'Data home: %s\n' "$OGG_DATA_HOME"
+df -hT "$OGG_DATA_HOME"
 ls -lh "$OGG_DATA_HOME"
 ```
 
-**Collect real evidence:** process status, checkpoints, Extract report, database registration, actual trail prefix and sequence progression, committed source DML and captured operation statistics. If an idle database generates no source changes, zero new DML counts do not automatically mean Extract is broken.
+Oracle's default is `<deployment-location>/var/lib/data`, but deployments may use customized locations. Never mistake `$OGG_HOME` (installation home) for the trail data directory.
 
-**Validation boundary:** This chapter establishes the source capture side only. End-to-end replication is proved **after** Distribution/Receiver/Replicat setup and source-target data comparison.
+With an approved isolated test table, commit controlled INSERT, UPDATE and DELETE operations. Record matching Extract stats, report, trail sequence/RBA and checkpoints. A source that has no committed matching DML can correctly show zero operations. **Source capture validation does not prove target delivery or apply.**
 
-## 9. Diagnosing common Extract and trail faults
+## 9. Incident diagnostics
 
-| Symptom | Likely investigation | Safe initial action |
+| Symptom | Check | First response |
 |---|---|---|
-| Registration fails | Database alias/container/privileges; wrong source; unsupported integrated capture configuration | Inspect log and source account privileges, do not repeat blindly |
-| Extract abends | Parameter syntax, redo access, capture registration, object support, logging, trail filesystem | Inspect report, error log and exact OGG error code |
-| Process running but zero records | Idle application, uncommitted changes, wrong TABLE scope, misconfigured registration | Commit a controlled DML transaction and inspect status/stats |
-| Trail not appearing | Trail binding mismatch, Extract not started, path/permissions, no captured work | Compare parameter `EXTTRAIL` against `ADD EXTTRAIL` output |
-| Trail grows without target movement | Distribution/Receiver/Replicat stage unconfigured or unhealthy | Diagnose next pipeline boundary, do not delete trail |
-| Source checkpoint lag | Long transactions, source redo backlog, insufficient resources, connectivity or log retention | Inspect checkpoint/report and source constraints |
-| Trail sequence missing | Deleted/moved trail, retention/purge policy, downstream lag | Preserve state, recover required records using a supported method |
+| Registration failure | Database service/container, capture privileges, exact error | Identify cause before retrying |
+| Extract ABENDED | Process report, error log, redo access, parameter syntax | Preserve log and recovery position |
+| RUNNING with zero output | Source commit, TABLE selection, capture state | Test controlled committed source DML |
+| No local trail | `EXTTRAIL` declaration/binding, path, disk permissions | Compare parameters to `INFO EXTTRAIL *` |
+| Trail grows but target does not | Distribution/Receiver/Replicat status | Investigate next pipeline boundary |
+| Increasing checkpoint lag | Long transactions, redo backlog, host/database resources | Inspect checkpoints and reports |
+| Trail sequence missing | Purge policy, retained files, consumer positions | Preserve state and plan supported recovery |
 
-**Security and recovery:** Avoid indiscriminate trail cleanup, force repositioning, `DELETE EXTRACT` or `UNREGISTER EXTRACT` as first-response troubleshooting. Each can compromise capture continuity and must have a validated recovery path.
+Do not delete/re-register Extract, force a new capture position or remove trails merely to clear a process error. Such changes require a recovery and continuity plan.
 
-## 10. Validation checklist
+## 10. Lab results
 
-**Exercise A — Read-only reconnaissance**
-
-1. Identify CDB/PDB and database logging mode.
-2. Inspect `DBA_CAPTURE` before creating a capture process.
-3. Confirm source account, TLS deployment endpoint and planned table scope.
-4. Write expected evidence for successful registration and for actual trail output.
-
-**Exercise B — Disposable lab installation (change-controlled)**
-
-1. Confirm Chapter 3 prerequisites and the source's exact supported release.
-2. Register `EXTLAB` and compare database-side registration.
-3. Add integrated Extract and bind a distinct `ea` trail.
-4. Configure a suitable table scope and approved source credential alias.
-5. Start Extract and commit controlled INSERT/UPDATE/DELETE transactions on the table.
-6. Collect status, stats, errors, trail sequence and source transaction identifiers.
-7. Do **not** call the source-to-target replication successful until the later apply chapter verifies target rows.
-
-**Review questions:** Why does registration precede Extract creation? What is different between `ADD EXTTRAIL` and the resulting physical trail file? Can `INFO EXTRACT` alone demonstrate that Replicat applied changes? What is the risk of `BEGIN NOW` during an already populated source-to-target migration?
-
-**Answers:** Integrated capture needs a database registration; trail configuration only reserves/binds the trail while files are written later; no, capture status does not prove target apply; start boundary must align with a consistent initial data baseline.
-
-## 11. Evidence log template
+**Evidence pending:** Oracle documentation confirms the command forms below, but no command in this replacement was executed against a current 26ai deployment. Add sanitized results only after an actual lab run.
 
 ```text
-Lab date / observer:
-Source Oracle database version, CDB/PDB:
-GoldenGate 26ai exact build and deployment:
-Capture method (local, remote or downstream):
-Extract name:
-Database credential alias (NO password):
-Capture registration confirmation:
-Approved starting SCN/CSN and snapshot method:
+Date/time and operator:
+Source Oracle release / CDB-PDB:
+GoldenGate release and deployment:
+Capture topology (local, remote, downstream):
+Registration output:
+Credential alias (no secret):
+Actual trail data directory:
 Extract parameter file (redacted):
-Trail prefix and output location:
-Captured INSERT/UPDATE/DELETE counts:
-Checkpoint and report excerpts:
-Error log / unresolved issues:
-Target reconciliation: NOT TESTED IN THIS CHAPTER
-Final evidence label: Vendor example / reconstructed / tested with attached outputs
+INFO EXTRACT and INFO EXTTRAIL output:
+INFO TRANDATA output:
+First trail sequence and RBA:
+STATS after separately committed DML:
+Report warnings/errors and corrective action:
+Source capture outcome: VERIFIED / FAILED / NOT TESTED
 ```
 
-## References and quality status
+## References
 
-- [Oracle 26ai — Add an Extract](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-primary-extract.html)
-- [Oracle 26ai — REGISTER EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/register-extract.html)
-- [Oracle 26ai — ADD EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-extract.html)
-- [Oracle 26ai — ADD EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-exttrail.html)
-- [Oracle 26ai — Add a Trail](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-trail.html)
+- [Add an Extract — Oracle 26ai](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-primary-extract.html)
+- [REGISTER EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/register-extract.html)
+- [ADD EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-extract.html)
+- [ADD EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-exttrail.html)
+- [START EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/start-extract.html)
+- [INFO EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/info-extract.html)
+- [INFO TRANDATA](https://docs.oracle.com/en/database/goldengate/core/26/gclir/info-trandata.html)
+- [INFO EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/info-exttrail.html)
+- [Deployment Directories](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deployment-directories.html)
 
-**Completion state:** Vendor syntax/reference checked; original training material preserved; example configuration reconstructed and clearly labeled; fresh lab registration/capture/validation **pending**.
-
-**Next chapter:** Distribution Service, Receiver Service, path connectivity and trail delivery between GoldenGate deployments.
+**Next:** [Chapter 5 — Distribution and Receiver Services](chapter-05-distribution-and-receiver-services.md).
