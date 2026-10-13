@@ -1,32 +1,13 @@
-# Oracle Cloud Infrastructure — Engineering References
+# Oracle Cloud Infrastructure — Database and Network Engineering
 
-This folder contains operational OCI engineering references, implementation patterns and project records. Reference procedures are distinguished from executed lab evidence.
+OCI architecture and operational references supporting database migrations, connectivity, compute access and hybrid-cloud integration.
 
-## Engineering Field Guide
+## Engineering references
 
-Start with the [OCI Engineering Field Guide](engineering/README.md), including account/tenancy setup, Windows SSH access, and public/private VCN networking.
+- [OCI Engineering Field Guide](engineering/README.md) — VCN routing, public/private network boundaries, SSH and bastion access.
+- [Oracle 19c→26ai GoldenGate migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) — independently documented database migration and replication project.
+- [Enterprise Multicloud Database Platform](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure networking, GoldenGate service investigations, and database platform artifacts.
 
-## Planned Organization
+## Engineering scope
 
-```text
-OCI/
-├── README.md
-├── iam/
-├── networking/
-├── compute/
-├── storage/
-├── database/
-└── automation/
-```
-
-## Focus Areas
-
-- IAM and identity domains
-- VCNs, subnets, routing, NSGs, and security lists
-- Compute instances
-- Block/Object Storage
-- Oracle Database services
-- OCI CLI and automation
-- Terraform for OCI
-
-For the larger multi-cloud implementation, see the separate [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab).
+Identity and compartment controls, virtual cloud networks, subnets, NSGs, Compute, database connectivity and recovery operations. Executed configurations and sanitized verification outputs belong in the linked implementation repositories; reference procedures are maintained separately.
