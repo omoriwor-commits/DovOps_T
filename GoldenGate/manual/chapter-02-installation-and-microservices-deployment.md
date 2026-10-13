@@ -3,7 +3,7 @@
 
 ## Scope and acceptance criteria
 
-Understand software versus deployment installation; plan binary and writable homes; gather an OS baseline; distinguish GUI and silent software installs; configure Service Manager and deployments with OGGCA; verify security, service lifecycle and installation evidence; troubleshoot orphaned services responsibly.
+This section covers software installation, deployment-home planning, OS prerequisites, OGGCA configuration, Service Manager lifecycle, secure endpoints, and verification of installation and recovery behavior. Completion requires recorded build, deployment and lifecycle evidence.
 
 ## 1. GoldenGate software is not a GoldenGate deployment
 
@@ -41,7 +41,7 @@ Check Oracle's exact release documentation and entitlement before changing anyth
 
 ## 3. Installation account and filesystem layout
 
-An OS installation account, a database GoldenGate user and a GoldenGate service administrator are **different identities** with different privileges. Do not equate them. reference material introduces the choice between Oracle OS user and a dedicated GoldenGate installation OS account; select by site policy and Oracle guidance.
+An OS installation account, a database GoldenGate user and a GoldenGate service administrator are **different identities** with different privileges. Do not equate them. Select the installation OS account according to site policy, file ownership requirements and Oracle's supported deployment guidance.
 
 ```bash
 # EXAMPLE ONLY — requires approved user/group and change control; do not paste verbatim.
@@ -82,7 +82,7 @@ Oracle's documented 26ai invocation is:
 "$OGG_HOME/bin/oggca.sh" -silent -responseFile /secure/path/oggdeploy.rsp
 ```
 
-**Correction to reference material Earlier example guidance:** Oracle documents the capital F spelling, `-responseFile`. Use a complete, version-appropriate [official sample response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html). The recaps do not supply the filled response-file parameters, so this command is *not* independently runnable as given.
+**Silent-mode option:** Oracle documents `-responseFile` (capital F). Supply a completed, validated [Oracle response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html); the example invocation alone is not a runnable installation procedure.
 
 Document the exact configuration option, deployment identities and paths, Service Manager mode, TLS/password policy and admin secret handling before executing in a throwaway lab. Reference: [Add deployment in silent mode](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deploy-silent-deployment.html).
 
@@ -149,31 +149,26 @@ ps -ef | grep -E 'adminsrvr|distsrvr|recvsrvr|pmsrvr|ServiceManager' | grep -v g
 
 Related record: [OGGCA troubleshooting](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/goldengate/troubleshooting/goldengate-26ai-oggca-daemon-registration-troubleshooting.md).
 
-## 10. Hands-on teaching exercise
+## 10. Deployment validation procedure
 
-**Part A (safe planning):** gather read-only Linux data, draw software/Service Manager/DEP1 paths, choose ports, identify security controls and expected capacity. Explain why an OS account differs from a database credential.
+**Preflight (read-only):** gather read-only Linux data, draw software/Service Manager/DEP1 paths, choose ports, identify security controls and expected capacity. Explain why an OS account differs from a database credential.
 
-**Part B (isolated lab only):** obtain correct licensed software and an official response-file template, execute interactive OGGCA, save and redact its generated configuration, reproduce deployment silently in a *new* lab, then record actual status, logs, service endpoints and restart results.
+**Controlled deployment test:** obtain correct licensed software and an official response-file template, execute interactive OGGCA, save and redact its generated configuration, reproduce deployment silently in a *new* lab, then record actual status, logs, service endpoints and restart results.
 
-**Part C (troubleshooting):** a Service Manager unit reports stopped but a deployment port remains occupied. Explain how to prove which child owns the port and why a blanket kill/reinstall is unsafe.
+**Failure diagnosis:** a Service Manager unit reports stopped but a deployment port remains occupied. Explain how to prove which child owns the port and why a blanket kill/reinstall is unsafe.
 
-## Operational review
+## Operational acceptance checks
 
-1. What does installing OGG_HOME create that OGGCA does not?
-2. Why separate Service Manager and deployment runtime directories?
-3. Which command inventories current listener ports without making changes?
-4. Why does a successful OGGCA run not prove that Replicat is applying?
-5. What is the exact Oracle-documented option for specifying an OGGCA silent response file?
-6. What must be checked before applying a systemctl stop command?
+- Software and deployment homes are inventoried separately, with correct ownership and permissions.
+- Admin and Receiver endpoints are authenticated and use approved TLS settings.
+- OGGCA configuration and the installed build are recorded with secrets redacted.
+- The selected service lifecycle owner (manual, systemd or XAG) is identified before any restart.
+- Port ownership, process ancestry and errors are investigated before changing a failed deployment.
+- No end-to-end replication claim is made without a later Extract/transport/Replicat data test.
 
-**Answers:** software binaries/inventory; lifecycle, storage and upgrade separation; `ss -lnt`; capture/transport/apply not yet configured or reconciled; `-responseFile`; actual service mode, active processes, maintenance window and downstream impact.
+## Implementation evidence
 
-## Evidence classification and chapter status
-
-- **Vendor-confirmed:** 26ai OGGCA workflow, `-responseFile` invocation, and manual/systemd lifecycle documented by Oracle.
-- **reference-derived:** OUI silent installer illustration, reference material directory and OS account discussion, example deployment naming.
-- **Historical lab:** DEP1 registration problem, separately documented; no claim of fresh verification.
-- **Pending:** actual installation response file, OGGCA file, executed installation transcript, verified TLS and restart test, replication correctness.
+The documented DEP1 OGGCA registration issue is covered in the linked incident report. For any new deployment, retain the installed build, the sanitized OGGCA configuration, service endpoints, file ownership, TLS verification, startup/shutdown observations and error logs. Those artifacts are not supplied by this reference chapter; deployment validation remains pending.
 
 ## Official references
 
