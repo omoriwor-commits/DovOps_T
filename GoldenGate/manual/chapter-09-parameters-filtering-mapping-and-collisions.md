@@ -61,7 +61,7 @@ reference material discusses WHERE for relatively simple selection conditions an
 TABLE APP_SRC.ORDERS, WHERE (REGION = 'US');
 ```
 
-This is an instructor-style illustration, **not** an endorsed general rule for a live application. An UPDATE that changes whether a row meets a WHERE condition can produce different results from naïvely filtering one after-image. Understand which DML and image is evaluated.
+This is an configuration illustration, **not** an endorsed general rule for a live application. An UPDATE that changes whether a row meets a WHERE condition can produce different results from naïvely filtering one after-image. Understand which DML and image is evaluated.
 
 The training also presents FILTER with IGNORE INSERT and string functions. Preserve the original as a reference but do not treat that classroom clause as tested 26ai syntax. Verify operator spelling, function signatures and specific operation behavior against the current Oracle parameter manual.
 
@@ -205,7 +205,7 @@ INSERT/UPDATE/DELETE expected and observed results:
 Target row counts/checksum:
 Errors encountered and documented resolution:
 Rollback plan and result:
-Proof: vendor only / instructor only / lab executed with logs
+Evidence: vendor reference / lab verified with attached logs / pending
 ```
 
 ## Sources and limits
