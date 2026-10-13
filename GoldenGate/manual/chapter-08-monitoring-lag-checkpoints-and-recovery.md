@@ -1,8 +1,8 @@
 # Chapter 8 — Monitoring, Lag, Checkpoints, Trail Retention and Incident Recovery
 
-> **Documentation classification:** Training-derived operational topics plus independently checked Oracle GoldenGate 26ai references. **No new production or lab incident executed for this chapter.** All names and sample incidents are teaching examples.
+> **Documentation classification:** reference-derived operational topics plus independently checked Oracle GoldenGate 26ai references. **No new production or lab incident executed for this chapter.** All names and sample incidents are teaching examples.
 >
-> **Training provenance:** Day 9 (process metrics), Day 10 (status, lag, trail matching, reports, errors), Day 11 (parameter-file change control), Day 12 (restart/purge and collision claims), Day 15 (Admin Client). Original recaps remain in the GoldenGate Google Drive archive.
+> **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 >
 > **Goal:** Be useful both as a DBA on-call runbook and as a teaching module. Diagnose first, preserve state, remediate only under change control, and validate data afterward.
 
@@ -76,7 +76,7 @@ Oracle documents LAG EXTRACT and LAG REPLICAT as more direct estimates than the 
 
 For a supported database setup, GoldenGate **heartbeat tables** provide monitoring of replication path latency and historical trends, with the required database objects and privileges. Establish them under a separate approved configuration procedure; do not assume heartbeat functionality is already configured.
 
-### A correction from training Day 10
+### A correction from training reference material
 
 A statement such as *time since checkpoint must be below ten seconds* is **not a universal GoldenGate rule**. Define workload-specific latency objective, acceptable idle behavior, alert thresholds and on-call response policy. A quiet source should not automatically produce the same metrics as an active one.
 
@@ -154,7 +154,7 @@ Confirm source COMMIT and expected mapped table
 
 ## 7. Parameter changes and restart discipline
 
-Day 11 teaches: obtain approval, stop the affected process when required, back up its existing parameters, edit/validate, restart and observe. Apply this with awareness of shared paths and live transactions.
+reference material teaches: obtain approval, stop the affected process when required, back up its existing parameters, edit/validate, restart and observe. Apply this with awareness of shared paths and live transactions.
 
 1. Capture INFO/lag/checkpoint/stats and process report **before** modification.
 2. Save a sanitized configuration diff and accurate rollback file.
