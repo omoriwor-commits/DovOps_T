@@ -54,7 +54,7 @@ It is not itself a substitute for database backups, and it is not equivalent to 
             TARGET DATABASE
 ```
 
-This diagram is a **representative two-deployment configuration**, not a rule that every architecture needs all the depicted services. A single deployment or certain remote-capture/remote-apply designs may place components differently. Classic Architecture commonly uses a data pump and Collector in comparable transport roles. Filtering should be configured in the appropriate capture/apply process: Oracle states that **Distribution Service does not filter trail data**.
+This diagram is a **representative two-deployment configuration**, not a rule that every architecture needs all the depicted services. A single deployment or certain remote-capture/remote-apply designs may place components differently. Classic Architecture commonly uses a data pump and Collector in comparable transport roles. Oracle GoldenGate 26ai also supports configured **Distribution Service Path and Receiver Service Path filters**; filtering may occur at capture, transport or apply. See [Chapter 5](chapter-05-distribution-and-receiver-services.md).
 
 ### Transaction walkthrough
 
@@ -201,7 +201,7 @@ Ask the student to list checks in order:
 5. What does `ARCHIVELOG` status tell you, and what does it **not** prove about supplemental logging?
 6. Why must an initial-load snapshot be coordinated with the replication start point?
 
-**Suggested answers:** Trail persists logical changes between capture and apply; Administration Service manages the processes; Oracle's documented Distribution Service does not filter trail content; remote capture depends on source access/support and network; ARCHIVELOG indicates archived redo behavior but not adequate table-level row identification; an inconsistent snapshot/start boundary can create gaps or duplicate apply.
+**Suggested answers:** Trail persists logical changes between capture and apply; Administration Service manages the processes; Oracle 26ai Distribution Service Paths may filter trail content when path filtering is explicitly configured; remote capture depends on source access/support and network; ARCHIVELOG indicates archived redo behavior but not adequate table-level row identification; an inconsistent snapshot/start boundary can create gaps or duplicate apply.
 
 ## 10. Chapter 1 completion checklist
 
