@@ -2,6 +2,10 @@
 
 **Scope:** Oracle-to-Oracle GoldenGate Microservices Architecture, with notes from a 17-session training sequence. This is a **work-in-progress technical reference**, not an end-to-end tested deployment runbook. Version-specific command syntax and configuration must be checked against the installed GoldenGate release and Oracle's documentation.
 
+## Evidence and quality gate
+
+Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
+
 ## 1. Choose the topology
 
 GoldenGate replication is a logical data-movement pipeline. Determine whether Extract and Replicat reside on source, target or separate hub infrastructure. See [six deployment methodologies](../six-deployment-methodologies.md).
