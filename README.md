@@ -6,13 +6,13 @@ These are independent hands-on lab projects. The current goal is to bring the st
 
 ## Engineering projects
 
-### Oracle 19c → OCI migration — completed historical lab
+### Oracle 19c → OCI migration — completed lab
 
 Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. Sanitized scripts and output will be added to this repository.
 
-### RMAN backup and recovery — historical lab exercises
+### RMAN backup and recovery — lab exercises
 
-Full and incremental backup, restore, and point-in-time recovery scenarios. Exercises included full and incremental backup, restore, and point-in-time recovery. Reusable commands and sanitized validation records are being consolidated.
+Full and incremental backup, restore, and point-in-time recovery scenarios. Reusable commands and sanitized validation records are being consolidated.
 
 ### Oracle 19c → Oracle AI Database 26ai — GoldenGate migration
 
@@ -80,9 +80,9 @@ Monitoring, validation, runbooks, and recovery testing
 | Capability | Position |
 |---|---|
 | Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
-| Historical Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
-| OCI–Azure VPN, Extract, and SQL connectivity | Validated in historical lab |
-| SQL Server Replicat end-to-end apply | Incomplete in historical lab |
+| Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
+| OCI–Azure VPN, Extract, and SQL connectivity | Validated in lab |
+| SQL Server Replicat end-to-end apply | Incomplete in lab |
 | Oracle health-check automation | Data Guard Bash and RAC Python scripts published; validation in progress |
 | RMAN automation and recovery controls | Planned integration |
 | Terraform / Ansible infrastructure automation | Planned |
@@ -91,7 +91,7 @@ Monitoring, validation, runbooks, and recovery testing
 
 ## Technical knowledge archive
 
-The [Oracle Database Engineering Knowledge Base](KNOWLEDGE-BASE.md) organizes reusable architecture decisions, procedures, incident analysis, and historical technical experience. New records follow the [technical documentation template](docs/TECHNICAL-RECORD-TEMPLATE.md).
+The [Oracle Database Engineering Knowledge Base](KNOWLEDGE-BASE.md) organizes reusable architecture decisions, procedures, incident analysis, and engineering experience. New records follow the [technical documentation template](docs/TECHNICAL-RECORD-TEMPLATE.md).
 
 ## Repository guide
 
