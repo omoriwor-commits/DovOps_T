@@ -1,9 +1,7 @@
 # Chapter 5 — Distribution Service, Receiver Service and Trail Delivery
 
-> **Status:** Oracle 26ai documentation-backed **teaching reference**, not a newly executed lab.  
-> **Source provenance:** Instructor Day 2 (components), Day 9 (path/receiver workflow), Day 10 (trail matching/troubleshooting), and Day 15 (Classic–Microservices interoperability). Vendor details and corrections are credited separately.  
+> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 > **Prerequisite:** [Chapter 4 — Integrated Extract and Source Trails](chapter-04-integrated-extract-and-source-trails.md).  
-> **Audience:** Oracle DBAs, database platform engineers and classroom/lab learners.
 
 ## Outcomes
 
@@ -191,7 +189,7 @@ Oracle 26ai path pages expose source/target URIs, encryption, checkpoints, LCR a
 
 **Never** correct a lag or sequence gap by deleting trail files, starting at NOW, forcing a new CSN, or recreating a path without a continuity and instantiation plan.
 
-## 11. Teaching labs and assessment
+## 11. validation exercises and assessment
 
 ### Exercise A — architecture only (no changes)
 
@@ -236,7 +234,7 @@ Quality label: instructor sample / vendor reference / lab-tested with attached e
 
 ## Source classification and next chapter
 
-- **Training-derived:** basic Day 2/9/10 data flow; Day 15 interoperability concepts.
+- **reference-derived:** basic reference material/9/10 data flow; reference material interoperability concepts.
 - **Oracle-documented:** ADD/START/INFO DISTPATH, target-initiated paths, transport filtering, monitoring controls.
 - **Reconstructed:** example URIs, test path, test credential alias.
 - **Not yet tested here:** any newly configured GoldenGate environment or transport path.
