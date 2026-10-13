@@ -1,4 +1,4 @@
-# 09 — Parameters, Filtering and Mapping
+# 09 — Parameters, Filtering, Mapping and Collisions
 
 > **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 >
@@ -181,7 +181,7 @@ Example process and alias names are invented. These commands do not alter replic
 
 ## 9. Validation labs
 
-**Lab A — parameter scoping:** Provide two TABLE statements and several IGNORE/GET directives. Ask the learner to trace which DML are captured and identify where an opposing directive must be placed. Check against release-specific documentation.
+**Lab A — parameter scoping:** Provide two TABLE statements and several IGNORE/GET directives. Trace which DML are captured and identify where an opposing directive must be placed. Check against release-specific documentation.
 
 **Lab B — column mapping:** Source has FULL_NAME; target has CUSTOMER_NAME. Use COLMAP to map a controlled row. Validate NULL, multibyte text, updates and a DELETE.
 
