@@ -2,6 +2,10 @@
 
 **Scope:** Oracle-to-Oracle GoldenGate Microservices Architecture, with notes from a 17-session training sequence. This is a **work-in-progress technical reference**, not an end-to-end tested deployment runbook. Version-specific command syntax and configuration must be checked against the installed GoldenGate release and Oracle's documentation.
 
+## Teaching chapters
+
+1. [Chapter 1 — Architecture, Deployment Models and Technical Prerequisites](chapter-01-architecture-and-prerequisites.md) — architecture, read-only SQL reconnaissance, instructor exercises and evidence standards.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
