@@ -1,10 +1,10 @@
-# Oracle GoldenGate Engineering Manual — Working Reference
+# Oracle GoldenGate Microservices — Engineering Field Guide
 
-**Scope:** Oracle-to-Oracle GoldenGate Microservices Architecture, with notes from a 17-session training sequence. This is a **work-in-progress technical reference**, not an end-to-end tested deployment runbook. Version-specific command syntax and configuration must be checked against the installed GoldenGate release and Oracle's documentation.
+Reference procedures for GoldenGate Microservices architecture, installation, capture, transport, apply, operations and migration. Configuration examples do not constitute executed lab results.
 
-## Teaching chapters
+## Engineering reference chapters
 
-1. [Chapter 1 — Architecture, Deployment Models and Technical Prerequisites](chapter-01-architecture-and-prerequisites.md) — architecture, read-only SQL reconnaissance, instructor exercises and evidence standards.
+1. [Chapter 1 — Architecture, Deployment Models and Technical Prerequisites](chapter-01-architecture-and-prerequisites.md) — architecture, read-only SQL reconnaissance, validation exercises and evidence standards.
 2. [Chapter 2 — Installation and Microservices Deployment](chapter-02-installation-and-microservices-deployment.md) — prerequisites, installation options, OGGCA, Service Manager lifecycle, security and lab validation.
 3. [Chapter 3 — Oracle Database Preparation](chapter-03-oracle-database-preparation.md) — CDB/PDB scope, ARCHIVELOG, privileges, supplemental logging, credentials and SQL verification.
 
@@ -18,17 +18,17 @@
 
 8. [Chapter 8 — Monitoring, Lag, Checkpoints and Incident Recovery](chapter-08-monitoring-lag-checkpoints-and-recovery.md) — diagnostics, heartbeat, retention, troubleshooting and recovery exercises.
 
-9. [Chapter 9 — Parameters, Filtering, Column Mapping and Collision Handling](chapter-09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and teaching labs.
+9. [Chapter 9 — Parameters, Filtering, Column Mapping and Collision Handling](chapter-09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and validation exercises.
 
 10. [Chapter 10 — Security and Interoperability](chapter-10-security-credentials-and-interoperability.md) — accounts, TLS, credentials, and mixed-mode integration.
 
 11. [Chapter 11 — Performance, High Availability and Automation](chapter-11-performance-high-availability-and-automation.md) — bottleneck diagnostics, parallelism, managed processes, XAG, retention and exercises.
 
-12. [Chapter 12 — Complete Implementation Lab and Final Assessment](chapter-12-complete-lab-and-instructor-assessment.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and grading rubric.
+12. [Chapter 12 — Complete Implementation Lab and Final Assessment](chapter-12-complete-lab-and-instructor-assessment.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and acceptance criteria.
 
-## Evidence and quality gate
+## Verification standard
 
-Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
+Use current Oracle documentation for release-specific syntax. Link observed deployments, parameters, and logs only when evidence is available.
 
 ## 1. Choose the topology
 
@@ -181,4 +181,3 @@ For adding a new table, coordinate supplemental logging, capture inclusion, cons
 - Document initial-load strategy with instantiation verification and restart recovery.
 - Cross-link the [Oracle 19c → 26ai historical migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) without representing these training examples as its exact historical syntax.
 
-**Source organization:** [Sessions 1–17 index](../training/README.md).
