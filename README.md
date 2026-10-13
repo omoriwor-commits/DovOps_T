@@ -6,9 +6,20 @@ These are independent hands-on lab projects. The current goal is to bring the st
 
 ## Engineering projects
 
-### Oracle 19c → OCI migration — completed lab
+### Oracle 26ai → OCI Compute — GoldenGate local capture / remote apply
 
-Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. Sanitized scripts and output will be added to this repository.
+[Implementation and rerun playbook](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate)
+
+Local Oracle 26ai (OL 9.8) → self-managed Oracle 26ai on OCI Compute (OL 9.8). I used **RMAN and Data Pump for the initial load**, then GoldenGate 26ai for CDC with **local capture at the source-side GoldenGate tier and remote apply to OCI**. INSERT, UPDATE, DELETE and DROP were tested.
+
+```text
+LOCAL LAB / OL9.8                           OCI COMPUTE / OL9.8
+Source Oracle 26ai                          Self-managed Oracle 26ai
+  + GoldenGate source-side tier                 ^
+    Extract: LOCAL capture                     |
+    Replicat: REMOTE apply --------------------+
+Initial load: RMAN / Data Pump
+```
 
 ### RMAN backup and recovery — lab exercises
 
@@ -28,19 +39,24 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
 
 **Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, and DDL replication in the lab. Sanitized configuration and test output will be added to the project repository.
 
-### OCI → Azure heterogeneous CDC — validated source capture and target connectivity
+### OCI Oracle 26ai → Azure SQL Server 2022 — hub-based replication
 
 [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 
 ```text
-OCI Oracle 26ai
-   -> IPsec/IKEv2 VPN + BGP
-   -> Azure GoldenGate hub: Extract EXTORA / trail ea
-   -> SQL Server Replicat REPSQL
-   -> Azure SQL Server 2022
+OCI Oracle 26ai / PDB23AI
+         |
+         | Oracle Net over private OCI-Azure IPsec/BGP connection
+         v
+Azure GoldenGate hub (OL9.8)
+   DEP1: EXTORA — REMOTE Integrated Extract / source trail ea
+   MSSQLDEP: REPSQL — REMOTE apply via SQL_TGT ODBC
+         |
+         v
+Azure SQL Server 2022 / OGGTargetDB.HOLA.FOX
 ```
 
-Validated OCI–Azure VPN/BGP connectivity, Oracle GoldenGate Extract and trail generation, private SQL Server connectivity, and target-side replication prerequisites. SQL Server Replicat apply remained incomplete when the cloud lab concluded.
+I completed the OCI-to-Azure implementation. The archived September checkpoint verifies VPN/BGP, Extract, trails, SQL Server ODBC connectivity and Replicat preparation; final target-side test logs will be captured during the rerun.
 
 ### Oracle RAC / ASM — two-node local lab
 
@@ -82,7 +98,7 @@ Monitoring, validation, runbooks, and recovery testing
 | Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
 | Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
 | OCI–Azure VPN, Extract, and SQL connectivity | Validated in lab |
-| SQL Server Replicat end-to-end apply | Incomplete in lab |
+| SQL Server Replicat end-to-end apply | Implementation completed; final apply logs to be archived during rerun |
 | Oracle health-check automation | Data Guard Bash and RAC Python scripts published; validation in progress |
 | RMAN automation and recovery controls | Planned integration |
 | Terraform / Ansible infrastructure automation | Planned |
