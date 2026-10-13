@@ -1,12 +1,12 @@
 # Chapter 8 — Monitoring, Lag, Checkpoints, Trail Retention and Incident Recovery
 
-> **Documentation classification:** reference-derived operational topics plus independently checked Oracle GoldenGate 26ai references. **No new production or lab incident executed for this chapter.** All names and sample incidents are teaching examples.
+**Scope:** GoldenGate 26ai process monitoring, checkpoint interpretation, trail retention and incident recovery. Process names are illustrative; recorded results belong in project evidence.
 >
 > **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 >
-> **Goal:** Be useful both as a DBA on-call runbook and as a teaching module. Diagnose first, preserve state, remediate only under change control, and validate data afterward.
+**Operational approach:** Diagnose first, preserve checkpoints and logs, remediate under change control, then validate target data.
 
-## Learning outcomes
+## Scope and operational diagnostics
 
 After this chapter, a reader can:
 1. Distinguish process status, lag at checkpoint, true process lag and end-to-end heartbeat lag.
@@ -76,7 +76,7 @@ Oracle documents LAG EXTRACT and LAG REPLICAT as more direct estimates than the 
 
 For a supported database setup, GoldenGate **heartbeat tables** provide monitoring of replication path latency and historical trends, with the required database objects and privileges. Establish them under a separate approved configuration procedure; do not assume heartbeat functionality is already configured.
 
-### A correction from training reference material
+### Checkpoint-age alert thresholds
 
 A statement such as *time since checkpoint must be below ten seconds* is **not a universal GoldenGate rule**. Define workload-specific latency objective, acceptable idle behavior, alert thresholds and on-call response policy. A quiet source should not automatically produce the same metrics as an active one.
 
@@ -154,7 +154,7 @@ Confirm source COMMIT and expected mapped table
 
 ## 7. Parameter changes and restart discipline
 
-reference material teaches: obtain approval, stop the affected process when required, back up its existing parameters, edit/validate, restart and observe. Apply this with awareness of shared paths and live transactions.
+For parameter changes, obtain approval; capture current reports/checkpoints; back up parameters; edit and validate; restart only affected processes when required; and observe downstream recovery. Apply this with awareness of shared paths and live transactions.
 
 1. Capture INFO/lag/checkpoint/stats and process report **before** modification.
 2. Save a sanitized configuration diff and accurate rollback file.
@@ -221,11 +221,11 @@ Remaining risks, monitoring and follow-up:
 Evidence files and sanitized links:
 ~~~
 
-## Source quality classification and limitations
+## Evidence and validation status
 
-- **Training-confirmed topics:** process status, parameter review, trail flow and report locations (Days 9–12).
+- **Operational scope:** Process status, parameter review, trail checkpoints, reports and recovery controls.
 - **Oracle-documented:** INFO/LAG/STATS distinctions; heartbeat; Extract recovery checkpoint; checkpoint-aware purging.
-- **Reconstructed:** sample names, decision tree and all classroom incidents except the linked historical DEP1 service-registration event.
+- **Examples:** Process names and the decision tree are illustrative; the linked DEP1 event is documented separately.
 - **Not verified here:** any newly gathered lag measurement, executed restart, trail purge or database reconciliation.
 
 ## Official Oracle GoldenGate 26ai references
