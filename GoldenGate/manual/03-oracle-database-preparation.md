@@ -175,7 +175,7 @@ Zero rows **before** registration can be normal. After registering the intended 
 
 ### Evidence status
 
-This chapter supplies reference commands and verification criteria. No new database change or source/target validation has been performed as part of this rewrite. An actual deployment record should show before/after SQL output, container identity, change approval and successful subsequent capture.
+This page provides reference commands and verification criteria. No new database change or source/target validation has been performed as part of this rewrite. An actual deployment record should show before/after SQL output, container identity, change approval and successful subsequent capture.
 
 ## Oracle references
 
