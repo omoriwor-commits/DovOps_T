@@ -1,6 +1,10 @@
-# OCI Lab Projects
+# Oracle Cloud Infrastructure — Engineering References
 
-This folder is reserved for Oracle Cloud Infrastructure learning notes, configuration references, and smaller OCI exercises.
+This folder contains operational OCI engineering references, implementation patterns and project records. Reference procedures are distinguished from executed lab evidence.
+
+## Engineering Field Guide
+
+Start with the [OCI Engineering Field Guide](engineering/README.md), including account/tenancy setup, Windows SSH access, and public/private VCN networking.
 
 ## Planned Organization
 
