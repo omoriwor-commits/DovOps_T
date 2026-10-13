@@ -4,32 +4,11 @@ Oracle database engineering portfolio covering **migration, replication, backup 
 
 These are independent hands-on lab projects. The current goal is to bring the strongest existing Oracle DBA work into one repeatable, version-controlled **Oracle Database Platform Automation** platform using DevOps practices.
 
-## Featured project — Oracle Database Platform Automation
-
-[Architecture, phases, and engineering roadmap](Oracle-Database-Platform-Automation/README.md)
-
-```text
-Git / GitHub
-     |
-     v
-Bash / Python -> GitHub Actions -> Terraform / Ansible (planned integration)
-     |
-     +-- Oracle 19c / 23ai / 26ai databases
-     +-- GoldenGate capture and replication
-     +-- RAC / ASM and Data Guard
-     +-- RMAN backup, restore and recovery
-     |
-     v
-Monitoring, validation, runbooks, and recovery testing
-```
-
-**Current platform:** Local VirtualBox hosts with Oracle 19c, Oracle 23/26ai, and GoldenGate 26ai available for further testing. Historical OCI and Azure labs are documented separately because free-tier access has expired.
-
 ## Engineering projects
 
 ### Oracle 19c → OCI migration — completed historical lab
 
-Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. The implementation is part of the prior hands-on work being reconstructed for publication; original execution artifacts and final validation outputs are being collected before detailed claims are made.
+Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. Sanitized scripts and output will be added to this repository.
 
 ### RMAN backup and recovery — completed historical lab exercises
 
@@ -47,7 +26,7 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
    -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
 ```
 
-**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. The lab work includes reported DML and DDL replication testing; the linked repository currently contains the architecture and will be expanded with sanitized configuration and execution evidence.
+**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, and DDL replication in the lab. Sanitized configuration and test output will be added to the project repository.
 
 ### OCI → Azure heterogeneous CDC — captured and tested; target apply in progress when lab ended
 
@@ -69,11 +48,37 @@ The documented lab validated VPN/BGP connectivity, the Oracle GoldenGate Extract
 
 Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
 
+Operational code: [RAC health-check script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/oracle-rac/rac_health_fixed.py). The script is a published lab artifact; it is not evidence of completed post-incident RAC recovery.
+
+### Oracle Data Guard — health-check automation
+
+[Data Guard health-check Bash script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/dataguard/dataguard_health_check.sh) provides a concrete operational automation artifact for the HA/DR workstream.
+
+## Featured project — Oracle Database Platform Automation
+
+[Architecture, phases, and engineering roadmap](Oracle-Database-Platform-Automation/README.md)
+
+```text
+Git / GitHub
+     |
+     v
+Bash / Python -> GitHub Actions -> Terraform / Ansible (planned integration)
+     |
+     +-- Oracle 19c / 23ai / 26ai databases
+     +-- GoldenGate capture and replication
+     +-- RAC / ASM and Data Guard
+     +-- RMAN backup, restore and recovery
+     |
+     v
+Monitoring, validation, runbooks, and recovery testing
+```
+
+**Current platform:** Local VirtualBox hosts with Oracle 19c, Oracle 23/26ai, and GoldenGate 26ai available for further testing. The cloud environments have since been shut down; their implementation records remain in the linked project repositories.
+
 ## DevOps integration roadmap
 
 | Capability | Position |
 |---|---|
-| Git / GitHub project history and documentation | Implemented across existing repositories |
 | Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
 | Historical Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
 | OCI–Azure VPN, Extract, and SQL connectivity | Validated in historical lab |
@@ -82,8 +87,6 @@ Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Cl
 | Terraform / Ansible infrastructure automation | Planned |
 | Database CI/CD with GitHub Actions | Planned |
 | Prometheus / Grafana monitoring | Planned |
-
-The roadmap tracks DevOps integration of prior Oracle skills, not a requirement to repeat every historical exercise.
 
 ## Repository guide
 
