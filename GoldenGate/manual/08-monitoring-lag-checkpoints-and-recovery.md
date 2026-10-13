@@ -8,7 +8,7 @@
 
 ## Scope and operational diagnostics
 
-After this chapter, a reader can:
+This page covers:
 1. Distinguish process status, lag at checkpoint, true process lag and end-to-end heartbeat lag.
 2. Trace failures through Extract, source trail, Distribution, Receiver, target trail, Replicat and target rows.
 3. Explain checkpoints and why missing redo or trails can defeat a restart.
