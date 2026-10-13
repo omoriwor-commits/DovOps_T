@@ -181,7 +181,7 @@ Correlate process IDs, port ownership, service mode, deployment home and logs. D
 
 Related project: https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/goldengate/troubleshooting/goldengate-26ai-oggca-daemon-registration-troubleshooting.md
 
-## 9. Teaching exercises
+## 9. Lab validation scenarios
 
 **Exercise A — process health vs correctness:** INFO ALL shows Extract/Replicat RUNNING. Target table lacks last committed row. Identify four more pieces of evidence needed before declaring a root cause.
 
