@@ -277,7 +277,7 @@ Reviewer signoff and revision notes:
 
 ## 8. Final project deliverables
 
-Store sanitized copies of the topology, exact version/compatibility record, final parameter files, selected SQL, process reports, checkpoints, logged commands, DML and reconciliation evidence, recovery notes and a short teaching slide/lab handout. Retain original third-party course materials **privately** and credit Oracle for authoritative syntax.
+Store sanitized topology diagrams, release and compatibility records, parameter files, SQL, process reports, checkpoints, logged operations, DML reconciliation and recovery evidence. Keep third-party proprietary materials in access-controlled storage and retain Oracle references for authoritative syntax.
 
 **Do not publish:** passwords, wallets, TLS private keys, unaudited installation response files, client database data, internal production addresses, copyrighted third-party course materials or sensitive logs.
 
