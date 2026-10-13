@@ -16,6 +16,8 @@
 
 7. [Chapter 7 — Initial Load, SCN/CSN and Migration Cutover](chapter-07-initial-load-scn-csn-and-cutover.md) — Data Pump instantiation, file-based load, positioning, validation, and cutover/rollback.
 
+8. [Chapter 8 — Monitoring, Lag, Checkpoints and Incident Recovery](chapter-08-monitoring-lag-checkpoints-and-recovery.md) — diagnostics, heartbeat, retention, troubleshooting and recovery exercises.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
