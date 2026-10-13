@@ -3,9 +3,9 @@
 > **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 > **Scope:** Oracle GoldenGate 26ai Microservices Architecture (MA), with comparisons to Classic Architecture and user-documented Oracle migration labs.  
 
-## Learning outcomes
+## Engineering scope
 
-At the end of the lesson, a learner should be able to:
+This chapter establishes the architecture, deployment options, prerequisites and verification standards needed before implementing GoldenGate replication. The design review must:
 
 1. Describe the problem GoldenGate solves and distinguish logical CDC replication from physical standby recovery.
 2. Trace a committed change through **Extract → trail → Distribution Service → Receiver Service → trail → Replicat**.
@@ -21,7 +21,7 @@ Oracle GoldenGate moves selected database changes between systems. An Extract pr
 
 It is not itself a substitute for database backups, and it is not equivalent to Data Guard physical redo apply. A GoldenGate pipeline can be **running** while rows are missing, duplicate, filtered, unmapped or delayed. Always verify the destination, not just process uptime.
 
-**Teaching question:** Why might a successful Extract status still leave the target incorrect? Because capture health does not prove transport, apply, correct mapping, instantiation, or data consistency.
+**Validation boundary:** Extract health confirms neither downstream transport nor target correctness. Verify mapping, instantiation and target data independently.
 
 ## 2. Main replication data flow
 
@@ -79,7 +79,7 @@ Suppose an application commits `UPDATE hr.employees SET salary = ... WHERE emplo
 | Extract | Captures configured source changes to a trail | Source registration/logging, read checkpoint and process report |
 | Replicat | Applies trail records to a target | Target access, mapping, checkpoint, collision/error reports |
 
-**Terminology:** Oracle 26ai documentation refers to Administration **Service**, Distribution **Service**, Receiver **Service** and Performance Metrics **Service**; training recaps sometimes say *Server*. Preserve the historical wording in original documents but use the 26ai documentation's names in the teaching reference.
+**Terminology:** Use Oracle's documented service names: Administration Service, Distribution Service, Receiver Service and Performance Metrics Service. Avoid conflating services with their underlying processes.
 
 **Reference:** [Oracle GoldenGate 26ai — Microservices components](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html).
 
@@ -94,7 +94,7 @@ Suppose an application commits `UPDATE hr.employees SET salary = ... WHERE emplo
 
 **Do not infer:** Microservices is not restricted to Oracle databases merely because an introductory course slide used Oracle examples. Consult the exact GoldenGate build and support matrix.
 
-## 5. Placement architecture: six teaching patterns
+## 5. Placement architecture: six deployment patterns
 
 These are **location patterns**; they do not by themselves certify a source/target pair, define network connectivity, or specify the exact number of deployments.
 
@@ -109,7 +109,7 @@ These are **location patterns**; they do not by themselves certify a source/targ
 
 See the separately maintained [six deployment methodologies](../six-deployment-methodologies.md), which contains further trade-offs.
 
-### Historical project vs training example
+### Recorded implementation and reference topology
 
 The separately documented Oracle 19c-to-26ai lab records **remote Integrated Extract** connecting to a 19c source from GoldenGate 26ai and **Integrated Replicat** on the target side. The recorded process names include `EXT19C` and `REP26AI`. Historical DML/DDL success was **reported**, but this chapter does not assert that exact parameter files and comprehensive machine output were preserved.
 
@@ -166,19 +166,19 @@ ORDER BY con_id;
 
 **Do not run yet:** ARCHIVELOG mode changes, force logging, blanket supplemental logging, `DBMS_GOLDENGATE_AUTH`, credential creation or `enable_goldengate_replication` changes until installation, downtime impact and DBA authorization have been reviewed in their own runbooks.
 
-## 7. Operating and teaching principles
+## 7. Engineering operating standards
 
-- Always differentiate *vendor-documented command*, *instructor sample*, *reconstruction* and *executed lab evidence*.
+- Separate vendor-documented behavior, illustrative configuration, and executed lab evidence.
 - Every writable command needs the **host/database, operating account, container, prerequisites, rollback/impact and validation query**.
 - Process uptime is not the same thing as replication correctness.
 - Network transport, data transformations and source/target keys must be included in the test plan.
 - Save a sanitized topology sheet, a release matrix, real outputs and change timestamps. Never publish credentials or proprietary VM handouts.
 
-## 8. Troubleshooting exercise (without changing the system)
+## 8. Read-only fault-isolation procedure
 
 **Scenario:** Extract is RUNNING but target data has not changed.
 
-Ask the student to list checks in order:
+Investigate in this order:
 1. Was the test transaction committed on a table in the Extract capture scope?
 2. Is required logging active for that table and is the capture checkpoint advancing?
 3. Is the correct local trail receiving new records?
@@ -190,7 +190,7 @@ Ask the student to list checks in order:
 
 **Diagnostic response:** Investigate the chain from source to target; the precise failing boundary requires logs, process reports, configuration and transaction evidence. Do not assume that the process marked RUNNING proves successful apply.
 
-## 9. Knowledge check
+## 9. Design review questions
 
 1. What is a trail file and why does it matter for restart/recovery?
 2. Which service manages Extract and Replicat configuration?
@@ -199,18 +199,18 @@ Ask the student to list checks in order:
 5. What does `ARCHIVELOG` status tell you, and what does it **not** prove about supplemental logging?
 6. Why must an initial-load snapshot be coordinated with the replication start point?
 
-**Suggested answers:** Trail persists logical changes between capture and apply; Administration Service manages the processes; Oracle 26ai Distribution Service Paths may filter trail content when path filtering is explicitly configured; remote capture depends on source access/support and network; ARCHIVELOG indicates archived redo behavior but not adequate table-level row identification; an inconsistent snapshot/start boundary can create gaps or duplicate apply.
+**Review findings:** Trail persists logical changes between capture and apply; Administration Service manages the processes; Oracle 26ai Distribution Service Paths may filter trail content when path filtering is explicitly configured; remote capture depends on source access/support and network; ARCHIVELOG indicates archived redo behavior but not adequate table-level row identification; an inconsistent snapshot/start boundary can create gaps or duplicate apply.
 
-## 10. Chapter 1 completion checklist
+## 10. Architecture readiness checklist
 
-- [ ] Learner can draw a full source-to-target data flow.
-- [ ] Learner can explain the five deployment services and Admin Client.
-- [ ] Learner can contrast Classic and Microservices administration.
-- [ ] Learner can identify a valid topology for an **explicit certified scenario**.
-- [ ] Learner has captured read-only database prerequisite outputs.
-- [ ] Learner can identify what remains unverified before executing configuration.
+- [ ] Deployment engineer can draw a full source-to-target data flow.
+- [ ] Deployment engineer can explain the five deployment services and Admin Client.
+- [ ] Deployment engineer can contrast Classic and Microservices administration.
+- [ ] Deployment engineer can identify a valid topology for an **explicit certified scenario**.
+- [ ] Deployment engineer has captured read-only database prerequisite outputs.
+- [ ] Deployment engineer can identify what remains unverified before executing configuration.
 
-## References and provenance
+## Oracle references
 
 - [Oracle GoldenGate 26ai — Components of Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html)
 - [Oracle GoldenGate 26ai — About Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-oracle-goldengate-microservices-architecture.html)
