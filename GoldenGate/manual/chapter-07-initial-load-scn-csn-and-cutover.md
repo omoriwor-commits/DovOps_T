@@ -97,7 +97,7 @@ Official reference: https://docs.oracle.com/en/database/goldengate/core/26/gclir
 
 ## 5. Method B — file-based GoldenGate initial load
 
-reference material provided an Initial Load Extract with RMTHOST/RMTFILE and TABLE statements, plus a corresponding Replicat MAP example. Preserve them as instructor examples, not proof of successful loading.
+A file-based Initial Load Extract can use RMTHOST/RMTFILE and TABLE statements with corresponding Replicat MAP clauses. Validate these examples against the target release and confirm completion using actual load evidence.
 
 ```text
 EXTRACT LOAD1
