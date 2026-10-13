@@ -24,6 +24,8 @@
 
 11. [Chapter 11 — Performance, High Availability and Automation](chapter-11-performance-high-availability-and-automation.md) — bottleneck diagnostics, parallelism, managed processes, XAG, retention and exercises.
 
+12. [Chapter 12 — Complete Implementation Lab and Final Assessment](chapter-12-complete-lab-and-instructor-assessment.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and grading rubric.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
