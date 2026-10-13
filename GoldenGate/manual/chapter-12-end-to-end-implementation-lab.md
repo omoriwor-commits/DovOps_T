@@ -1,6 +1,6 @@
 # Chapter 12 — GoldenGate Implementation and Operational Acceptance
 
-> **Final core chapter · Status: lab design / NOT EXECUTED.** This chapter brings together Chapters 1–11 into a reproducible Oracle-to-Oracle Microservices teaching project. It does **not** claim that the sample installation, SQL, processes or validation results were executed. Original Days 1–17 notes remain unchanged in Drive. Oracle release-specific prerequisites and instructions are linked below.
+**Scope:** End-to-end GoldenGate 26ai Oracle-to-Oracle implementation plan. Configuration examples are illustrative; deployment, recovery and DML results will be recorded when the lab is executed.
 
 ## Scope and acceptance criteria
 
@@ -226,9 +226,9 @@ STATS REPLICAT REPLAB
 
 Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) before any restart, trail purge, checkpoint reposition or recovery. Record all errors before attempting corrections.
 
-## 6. Implementation acceptance checks
+## 6. Operational acceptance checklist
 
-### Written assessment (documented checks)
+### Design and operational checks
 
 1. Draw the end-to-end MSA pipeline and explain each component (8).
 2. Explain why ARCHIVELOG and supplemental logging are different and what key columns achieve (6).
@@ -237,7 +237,7 @@ Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) befor
 5. Contrast process running, checkpoint advancing and verified target rows (6).
 6. Explain one secure authentication model and why credential wallets cannot be transplanted (6).
 
-### Practical assessment (documented checks)
+### Implementation validation gates
 
 | Competency | Points |
 |---|---:|
@@ -271,7 +271,7 @@ DELETE: source committed / target SQL evidence:
 Restart/recovery scenario, reports and checkpoint evidence:
 Unresolved errors and approved corrective actions:
 Data reconciliation and pass/fail decision:
-Evidence label: LAB VERIFIED / PARTIAL / NOT EXECUTED:
+Evidence state: VERIFIED WITH OUTPUT / PARTIAL / PENDING:
 Reviewer signoff and revision notes:
 ```
 
@@ -281,9 +281,9 @@ Store sanitized copies of the topology, exact version/compatibility record, fina
 
 **Do not publish:** passwords, wallets, TLS private keys, unaudited installation response files, client database data, internal production addresses, copyrighted third-party course materials or sensitive logs.
 
-## 9. Evidence state and links
+## 9. Evidence requirements and references
 
-- **Training-derived:** sessions 1–17, architecture, procedures and concepts; original handouts archived separately.
+- **Reference procedures:** Architecture, configuration and recovery instructions are supported by the linked Oracle documentation.
 - **Vendor-reference:** official Oracle 26ai Extract/Replicat/path/instantiation workflows.
 - **Historical:** linked Oracle 19c→26ai migration and other lab outcomes described in their own repositories.
 - **Reconstructed:** sample lab topology, dummy identifiers, test DML, Operational acceptance review and acceptance plan.
@@ -298,4 +298,4 @@ Store sanitized copies of the topology, exact version/compatibility record, fina
 - [Oracle 26ai — Data Pump per-table instantiation](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/using-data-pump-automatic-table-instantiation-oracle-ma.html)
 - [Oracle 26ai — Replication components and checkpoints](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-data-replication-oracle-goldengate.html)
 
-**Completion:** Chapter 12 closes the **12-chapter engineering field guide**. The next engineering phase: it is a unified command reference, cross-chapter technical accuracy audit, an evidence-backed lab execution, and teaching-ready handouts.
+**Follow-up work:** Consolidate a command reference, review release-specific syntax across chapters, and attach execution evidence from the end-to-end lab.
