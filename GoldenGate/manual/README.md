@@ -14,6 +14,8 @@
 
 6. [Chapter 6 — Integrated Replicat and Validation](chapter-06-integrated-replicat-and-validation.md) — checkpoint table, Integrated Replicat, SQL DML tests, reconciliation and troubleshooting.
 
+7. [Chapter 7 — Initial Load, SCN/CSN and Migration Cutover](chapter-07-initial-load-scn-csn-and-cutover.md) — Data Pump instantiation, file-based load, positioning, validation, and cutover/rollback.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
