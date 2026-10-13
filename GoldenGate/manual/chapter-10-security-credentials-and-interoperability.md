@@ -19,7 +19,7 @@ Distinguish operating-system, GoldenGate service, database and transport identit
 
 Do not conflate these identities, grant blanket DBA privileges, or place passwords into a published command or shell transcript.
 
-### Database-version distinction (essential for historical 19c→26ai labs)
+### Database-version-specific privileges
 
 **GoldenGate 26ai software does not imply Oracle Database 26ai.** Oracle AI Database 26ai introduces database roles **OGG_CAPTURE** and **OGG_APPLY**. Oracle says DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE is disabled in the 26ai database and raises a warning rather than granting privileges. Older Oracle database versions use their own privilege-granting mechanism. A command valid against Oracle Database 19c is not necessarily valid against Oracle AI Database 26ai.
 
@@ -132,7 +132,7 @@ Vendor: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/migration
 | Old trails not delivered | Checkpoints, source and target sequence/RBA, path/Collector logs | Reposition NOW or delete trails |
 | Secret committed to Git | Revoke and rotate, investigate exposure and Git history | Deleting only the newest file version |
 
-## 9. Lab validation scenarios
+## 9. Security validation scenarios
 
 **A — Identity boundaries:** List separate OS, GoldenGate administration, source capture, target apply and transport users; specify the minimum access each needs.
 
@@ -140,9 +140,9 @@ Vendor: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/migration
 
 **C — Mixed architecture choice:** A secured 26ai target must receive from a legacy Classic pump. Explain why direct Classic→secured MA is not supported in Oracle's cited guide, and propose a vendor-supported staged alternative.
 
-**D — Wallet incident:** Explain why copying a training wallet to restore credentials is prohibited and how to escalate to the documented vendor recovery path.
+**D — Credential recovery:** Investigate the supported recovery procedure for an unavailable administrator credential. Never transplant wallet files across deployments.
 
-## 10. Evidence worksheet and quality status
+## 10. Security evidence worksheet
 
 ~~~text
 Date / observer:
