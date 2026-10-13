@@ -1,8 +1,7 @@
 # Chapter 2 — Oracle GoldenGate 26ai Installation and Microservices Deployment
 
-> **Evidence status:** Vendor-referenced teaching chapter; no fresh installation executed. Based on instructor recaps Days 3–5 plus Oracle's 26ai documentation. Example paths are illustrative, not verified historical paths.
 
-## Learning objectives
+## Scope and acceptance criteria
 
 Understand software versus deployment installation; plan binary and writable homes; gather an OS baseline; distinguish GUI and silent software installs; configure Service Manager and deployments with OGGCA; verify security, service lifecycle and installation evidence; troubleshoot orphaned services responsibly.
 
@@ -42,7 +41,7 @@ Check Oracle's exact release documentation and entitlement before changing anyth
 
 ## 3. Installation account and filesystem layout
 
-An OS installation account, a database GoldenGate user and a GoldenGate service administrator are **different identities** with different privileges. Do not equate them. Day 3 introduces the choice between Oracle OS user and a dedicated GoldenGate installation OS account; select by site policy and Oracle guidance.
+An OS installation account, a database GoldenGate user and a GoldenGate service administrator are **different identities** with different privileges. Do not equate them. reference material introduces the choice between Oracle OS user and a dedicated GoldenGate installation OS account; select by site policy and Oracle guidance.
 
 ```bash
 # EXAMPLE ONLY — requires approved user/group and change control; do not paste verbatim.
@@ -54,7 +53,7 @@ Do not commit passwords, copied training VM credentials, wallet material or fill
 
 ## 4. Software installation methods
 
-Training Days 3–5 describe Oracle Universal Installer (GUI and silent modes). The following is **training-derived illustrative syntax**, contingent on the chosen software package actually providing this installer and an appropriate response-file format:
+reference examples describe Oracle Universal Installer (GUI and silent modes). The following is **reference-derived illustrative syntax**, contingent on the chosen software package actually providing this installer and an appropriate response-file format:
 
 ```bash
 ./runInstaller -silent -responseFile /secure/path/installer.rsp
@@ -83,7 +82,7 @@ Oracle's documented 26ai invocation is:
 "$OGG_HOME/bin/oggca.sh" -silent -responseFile /secure/path/oggdeploy.rsp
 ```
 
-**Correction to Day 5 instructor recap:** Oracle documents the capital F spelling, `-responseFile`. Use a complete, version-appropriate [official sample response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html). The recaps do not supply the filled response-file parameters, so this command is *not* independently runnable as given.
+**Correction to reference material instructor recap:** Oracle documents the capital F spelling, `-responseFile`. Use a complete, version-appropriate [official sample response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html). The recaps do not supply the filled response-file parameters, so this command is *not* independently runnable as given.
 
 Document the exact configuration option, deployment identities and paths, Service Manager mode, TLS/password policy and admin secret handling before executing in a throwaway lab. Reference: [Add deployment in silent mode](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deploy-silent-deployment.html).
 
@@ -158,7 +157,7 @@ Related record: [OGGCA troubleshooting](https://github.com/omoriwor-commits/ente
 
 **Part C (troubleshooting):** a Service Manager unit reports stopped but a deployment port remains occupied. Explain how to prove which child owns the port and why a blanket kill/reinstall is unsafe.
 
-## Instructor's knowledge check
+## Operational review
 
 1. What does installing OGG_HOME create that OGGCA does not?
 2. Why separate Service Manager and deployment runtime directories?
@@ -172,7 +171,7 @@ Related record: [OGGCA troubleshooting](https://github.com/omoriwor-commits/ente
 ## Evidence classification and chapter status
 
 - **Vendor-confirmed:** 26ai OGGCA workflow, `-responseFile` invocation, and manual/systemd lifecycle documented by Oracle.
-- **Training-derived:** OUI silent installer illustration, Day 3 directory and OS account discussion, example deployment naming.
+- **reference-derived:** OUI silent installer illustration, reference material directory and OS account discussion, example deployment naming.
 - **Historical lab:** DEP1 registration problem, separately documented; no claim of fresh verification.
 - **Pending:** actual installation response file, OGGCA file, executed installation transcript, verified TLS and restart test, replication correctness.
 
