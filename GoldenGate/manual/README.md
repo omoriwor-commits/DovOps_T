@@ -24,7 +24,7 @@ Reference procedures for GoldenGate Microservices architecture, installation, ca
 
 11. [Chapter 11 — Performance, High Availability and Automation](chapter-11-performance-high-availability-and-automation.md) — bottleneck diagnostics, parallelism, managed processes, XAG, retention and exercises.
 
-12. [Chapter 12 — Complete Implementation Lab and Final Assessment](chapter-12-complete-lab-and-instructor-assessment.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and acceptance criteria.
+12. [Chapter 12 — End-to-End Implementation Lab](chapter-12-end-to-end-implementation-lab.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and acceptance criteria.
 
 ## Verification standard
 
