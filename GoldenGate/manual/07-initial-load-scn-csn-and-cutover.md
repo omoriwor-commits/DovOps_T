@@ -1,10 +1,10 @@
-# 07 — Initial Load and SCN/CSN Coordination
+# 07 — Initial Load, SCN/CSN and Cutover
 
 > **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 
 ## Scope and migration criteria
 
-This chapter covers existing-data instantiation, continuous CDC, SCN/CSN boundaries, Data Pump and file-based initial load, Replicat positioning, consistency checks, migration cutover and rollback.
+This page covers existing-data instantiation, continuous CDC, SCN/CSN boundaries, Data Pump and file-based initial load, Replicat positioning, consistency checks, migration cutover and rollback.
 
 ## 1. Initial load and CDC solve different problems
 
@@ -54,7 +54,7 @@ Oracle 26ai documents logical and physical methods separately. Validate certific
 
 ### Phase A: prepare the Oracle source
 
-1. Verify certified DB/GoldenGate combination, redo/logging and source privileges (Chapters 3–4).
+1. Verify certified DB/GoldenGate combination, redo/logging and source privileges (03–04).
 2. Establish continuous Extract capture early enough to retain transaction changes during the export.
 3. Prepare source table/schema instantiation information before exporting, as documented by Oracle:
 
@@ -68,7 +68,7 @@ These names are placeholders. Verify the actual multitenant command form, Admin 
 
 ### Phase B: consistent export/import
 
-Use supported Oracle Data Pump export/import settings to generate an appropriately consistent baseline and carry instantiation metadata. Save source PDB, snapshot method, dump metadata, export/import logs, object scope, target remaps and target schema checks. The source recaps do not contain executed expdp/impdp commands or configuration, so **this chapter does not fabricate those values**.
+Use supported Oracle Data Pump export/import settings to generate an appropriately consistent baseline and carry instantiation metadata. Save source PDB, snapshot method, dump metadata, export/import logs, object scope, target remaps and target schema checks. Use actual export/import logs and parameter records to support completed-lab claims.
 
 ### Phase C: Replicat filtering
 
