@@ -50,7 +50,7 @@ Physical Data Guard redo apply and GoldenGate logical replication serve differen
 
 Before software installation, record Oracle and GoldenGate versions, certification, Oracle Linux/kernel baseline, storage, service accounts, directory layout, port assignment, network/firewall rules, TLS setup, TNS connectivity and restart procedures.
 
-A training session provided these *illustrative* invocation patterns:
+Example invocation patterns (verify against the installed release):
 
 ```bash
 # Oracle Universal Installer: response file must exist and match installed release.
