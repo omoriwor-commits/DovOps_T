@@ -9,7 +9,7 @@ Operational OCI networking and Compute access references.
 
 ## Related implementation projects
 
-- [Oracle 26ai → OCI Migration with GoldenGate 26ai](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate) — local Oracle 26ai to OCI Oracle 26ai.
+- [Oracle 26ai → OCI Migration with GoldenGate 26ai](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate) — local Oracle 26ai to self-managed Oracle 26ai on OCI Compute.
 - [Oracle 19c → 26ai Migration with GoldenGate 26ai](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) — Oracle 19c on OL 7.9 to Oracle 26ai on OL 9.8.
 - [Enterprise Multicloud Database Platform](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure database engineering.
 
