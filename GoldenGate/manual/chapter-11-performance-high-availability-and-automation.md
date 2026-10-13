@@ -1,8 +1,8 @@
 # Chapter 11 — Performance Tuning, High Availability and Operational Automation
 
-> **Evidence status:** Oracle GoldenGate 26ai vendor-referenced teaching chapter. No new performance benchmark, failover or automation was executed. Training Days 2, 10 and 12 provide introductory service/lag/restart concepts; the detailed tuning and HA material below is an independently researched expansion. Numbers in exercises are hypothetical.
+> **Reference scope:** Oracle-documented operations and illustrative tuning examples; measured results require separate evidence.
 
-## Learning objectives
+## Scope and operating requirements
 
 Identify the slowest pipeline stage, distinguish workload bottlenecks from replication configuration errors, interpret Integrated Replicat parallelism, design GoldenGate service availability, set safe managed-process restarts and purge policies, and prove improvements with reproducible before/after metrics.
 
@@ -165,7 +165,7 @@ For scripts, use secure secrets management or restricted authentication profiles
 
 40 GB/hour × 6 hours = 240 GB **before** headroom, bursts, archived redo, filesystem metadata, backup lag and recovery margins. This is not a GoldenGate product requirement or a capacity assessment of your installation. State your assumed peaks, trail compression and response time and use measured real data for engineering decisions.
 
-**Instructor follow-up:** If a 6-hour target outage becomes 12 hours, the minimum estimated backlog doubles. Why may the actual required space differ? Because workload bursts, multiple paths, filtering, trail representation and checkpoint/retention policies vary.
+**Capacity review:** If a 6-hour target outage becomes 12 hours, the minimum estimated backlog doubles. Why may the actual required space differ? Because workload bursts, multiple paths, filtering, trail representation and checkpoint/retention policies vary.
 
 ## 10. HA and tuning troubleshooting scenarios
 
@@ -210,7 +210,7 @@ Chapter lab status: NOT EXECUTED HERE
 
 ## Provenance and source status
 
-- **Instructor source:** general Microservices roles, lag monitoring, autostart/restart discussions.
+- **Technical background:** general Microservices roles, lag monitoring, autostart/restart discussions.
 - **Oracle-verified reference:** integrated apply options, diagnostics, managed process profiles, XAG restrictions, automated maintenance and heartbeat concepts.
 - **Reconstructed:** capacity scenario, all example process names, test exercises and runbook decision trees.
 - **Not verified here:** any new performance improvement, failover, automated workflow or real measured throughput.
@@ -226,4 +226,4 @@ Chapter lab status: NOT EXECUTED HERE
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/automate-maintenance-tasks-1.html
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/monitor-monitor-lag.html
 
-**Next and final core chapter: Chapter 12 — Full GoldenGate Implementation Lab and Instructor Assessment.**
+**Next and final core chapter: Chapter 12 — Full GoldenGate Implementation Lab and Operational Acceptance.**
