@@ -125,9 +125,9 @@ GoldenGate Administration Service supports Managed Process Profiles for Extract 
 4. Has the previous trail/recovery checkpoint been preserved?
 5. Is the deployment under XAG management?
 
-Oracle warns against setting the 'Critical to deployment health' managed-process profile attribute when using XAG, because one unavailable Extract/Replicat can prevent XAG startup for related GoldenGate resources. This is important when teaching availability settings.
+Oracle warns against setting 'Critical to deployment health' on managed-process profiles under XAG: an unavailable Extract or Replicat can prevent related XAG-managed resources from starting.
 
-**Do not copy Day 12's example (five restarts, sixty seconds) as a universal Oracle recommendation.** It was classroom material, not a tested availability policy.
+**Restart policy values require testing.** A fixed attempt count and delay should be chosen for the environment, failure type and alerting policy rather than copied into every deployment.
 
 Reference: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-managed-processes.html
 
@@ -159,7 +159,7 @@ Every monitoring cycle:
 
 For scripts, use secure secrets management or restricted authentication profiles. Never embed an actual password, wallet blob or long-lived token in a public GitHub repository. Restrict read-only monitoring accounts appropriately.
 
-## 9. Capacity and resilience exercise
+## 9. Capacity and resilience planning
 
 **Hypothetical case:** the source generates 40 GB of relevant trail data per hour. The downstream target can be unavailable for 6 hours. What baseline retention volume is needed?
 
@@ -195,10 +195,10 @@ After: same metrics in matched workload interval:
 After: target reconciliation, error and checkpoint verification:
 Outcome: improved / unchanged / regressed / inconclusive:
 Saved sanitized evidence files:
-Chapter lab status: NOT EXECUTED HERE
+Lab results: Pending controlled measurement and supporting evidence
 ```
 
-## 12. Operational acceptance review
+## 12. Operational acceptance criteria
 
 1. Why does increasing parallelism not always improve apply performance?
 2. What is the difference between end-to-end latency and INFO ALL lag?
@@ -208,7 +208,7 @@ Chapter lab status: NOT EXECUTED HERE
 
 **Answer key:** workload dependencies, database saturation and direct apply may cap throughput; checkpoint lag is not a measured end-to-end latency; Clusterware/XAG owns resource lifecycle and dependencies; unconsumed trails may be deleted; controlled before/after workload, lag/throughput, error-free recovery and data reconciliation are required.
 
-## Provenance and source status
+## Verification status
 
 - **Technical background:** general Microservices roles, lag monitoring, autostart/restart discussions.
 - **Oracle-verified reference:** integrated apply options, diagnostics, managed process profiles, XAG restrictions, automated maintenance and heartbeat concepts.
