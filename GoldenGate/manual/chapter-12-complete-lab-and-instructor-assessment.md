@@ -248,7 +248,7 @@ Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) befor
 | Three separately proven DML tests and reconciliation | 15 |
 | One safely recovered failure with documented checkpoints | 5 |
 
-**Proposed grading:** pass at 80/100 or higher **and** satisfy mandatory safety conditions: no credential disclosure, no unacknowledged replication gap, valid initial baseline and all three DML tests passed. This is an instructor-created rubric, not an Oracle certification exam or score.
+**Proposed grading:** pass at 80/100 or higher **and** satisfy mandatory safety conditions: no credential disclosure, no unacknowledged replication gap, valid initial baseline and all three DML tests passed. This is an internal lab assessment criteria, not an Oracle certification exam or score.
 
 ## 7. Evidence submission template
 
@@ -277,16 +277,16 @@ Reviewer signoff and revision notes:
 
 ## 8. Final project deliverables
 
-Store sanitized copies of the topology, exact version/compatibility record, final parameter files, selected SQL, process reports, checkpoints, logged commands, DML and reconciliation evidence, recovery notes and a short teaching slide/lab handout. Retain original instructor handouts **privately** and credit Oracle for authoritative syntax.
+Store sanitized copies of the topology, exact version/compatibility record, final parameter files, selected SQL, process reports, checkpoints, logged commands, DML and reconciliation evidence, recovery notes and a short teaching slide/lab handout. Retain original third-party course materials **privately** and credit Oracle for authoritative syntax.
 
-**Do not publish:** passwords, wallets, TLS private keys, unaudited installation response files, client database data, internal production addresses, copyrighted instructor handouts or sensitive logs.
+**Do not publish:** passwords, wallets, TLS private keys, unaudited installation response files, client database data, internal production addresses, copyrighted third-party course materials or sensitive logs.
 
 ## 9. Evidence state and links
 
 - **Training-derived:** sessions 1–17, architecture, procedures and concepts; original handouts archived separately.
 - **Vendor-reference:** official Oracle 26ai Extract/Replicat/path/instantiation workflows.
 - **Historical:** linked Oracle 19c→26ai migration and other lab outcomes described in their own repositories.
-- **Reconstructed:** sample lab topology, dummy identifiers, test DML, teaching assessment and acceptance plan.
+- **Reconstructed:** sample lab topology, dummy identifiers, test DML, Operational acceptance review and acceptance plan.
 - **Not performed now:** full deployment, source and target changes, new replication success, downtime test or recovery exercise.
 
 ### Oracle documentation
@@ -298,4 +298,4 @@ Store sanitized copies of the topology, exact version/compatibility record, fina
 - [Oracle 26ai — Data Pump per-table instantiation](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/using-data-pump-automatic-table-instantiation-oracle-ma.html)
 - [Oracle 26ai — Replication components and checkpoints](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-data-replication-oracle-goldengate.html)
 
-**Completion:** Chapter 12 closes the **12-chapter draft curriculum**. The next project phase is not more core chapters: it is a unified command reference, cross-chapter technical accuracy audit, an evidence-backed lab execution, and teaching-ready handouts.
+**Completion:** Chapter 12 closes the **12-chapter engineering field guide**. The next project phase is not more core chapters: it is a unified command reference, cross-chapter technical accuracy audit, an evidence-backed lab execution, and teaching-ready handouts.
