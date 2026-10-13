@@ -99,7 +99,7 @@ Reference: [Oracle 26ai Parameters and Functions Reference (PDF)](https://docs.o
 
 ## 5. Collision handling — correction to reference material
 
-The instructor's reference material recap states that HANDLECOLLISIONS is enabled by default. **That is incorrect for the Oracle 26ai documented parameter: the default is NOHANDLECOLLISIONS.**
+**Oracle GoldenGate 26ai defaults to NOHANDLECOLLISIONS.**
 
 Oracle's collision feature can attempt to handle duplicate INSERT, missing UPDATE and missing DELETE situations associated with some initial-load workflows. It is not a general data-repair mechanism and may hide divergence. Actual behavior and compatibility depend on process type and version.
 
@@ -179,7 +179,7 @@ Example process and alias names are invented. These commands do not alter replic
 | Added table contains source rows but target empty | Missing initial load or skipped start position | Moving checkpoint to NOW |
 | Different target values | Mapping functions, defaults, value conversion, constraints | Declaring success from STATS counters |
 
-## 9. Teaching labs
+## 9. Validation labs
 
 **Lab A — parameter scoping:** Provide two TABLE statements and several IGNORE/GET directives. Ask the learner to trace which DML are captured and identify where an opposing directive must be placed. Check against release-specific documentation.
 
