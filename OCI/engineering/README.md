@@ -1,22 +1,23 @@
 # OCI Engineering Field Guide
 
-**Scope:** OCI tenancy baseline, Windows SSH access, public/private VCN networking and controlled Internet connectivity. These pages are independently authored operational references based on uploaded lab material and current Oracle documentation. They do not claim that new OCI resources were provisioned or tested as part of writing the guides.
+Operational references for OCI networking and secure Compute administration.
 
-## Engineering topics
+## Engineering references
 
-1. [01 — OCI Free Tier Account and Tenancy Baseline](01-oci-free-tier-account-and-tenancy-baseline.md) — account signup, identity/tenancy baseline, cost controls and resource eligibility.
-2. [02 — Windows SSH Key Management and Compute Access](02-windows-ssh-key-and-oci-instance-access.md) — new key generation, Compute public-key authorization, secure SSH, PuTTY and credential rotation.
-3. [03 — VCN, Public/Private Subnets, Internet and NAT Gateways](03-vcn-public-private-subnets-internet-nat-gateways.md) — route separation, NSGs, controlled bastion access, NAT egress and troubleshooting.
+- [01 — VCN, Public/Private Subnets, Internet and NAT Gateways](01-vcn-public-private-subnets-internet-nat-gateways.md) — tenancy and compartment checks, subnet design, route tables, NSGs, bastion access, NAT egress and failure isolation.
+- [02 — Windows SSH Key Management and OCI Compute Access](02-windows-ssh-key-and-oci-instance-access.md) — key management, Linux Compute access, PuTTY, restricted SSH ingress and diagnostics.
 
-## Evidence and security
+## Related implementation projects
 
-Reference procedures are not completed lab results. Add sanitized instance metadata, route and NSG details, test outputs, dates and change records only after executing them. Do **not** publish private SSH keys, payment details, tenancy administrator credentials or third-party instructor handouts.
+- [Oracle 19c to OCI migration and GoldenGate replication](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) — an independently documented Oracle 19c→26ai replication/migration lab with reported DML/DDL results. The currently published material is not a complete command-and-output record.
+- [Enterprise multicloud database platform](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure network integration, GoldenGate troubleshooting and other database engineering artifacts. Source capture/trail milestones are documented; SQL Server target apply is not yet evidenced end-to-end.
 
-The key pair included in the uploaded source material is excluded. If that private key was previously authorized on any system, rotate it and remove its public counterpart from authorized hosts.
+## Operational evidence standard
 
-## Oracle references
+Add only actual, sanitized host inventory, route/NSG states, commands, checkpoints, SQL results and incident reports. These references are not substitutes for project-specific test results.
 
-- [OCI Free Tier](https://docs.oracle.com/en-us/iaas/Content/FreeTier/freetier.htm)
-- [OCI Networking Security](https://docs.oracle.com/en-us/iaas/Content/Security/Reference/networking_security.htm)
+## Vendor documentation
+
+- [OCI VCNs and Subnets](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingVCNs.htm)
+- [Network security](https://docs.oracle.com/en-us/iaas/Content/Security/Reference/networking_security.htm)
 - [NAT Gateway](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/nat-create.htm)
-- [Route Tables](https://docs.oracle.com/en-us/iaas/Content/Network/Tasks/managingroutetables_topic-working.htm)
