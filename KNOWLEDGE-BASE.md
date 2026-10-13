@@ -16,7 +16,7 @@ This is a cross-repository index of technical references, procedures, incidents,
 ## Data Guard, RMAN and Oracle DBA
 - [Data Guard health-check script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/dataguard/dataguard_health_check.sh).
 - [Oracle DBA references](Oracle-DBA/README.md).
-- [Historical RMAN and OCI migration overview](README.md#engineering-projects): records and repeatable evidence remain to be consolidated.
+- [Historical RMAN and OCI migration overview](README.md#engineering-projects): historical migration and recovery scenarios; supporting technical records are being organized.
 
 ## OCI, Azure, AWS and migration architecture
 - [Enterprise multi-cloud engineering lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab).
@@ -28,12 +28,6 @@ This is a cross-repository index of technical references, procedures, incidents,
 - [Git and SSH references](DevOps/README.md).
 - [NGINX Docker / Kubernetes CI project](https://github.com/omoriwor-commits/nginx-devops-project).
 
-## Archive practice
+## Documentation standard
 
-Record each topic as **architecture reference**, **implementation runbook**, **incident investigation**, **validation evidence**, or **historical reconstruction**.
-
-Every technical record should cover: context; prerequisites; architecture; exact sanitized commands where known; why each step matters; expected results; observed results; diagnostic reasoning; verification; recovery or rollback; and lessons learned.
-
-Clearly mark whether a result was **verified in a documented lab**, **reported from historical work**, **under investigation**, **planned**, or **reference only**. Preserve old experience without inventing missing outputs or claiming that planned work succeeded.
-
-Use [the technical record template](docs/TECHNICAL-RECORD-TEMPLATE.md). Put original execution evidence in its project repository; link to it from this index rather than duplicating it. Exclude passwords, keys, confidential employer or client information, and unsanitized logs.
+New technical material is documented through the [technical record template](docs/TECHNICAL-RECORD-TEMPLATE.md). Original execution records remain in their project repositories and are linked from this index to avoid conflicting copies.

@@ -10,9 +10,9 @@ These are independent hands-on lab projects. The current goal is to bring the st
 
 Migration exercises using **RMAN, Oracle Data Pump, and GoldenGate** with OCI Base Database Service. Sanitized scripts and output will be added to this repository.
 
-### RMAN backup and recovery — completed historical lab exercises
+### RMAN backup and recovery — historical lab exercises
 
-Full and incremental backup, restore, and point-in-time recovery scenarios. The next documentation milestone is to publish sanitized RMAN scripts, relevant logs, and recovery validation from preserved lab records or repeatable local tests.
+Full and incremental backup, restore, and point-in-time recovery scenarios. Exercises included full and incremental backup, restore, and point-in-time recovery. Reusable commands and sanitized validation records are being consolidated.
 
 ### Oracle 19c → Oracle AI Database 26ai — GoldenGate migration
 
@@ -28,7 +28,7 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
 
 **Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, and DDL replication in the lab. Sanitized configuration and test output will be added to the project repository.
 
-### OCI → Azure heterogeneous CDC — captured and tested; target apply in progress when lab ended
+### OCI → Azure heterogeneous CDC — validated source capture and target connectivity
 
 [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 
@@ -40,7 +40,7 @@ OCI Oracle 26ai
    -> Azure SQL Server 2022
 ```
 
-The documented lab validated VPN/BGP connectivity, the Oracle GoldenGate Extract and trail, SQL Server access, and target-side Replicat preparation. **End-to-end SQL Server apply was not completed in the published record.** The cloud environment is no longer active.
+Validated OCI–Azure VPN/BGP connectivity, Oracle GoldenGate Extract and trail generation, private SQL Server connectivity, and target-side replication prerequisites. SQL Server Replicat apply remained incomplete when the cloud lab concluded.
 
 ### Oracle RAC / ASM — two-node local lab
 
@@ -48,11 +48,11 @@ The documented lab validated VPN/BGP connectivity, the Oracle GoldenGate Extract
 
 Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
 
-Operational code: [RAC health-check script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/oracle-rac/rac_health_fixed.py). The script is a published lab artifact; it is not evidence of completed post-incident RAC recovery.
+Operational code: [RAC health-check Python script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/oracle-rac/rac_health_fixed.py). The [incident report](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md) records the outstanding cluster-wide validation.
 
 ### Oracle Data Guard — health-check automation
 
-[Data Guard health-check Bash script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/dataguard/dataguard_health_check.sh) provides a concrete operational automation artifact for the HA/DR workstream.
+[Data Guard health-check Bash script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/dataguard/dataguard_health_check.sh) implements database role detection and checks for redo transport, apply lag, archive gaps, archive destinations, and broker connectivity. Published as an operational command pack; full lab validation remains pending.
 
 ## Featured project — Oracle Database Platform Automation
 
@@ -83,7 +83,8 @@ Monitoring, validation, runbooks, and recovery testing
 | Historical Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
 | OCI–Azure VPN, Extract, and SQL connectivity | Validated in historical lab |
 | SQL Server Replicat end-to-end apply | Incomplete in historical lab |
-| Automated Oracle health checks and RMAN controls | Next implementation phase |
+| Oracle health-check automation | Data Guard Bash and RAC Python scripts published; validation in progress |
+| RMAN automation and recovery controls | Planned integration |
 | Terraform / Ansible infrastructure automation | Planned |
 | Database CI/CD with GitHub Actions | Planned |
 | Prometheus / Grafana monitoring | Planned |
