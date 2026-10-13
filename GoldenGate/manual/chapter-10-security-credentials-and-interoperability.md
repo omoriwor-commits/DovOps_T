@@ -114,7 +114,7 @@ Vendor: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference
 
 ## 7. Classic to MA — plan around the security limitation
 
-Day 15 presents a data pump with remote target Receiver and RMTTRAIL. The 26ai interoperability guide clarifies direct Classic→MA requires an unsecured MA deployment and exposed Receiver ingress port. Do not assume this is acceptable for production merely because it was shown in class.
+A legacy Classic data pump can target an MA Receiver only under Oracle's documented mixed-mode conditions. The 26ai interoperability guide identifies an unsecured MA deployment and Receiver ingress requirement; this arrangement requires explicit security review and is not a default production recommendation.
 
 Oracle offers a **Classic-to-Microservices Migration Utility** for supported older Classic releases. Migration requires a prepared and running MA deployment, compatible source build, shutdown of Classic services, checkpoint/trail preservation and migration planning. Migration utility work is change-controlled; no example in this chapter constitutes evidence of an executed conversion.
 
