@@ -1,10 +1,10 @@
 # 02 — Windows SSH Key Management and OCI Compute Access
 
-**Scope:** Secure SSH key creation on Windows, OCI public-key provisioning, Linux instance network access and troubleshooting. Examples use nonfunctional identifiers and do not contain any original private-key material.
+**Scope:** Windows SSH key management, OCI Compute public-key authorization, Linux instance access and incident diagnostics.
 
 ## 1. Access design
 
-A Windows workstation maintains the **private** SSH key. OCI Compute receives only the matching **public** key during instance creation. The Linux OS image and authorized_keys configuration determine the actual login account. For Oracle Linux images the typical account is \`opc\`; verify the selected image rather than trying arbitrary users.
+A Windows workstation maintains the **private** SSH key. OCI Compute receives only the matching **public** key during instance creation. The Linux OS image and authorized_keys configuration determine the actual login account. For Oracle Linux images the typical account is `opc`; verify the selected image rather than trying arbitrary users.
 
 Recommended flow:
 
@@ -30,13 +30,13 @@ ssh -V
 ssh-keygen -t ed25519 -a 100 -C "oci-lab-windows" -f "$env:USERPROFILE\.ssh\id_ed25519_oci_lab"
 ~~~
 
-Use a strong passphrase and store the private key only in a protected local directory. Upload or paste **only** the contents of the \`.pub\` file into the OCI instance provisioning form:
+Use a strong passphrase and store the private key only in a protected local directory. Upload or paste **only** the contents of the `.pub` file into the OCI instance provisioning form:
 
 ~~~powershell
 Get-Content "$env:USERPROFILE\.ssh\id_ed25519_oci_lab.pub"
 ~~~
 
-Do not share the output of \`Get-Content\` for the file **without** \`.pub\`. If the image or tool requires RSA, generate a release-appropriate RSA key instead; never reuse a previously exposed key pair.
+Do not share the output of `Get-Content` for the file **without** `.pub`. If the image or tool requires RSA, generate a release-appropriate RSA key instead; never reuse a previously exposed key pair.
 
 ## 3. Provision the OCI Linux instance
 
@@ -53,7 +53,7 @@ A public subnet, public IP, Internet Gateway route and security rule are separat
 
 ## 4. Restrict SSH ingress
 
-Use a network security group or correctly scoped security list. For direct SSH to a public lab VM, allow **TCP destination port 22 only from your current trusted public IP address /32** (or a defined corporate/VPN CIDR). Avoid the sample PDF's unrestricted \`0.0.0.0/0\` SSH rule.
+Use a network security group or correctly scoped security list. For direct SSH to a public lab VM, allow **TCP destination port 22 only from your current trusted public IP address /32** (or a defined corporate/VPN CIDR). Avoid unrestricted `0.0.0.0/0` SSH ingress.
 
 Confirm the instance OS firewall also allows authorized access. Close or remove temporary SSH access after testing.
 
@@ -63,22 +63,22 @@ Confirm the instance OS firewall also allows authorized access. Close or remove 
 ssh -i "$env:USERPROFILE\.ssh\id_ed25519_oci_lab" opc@<INSTANCE_PUBLIC_IP>
 ~~~
 
-Replace \`<INSTANCE_PUBLIC_IP>\` with the instance's actual public IP. On first connection, verify the server host-key fingerprint through an independent trusted channel before accepting it.
+Replace `<INSTANCE_PUBLIC_IP>` with the instance's actual public IP. On first connection, verify the server host-key fingerprint through an independent trusted channel before accepting it.
 
 If the Windows private-key ACL is too permissive, remove unnecessary access for other users; marking a file *read-only* alone does not secure its ACL.
 
 ## 6. PuTTY alternative
 
-The uploaded SSH document also demonstrates a PuTTY connection. For a PuTTY workflow:
+For a PuTTY workflow:
 
 1. Install the supported PuTTY suite from its official site.
 2. Use PuTTYgen to generate a secure new key pair or import a compatible private key under your control.
-3. Save the PuTTY private key locally as \`.ppk\`; protect it and use a passphrase.
-4. Configure the target as \`opc@<INSTANCE_PUBLIC_IP>\` or specify the username separately.
+3. Save the PuTTY private key locally as `.ppk`; protect it and use a passphrase.
+4. Configure the target as `opc@<INSTANCE_PUBLIC_IP>` or specify the username separately.
 5. Under SSH authentication, select the corresponding private key.
 6. Verify the server host-key fingerprint before accepting it.
 
-Do not upload a \`.ppk\` or other private key to GitHub.
+Do not upload a `.ppk` or other private key to GitHub.
 
 ## 7. SSH troubleshooting
 
@@ -90,15 +90,9 @@ Do not upload a \`.ppk\` or other private key to GitHub.
 | Public instance works, private instance fails | Bastion/private routing, target NSG source, authorized account |
 | PuTTY key not accepted | Imported key format, PPK selection, matching public key and SSH version |
 
-Use \`ssh -vvv\` locally for controlled debugging, but redact user/host identifiers and avoid posting complete sensitive logs.
+Use `ssh -vvv` locally for controlled debugging, but redact user/host identifiers and avoid posting complete sensitive logs.
 
-## 8. Credential exposure incident rule
-
-A companion uploaded document includes a **complete RSA private key**. Treat that key as exposed. If it has ever been installed on an OCI VM, GitHub, bastion or other host, generate a fresh key and replace/remove the old public key in every relevant \`authorized_keys\` file using an authenticated recovery method. Protect access while changing authorized keys; test the new key before removing the only functioning administrative entry.
-
-**Do not copy the uploaded RSA private/public key into this repository, a worksheet or a screenshot.**
-
-## 9. Verification evidence
+## 8. Verification evidence
 
 ~~~text
 Windows SSH client version:
@@ -109,7 +103,7 @@ Public IP (redacted if required):
 Authorized source CIDR for TCP/22:
 Host fingerprint verification method:
 SSH login result:
-Key-rotation status for any exposed prior key:
+Authorized-key lifecycle review:
 Outstanding issue:
 Status: PENDING / VERIFIED WITH EVIDENCE
 ~~~
@@ -120,4 +114,3 @@ Status: PENDING / VERIFIED WITH EVIDENCE
 - OCI Networking security: https://docs.oracle.com/en-us/iaas/Content/Security/Reference/networking_security.htm
 - OCI Bastion: https://docs.oracle.com/en-us/iaas/Content/Bastion/Concepts/bastionoverview.htm
 
-**Source basis:** Uploaded Windows SSH setup PDF and Windows key-pair example. The instructions have been independently rewritten and security-hardened; original private-key bytes have been omitted.
