@@ -2,7 +2,7 @@
 
 > **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 
-## Learning outcomes
+## Scope and migration criteria
 
 After completing this chapter, learners can distinguish existing-data instantiation from continuous CDC, explain SCN and CSN, select Data Pump or file-based initial load, align baseline and change capture, choose correct Replicat positioning, test row consistency, plan cutover and rollback, and identify invalid shortcut assumptions.
 
@@ -29,7 +29,7 @@ Cutover:                                                 quiesce/switch
 - **Capture registration SCN:** database position relevant to integrated capture registration.
 - **Replicat checkpoint:** durable apply progress; not proof of correct snapshot alignment.
 
-Training reference material records this diagnostic:
+Read-only inspection of the source database:
 
 ```sql
 SHOW CON_NAME;
@@ -104,11 +104,11 @@ EXTRACT LOAD1
 USERIDALIAS ggadmin_cdb DOMAIN OracleGoldenGate
 RMTHOST target.example.invalid, PORT 7833
 RMTFILE /approved/target/path/loadfile
-TABLE PDB1.GGTRAINING1.DEPT11;
-TABLE PDB1.GGTRAINING1.EMP11;
+TABLE PDB1.APP_SRC.DEPARTMENTS;
+TABLE PDB1.APP_SRC.EMPLOYEES;
 ```
 
-**Caution:** sample paths, port, remote-file method and credentials require release-specific verification. The reference material statement that MSA initial load involves no Distribution Service is not universal: Oracle's precise-instantiation procedure also documents an initial-load trail moved through Distribution Paths. The supported topology determines the method.
+**Caution:** sample paths, port, remote-file method and credentials require release-specific verification. Microservices initial-load topologies differ: Oracle also documents an initial-load trail transported through Distribution Paths. The supported topology determines the method.
 
 **Procedure logic, not a ready-to-run script:**
 
@@ -200,12 +200,12 @@ Approved go/no-go and application switch time:
 First target production write and measured downtime:
 Rollback cutoff and target-only change strategy:
 Evidence reference and owner:
-Lab validation: NOT EXECUTED IN THIS CHAPTER
+Lab validation status: Pending execution and recorded results
 ```
 
-## Provenance and Oracle references
+## Oracle references and validation requirements
 
-**Original course:** reference material GoldenGate Hub/file-based initial load, reference material basic SCN/AFTERCSN migration sketch. Both are preserved separately. They are **not** evidence of a complete migration or a safe standalone cutover procedure.
+**Implementation requirement:** File-based initial load and SCN-based cutover require a documented consistent snapshot, supported trail topology, position/instantiation metadata and source-target reconciliation.
 
 **Oracle 26ai guidance:**
 
