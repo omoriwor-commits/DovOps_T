@@ -229,7 +229,7 @@ Path lag and checkpoint snapshots:
 Redacted error/report files:
 Intentional filtering (if any):
 Target Replicat apply: NOT COVERED BY THIS CHAPTER
-Quality label: instructor sample / vendor reference / lab-tested with attached evidence
+Quality label: illustrative configuration / vendor reference / lab-tested with attached evidence
 ```
 
 ## Source classification and next chapter
