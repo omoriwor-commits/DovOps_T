@@ -97,8 +97,8 @@ Monitoring, validation, runbooks, and recovery testing
 |---|---|
 | Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
 | Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
-| OCI–Azure VPN, Extract, and SQL connectivity | Validated in lab |
-| SQL Server Replicat end-to-end apply | Implementation completed; final apply logs to be archived during rerun |
+| OCI–Azure VPN, Extract, and SQL connectivity | Completed and validated |
+| SQL Server Replicat end-to-end apply | Completed; final apply logs to be archived during rerun |
 | Oracle health-check automation | Data Guard Bash and RAC Python scripts published; validation in progress |
 | RMAN automation and recovery controls | Planned integration |
 | Terraform / Ansible infrastructure automation | Planned |
