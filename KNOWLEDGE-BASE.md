@@ -1,6 +1,6 @@
 # Oracle Database Engineering Knowledge Base
 
-This is a cross-repository index of technical references, procedures, incidents, and historical engineering records. The [main README](README.md) is the public portfolio; the [Platform Automation roadmap](Oracle-Database-Platform-Automation/README.md) describes ongoing integrated work.
+This is a cross-repository index of technical references, procedures, incidents, and engineering records. The [main README](README.md) is the public portfolio; the [Platform Automation roadmap](Oracle-Database-Platform-Automation/README.md) describes ongoing integrated work.
 
 ## GoldenGate
 - [Six deployment methodologies](GoldenGate/six-deployment-methodologies.md): process placement patterns, selection criteria and the selected migration topology.
@@ -16,7 +16,7 @@ This is a cross-repository index of technical references, procedures, incidents,
 ## Data Guard, RMAN and Oracle DBA
 - [Data Guard health-check script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/dataguard/dataguard_health_check.sh).
 - [Oracle DBA references](Oracle-DBA/README.md).
-- [Historical RMAN and OCI migration overview](README.md#engineering-projects): historical migration and recovery scenarios; supporting technical records are being organized.
+- [RMAN and OCI migration overview](README.md#engineering-projects): migration and recovery scenarios; supporting technical records are being organized.
 
 ## OCI, Azure, AWS and migration architecture
 - [Enterprise multi-cloud engineering lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab).
