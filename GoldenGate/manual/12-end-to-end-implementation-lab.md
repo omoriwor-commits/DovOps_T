@@ -298,4 +298,4 @@ Store sanitized topology diagrams, release and compatibility records, parameter 
 - [Oracle 26ai — Data Pump per-table instantiation](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/using-data-pump-automatic-table-instantiation-oracle-ma.html)
 - [Oracle 26ai — Replication components and checkpoints](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-data-replication-oracle-goldengate.html)
 
-**Follow-up work:** Consolidate a command reference, review release-specific syntax across chapters, and attach execution evidence from the end-to-end lab.
+**Follow-up work:** Consolidate a command reference, review release-specific syntax across topics, and attach execution evidence from the end-to-end lab.
