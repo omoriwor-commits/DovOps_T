@@ -239,7 +239,7 @@ Replication result: VERIFIED / FAILED / PARTIAL / NOT TESTED
 Evidence file references (sanitized):
 ~~~
 
-## 11. Teaching review questions
+## 11. Operational review questions
 
 1. What does the Oracle integrated inbound server do?
 2. Why is creating a checkpoint table useful for restart recovery?
