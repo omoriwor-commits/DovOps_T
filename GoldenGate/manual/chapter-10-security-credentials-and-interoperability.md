@@ -48,7 +48,7 @@ Vendor: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-a
 
 ## 3. Never copy or directly modify a GoldenGate credential store
 
-The Day 4 recap proposes restoring Service Manager access by replacing wallet files from a dummy deployment. **Reject this as an operational procedure.** Oracle's 26ai authentication documentation explicitly says the credential store is read-only for direct manipulation, including copying it from one deployment to another. Manage credentials through supported Admin Client, REST or WebUI actions. Forgotten-admin-password recovery must follow a vendor-supported process specific to the actual installation.
+The an unsafe wallet-copy workaround proposes restoring Service Manager access by replacing wallet files from a dummy deployment. **Reject this as an operational procedure.** Oracle's 26ai authentication documentation explicitly says the credential store is read-only for direct manipulation, including copying it from one deployment to another. Manage credentials through supported Admin Client, REST or WebUI actions. Forgotten-admin-password recovery must follow a vendor-supported process specific to the actual installation.
 
 Protect credential wallets, TLS private keys, database passwords, populated response files and backups from general access. Rotate credentials promptly when leakage is suspected; deleting a password from the current repository commit does not remove prior Git history.
 
@@ -132,7 +132,7 @@ Vendor: https://docs.oracle.com/en/database/goldengate/core/26/coredoc/migration
 | Old trails not delivered | Checkpoints, source and target sequence/RBA, path/Collector logs | Reposition NOW or delete trails |
 | Secret committed to Git | Revoke and rotate, investigate exposure and Git history | Deleting only the newest file version |
 
-## 9. Teaching exercises
+## 9. Lab validation scenarios
 
 **A — Identity boundaries:** List separate OS, GoldenGate administration, source capture, target apply and transport users; specify the minimum access each needs.
 
