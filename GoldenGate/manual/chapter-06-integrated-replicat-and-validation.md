@@ -1,8 +1,7 @@
 # Chapter 6 — Integrated Replicat, Target Apply and End-to-End Validation
 
-> **Evidence status:** Oracle GoldenGate 26ai vendor-referenced teaching manual; no live setup or target reconciliation performed for this chapter. Commands are illustrative, not recovered historical command transcripts.
+> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 >
-> **Source separation:** Training Day 9 covers basic Replicat workflow; Days 10–12 cover lag, parameters and collision claims; Day 13 contains a separate file-based initial-load Replicat example; Day 14 discusses SCN cutover. The procedures below are independently expanded using Oracle 26ai documentation, not presented as verbatim instructor notes.
 
 ## Learning goals
 
@@ -215,7 +214,7 @@ When schemas differ, substitute the target owner/table. Use a unique test identi
 | Apply lag grows | Target database load, contention, inbound apply workers, constraints, large transaction, trail backlog | Restarting repeatedly without identifying reason |
 | Gap/missing target trail sequence | Receiver output, purging, disk retention and checkpoint | Deleting trails or skipping sequences |
 
-**Collision-handling clarification:** The Day 12 recap's claim that HANDLECOLLISIONS is enabled by default should not be carried into the manual as a verified fact. Handling duplicates/missing rows can be helpful in particular initial synchronization strategies, but permanent suppression can conceal actual data divergence. Review the precise Oracle parameter and default for the installed build.
+**Collision-handling clarification:** The reference material recap's claim that HANDLECOLLISIONS is enabled by default should not be carried into the manual as a verified fact. Handling duplicates/missing rows can be helpful in particular initial synchronization strategies, but permanent suppression can conceal actual data divergence. Review the precise Oracle parameter and default for the installed build.
 
 ## 10. Evidence form for an actual teaching lab
 
@@ -254,7 +253,7 @@ Evidence file references (sanitized):
 ## Evidence state
 
 - **Vendor-confirmed:** Integrated Replicat mode, ADD REPLICAT syntax, checkpoint table guidance, GUI steps.
-- **Training-derived:** Replicat process overview, log/lag/collision discussion, initial-load distinction.
+- **reference-derived:** Replicat process overview, log/lag/collision discussion, initial-load distinction.
 - **Reconstructed:** all test schema names, process names, statements and expected states.
 - **Pending:** new lab execution; real Replicat process report; row-by-row reconciliation.
 
@@ -264,6 +263,5 @@ Evidence file references (sanitized):
 - [Add a Replicat — Microservices procedure](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/replicat-add-replicat_procedure.html)
 - [Before Adding Extract and Replicat Processes — checkpoint table](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/configure-ogg-adding-extract-and-replicat.html)
 - [Configure Oracle GoldenGate Environment](https://docs.oracle.com/en/database/goldengate/core/26/ggmah/task-2-configure-oracle-goldengate-environment.html)
-- [Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md)
 
 **Next:** Chapter 7 — Initial Load, SCN/CSN Instantiation and Migration Cutover.
