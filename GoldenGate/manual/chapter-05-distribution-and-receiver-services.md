@@ -103,7 +103,7 @@ ADD DISTPATH src_to_tgt
   AUTHENTICATION USERIDALIAS tgt_transport DOMAIN OracleGoldenGate
 ```
 
-**This is a reconstructed example** based on documented syntax; no connection, hostnames or alias in this example exist by implication. Replace values only with approved deployment endpoints and configured credentials. A trailing path/URI layout can be deployment-specific; verify resolved locations in the current Oracle release. For receiver authentication, assign an appropriately scoped administrative/operator identity and protect the alias.
+**Configuration requirement:** Use approved deployment endpoints, valid credential aliases and the Oracle-documented URI format for the installed release. Restrict receiver authentication to an appropriately scoped operator identity.
 
 | Clause | Purpose |
 |---|---|
@@ -229,14 +229,14 @@ Path lag and checkpoint snapshots:
 Redacted error/report files:
 Intentional filtering (if any):
 Target Replicat apply: NOT COVERED BY THIS CHAPTER
-Quality label: illustrative configuration / vendor reference / lab-tested with attached evidence
+Validation record: configured path, source/target checkpoints, receiver trail sequence and observed delivery results
 ```
 
 ## Implementation status and next chapter
 
 - **Reference coverage:** transport paths, Receiver service, checkpoints, filtering and Classic interoperability; test results must be documented separately.
 - **Oracle-documented:** ADD/START/INFO DISTPATH, target-initiated paths, transport filtering, monitoring controls.
-- **Reconstructed:** example URIs, test path, test credential alias.
+- **Examples:** URI, path and alias identifiers are placeholders.
 - **Not yet tested here:** any newly configured GoldenGate environment or transport path.
 
 **Next:** Chapter 6 — Replicat setup, target apply, checkpoints and end-to-end INSERT/UPDATE/DELETE validation.
