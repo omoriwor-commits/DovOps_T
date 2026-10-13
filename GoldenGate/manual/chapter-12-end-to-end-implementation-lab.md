@@ -4,7 +4,7 @@
 
 ## Scope and acceptance criteria
 
-By completion, a student should be able to design an Oracle GoldenGate topology, deploy and secure two Microservices environments, prepare a source and target database, configure Integrated Extract and Replicat, transport changes, establish a consistent initial load, validate committed INSERT/UPDATE/DELETE transactions, troubleshoot a controlled failure, and archive reproducible evidence.
+This implementation plan covers secure Microservices deployment, Oracle database preparation, Integrated Extract and Replicat, trail delivery, consistent initial load, committed DML validation, controlled failure recovery and reproducible evidence.
 
 **Pass only with evidence:** correct version/platform support, repeatable deployment, successful initial baseline, successful target DML checks at *each* stage, stable restart/recovery checkpoints, and no unexplained differences. `RUNNING` status is necessary but insufficient.
 
@@ -253,7 +253,7 @@ Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) befor
 ## 7. Evidence submission template
 
 ```text
-Student / lab owner / date / timezone:
+Lab owner / date / timezone:
 GoldenGate exact build and Oracle DB source/target releases:
 Host OS and source/target deployments:
 Network/TLS verification and OS user model:
