@@ -15,6 +15,12 @@ GoldenGate/
 └── troubleshooting/
 ```
 
+## Training and operations references
+
+- [Training source archive: sessions 1–17](training/README.md) — indexed originals preserved in Google Drive.
+- [GoldenGate Engineering Manual](manual/README.md) — technical concepts, selected syntax, review cautions and implementation checklist.
+- [Six deployment methodologies](six-deployment-methodologies.md) — placement and trade-offs.
+
 ## Focus Areas
 
 - GoldenGate installation
