@@ -19,7 +19,7 @@ OCI instance public IP (if public subnet + approved access)
 Authorized Linux account / ~/.ssh/authorized_keys
 ~~~
 
-Private instances have no public IP and should be reached through an approved bastion or private network route, as shown in Topic 03.
+Private instances have no public IP and should be reached through an approved bastion or private network route, as described in [01 — VCN, Subnets and Gateways](01-vcn-public-private-subnets-internet-nat-gateways.md).
 
 ## 2. Generate a new key pair in Windows
 
