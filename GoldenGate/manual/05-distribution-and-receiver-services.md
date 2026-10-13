@@ -5,7 +5,7 @@
 
 ## Scope and verification
 
-After studying this chapter, the reader can explain transport roles, identify trail endpoints, distinguish source-initiated and target-initiated paths, configure a controlled path using the Microservices GUI or Admin Client, interpret lag/checkpoints, identify networking and authentication faults, and collect transport evidence without claiming the target has applied the data.
+This page covers transport roles, identify trail endpoints, distinguish source-initiated and target-initiated paths, configure a controlled path using the Microservices GUI or Admin Client, interpret lag/checkpoints, identify networking and authentication faults, and collect transport evidence without claiming the target has applied the data.
 
 ## 1. Transport is separate from capture and apply
 
@@ -228,11 +228,11 @@ Receiver trail progression:
 Path lag and checkpoint snapshots:
 Redacted error/report files:
 Intentional filtering (if any):
-Target Replicat apply: NOT COVERED BY THIS CHAPTER
+Target Replicat apply: Covered in 06 — Integrated Replicat and Validation
 Validation record: configured path, source/target checkpoints, receiver trail sequence and observed delivery results
 ```
 
-## Implementation status and next chapter
+## Status and next topic
 
 - **Reference coverage:** transport paths, Receiver service, checkpoints, filtering and Classic interoperability; test results must be documented separately.
 - **Oracle-documented:** ADD/START/INFO DISTPATH, target-initiated paths, transport filtering, monitoring controls.
