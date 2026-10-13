@@ -37,7 +37,7 @@ ss -lnt             # listening TCP sockets / port collisions
 
 Before installing, complete a baseline: **host, release, exact GoldenGate 26ai build, source/target Oracle versions, Oracle multitenant connection/service, supported-platform matrix, software user/group, storage plan, service ports, TLS certificate plan, TNS_ADMIN, rollback and restart ownership**.
 
-Check Oracle's exact release documentation and entitlement before changing anything. The original instructor's training VM is not evidence that a particular installer procedure was executed.
+Check Oracle's exact release documentation and entitlement before changing anything. A sample virtual machine configuration is not evidence of a completed installation.
 
 ## 3. Installation account and filesystem layout
 
