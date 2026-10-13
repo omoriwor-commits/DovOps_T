@@ -8,6 +8,10 @@
 2. [Chapter 2 — Installation and Microservices Deployment](chapter-02-installation-and-microservices-deployment.md) — prerequisites, installation options, OGGCA, Service Manager lifecycle, security and lab validation.
 3. [Chapter 3 — Oracle Database Preparation](chapter-03-oracle-database-preparation.md) — CDB/PDB scope, ARCHIVELOG, privileges, supplemental logging, credentials and SQL verification.
 
+4. [Chapter 4 — Integrated Extract and Source Trails](chapter-04-integrated-extract-and-source-trails.md) — capture registration, parameters, trails and checkpoint diagnostics.
+
+5. [Chapter 5 — Distribution and Receiver Services](chapter-05-distribution-and-receiver-services.md) — secure network path setup, trail transport, filtering and monitoring.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
