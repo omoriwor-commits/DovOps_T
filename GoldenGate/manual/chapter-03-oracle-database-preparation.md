@@ -1,26 +1,21 @@
 # Chapter 3 — Prepare Oracle Databases for GoldenGate 26ai
 
-> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
->
->
-> **Scope:** Oracle-to-Oracle logical replication. Confirm exact supported source/target versions and GoldenGate release before deployment.
+**Scope:** Oracle-to-Oracle replication preparation, with version-specific logging, identity and supplemental logging requirements. Commands are reference procedures; record execution and validation separately.
 
 ## Scope and acceptance criteria
 
-1. Distinguish CDB/root versus PDB configuration and privileges.
-2. Diagnose role, open mode, logging, database identity, keys and GoldenGate settings with read-only SQL.
-3. Explain why Extract needs archived redo, supplemental identification columns and an appropriate capture account.
-4. Compare minimal/subset database logging, table logging, and schema logging.
-5. Plan least-privilege GoldenGate administration and credential aliases.
-6. Document changes, rollback considerations and postchange evidence.
+- Confirm CDB/root versus PDB configuration and privileges.
+- Diagnose role, open mode, logging, database identity, keys and GoldenGate settings with read-only SQL.
+- Explain why Extract needs archived redo, supplemental identification columns and an appropriate capture account.
+- Compare minimal/subset database logging, table logging, and schema logging.
+- Plan least-privilege GoldenGate administration and credential aliases.
+- Document changes, rollback considerations and postchange evidence.
 
 ## 1. How the Oracle database and GoldenGate fit together
 
 The source Oracle database generates redo; a configured Extract captures eligible changes and writes trails. GoldenGate depends on compatible database mode, redo availability, adequate supplemental identification columns, privileges, and a planned extraction position. A target database needs the appropriate Replicat connectivity, permissions and object definitions; it does not necessarily require identical capture-side logging unless replication may reverse or that feature requires it.
 
-**Training source:** reference material introduced `enable_goldengate_replication`, C##-prefixed common accounts, `DBMS_GOLDENGATE_AUTH`, supplemental logging and ARCHIVELOG; reference material expanded supplemental logging; reference material showed `DBA_CAPTURE` for integrated Extract verification.
-
-**Vendor review:** Oracle's 26ai guidance distinguishes database-level minimal/subset replication logging and schema/table logging; not every environment should turn on unconditional ALL-column logging. [Oracle: Transaction Log Settings and Requirements](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/prepare-transaction-logs-settings-and-requirements-ogg-oracle.html).
+**Oracle documentation:** GoldenGate 26ai guidance distinguishes database-level minimal/subset replication logging and schema/table logging; not every environment should turn on unconditional ALL-column logging. [Oracle: Transaction Log Settings and Requirements](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/prepare-transaction-logs-settings-and-requirements-ogg-oracle.html).
 
 ## 2. Identify the execution context BEFORE a change
 
@@ -68,7 +63,7 @@ ORDER BY table_name, log_group_name, position;
 
 ## 4. ARCHIVELOG and forced logging
 
-The session recap proposes changing database log mode after a shutdown/startup mount. **Do not execute that sequence as a general-purpose production instruction**: switching ARCHIVELOG mode can require outage, recovery planning and standby/backup coordination. Confirm existing mode first.
+Changing the database's ARCHIVELOG mode may require an outage and coordination with RMAN backups, standby databases, and recovery objectives. Inspect the current mode first; schedule any mode change as a separate approved database operation.
 
 ```sql
 -- READ ONLY
@@ -142,7 +137,7 @@ Admin Client/web service connection and syntax must correspond to the actual Gol
 
 ## 7. GoldenGate database account design and privileges
 
-The training's common-user example uses a `C##` account and grants `DBA` as well as calling `DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE`. Treat the blanket DBA grant as **a training shortcut, not recommended production policy**.
+A common user may be needed for particular CDB-wide capture topologies; privilege procedures depend on the database release. Do not grant `DBA` simply to make capture work. For supported earlier Oracle releases, review `DBMS_GOLDENGATE_AUTH.GRANT_ADMIN_PRIVILEGE`; Oracle AI Database 26ai uses its documented `OGG_CAPTURE`/`OGG_APPLY` model instead.
 
 Plan these identities individually:
 
@@ -162,7 +157,7 @@ Reference: [Oracle — Configure Source/Target and Replication Administrator](ht
 
 ## 8. Credential aliases and connection validation
 
-reference material describes adding a database credential under the GoldenGate Administration Service **DB Connections** area. This separates a reusable alias from repeated plaintext passwords in process configuration.
+Create the approved database credential under Administration Service **DB Connections**. This separates a reusable alias from repeated plaintext passwords in process configuration.
 
 Example of a **nonsecret** Admin Client pattern:
 
@@ -174,7 +169,7 @@ DBLOGIN USERIDALIAS gg_source
 
 ## 9. Integrated Extract readiness
 
-reference material provides:
+Use this read-only capture inventory query after connecting to the intended database:
 
 ```sql
 SELECT capture_name FROM dba_capture;
@@ -194,17 +189,15 @@ It helps inspect database-side registered capture processes, but a zero-row resu
 6. Write a validation plan for connection, registrations, logging coverage, trail generation, apply and row-level reconciliation.
 7. Mark all SQL-changing commands as **pending authorization**. Do not execute them as part of this read-only exercise.
 
-**Review questions:** Why is ARCHIVELOG distinct from supplemental logging? Why does `SHOW CON_NAME` matter before granting users or changing settings? Why does `DBA_CAPTURE` not prove target correctness? What does schema-level logging offer during schema evolution?
-
-**Answer guide:** Archived redo retention versus extra logical row identity; multitenant scope and grants vary by container; registration is only one pipeline element; schema logging can include newly created tables and key changes when supported.
+**Verification points:** ARCHIVELOG concerns archived redo availability, while supplemental logging provides row identification; container context controls the scope of configuration and grants; DBA_CAPTURE registration alone does not demonstrate target correctness; schema-level logging may cover newly created tables when appropriately configured.
 
 ## 11. Validation and evidence standard
 
 | Requirement | Status |
 |---|---|
-| Training source preserved | Yes — original handouts in Drive |
+| Reference materials | Oracle documentation linked below |
 | Oracle 26ai logging options cross-checked | Yes — vendor reference |
-| Read-only SQL examples provided | Yes — not executed here |
+| Read-only SQL examples | Available; run and retain results in the lab |
 | Vendor-appropriate account grant plan drafted | Incomplete pending chosen topology |
 | ARCHIVELOG change tested in lab | Not tested |
 | Supplemental logging enabled and validated on a lab source | Not tested |
