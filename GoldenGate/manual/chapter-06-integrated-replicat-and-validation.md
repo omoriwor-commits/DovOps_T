@@ -219,7 +219,7 @@ When schemas differ, substitute the target owner/table. Use a unique test identi
 ## 10. Evidence form for an actual teaching lab
 
 ~~~text
-Date / author / instructor:
+Date / operator / reviewer:
 Oracle DB source and target versions, CDB/PDB:
 GoldenGate build:
 Extract name and source trail:
