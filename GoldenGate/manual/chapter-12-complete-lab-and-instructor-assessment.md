@@ -1,8 +1,8 @@
-# Chapter 12 — Complete Oracle GoldenGate Implementation Lab and Instructor Assessment
+# Chapter 12 — GoldenGate Implementation and Operational Acceptance
 
 > **Final core chapter · Status: lab design / NOT EXECUTED.** This chapter brings together Chapters 1–11 into a reproducible Oracle-to-Oracle Microservices teaching project. It does **not** claim that the sample installation, SQL, processes or validation results were executed. Original Days 1–17 notes remain unchanged in Drive. Oracle release-specific prerequisites and instructions are linked below.
 
-## Learning objectives and pass criteria
+## Scope and acceptance criteria
 
 By completion, a student should be able to design an Oracle GoldenGate topology, deploy and secure two Microservices environments, prepare a source and target database, configure Integrated Extract and Replicat, transport changes, establish a consistent initial load, validate committed INSERT/UPDATE/DELETE transactions, troubleshoot a controlled failure, and archive reproducible evidence.
 
@@ -226,7 +226,7 @@ STATS REPLICAT REPLAB
 
 Consult [Chapter 8](chapter-08-monitoring-lag-checkpoints-and-recovery.md) before any restart, trail purge, checkpoint reposition or recovery. Record all errors before attempting corrections.
 
-## 6. Final instructor assessment
+## 6. Operational acceptance review
 
 ### Written assessment (40 points)
 
