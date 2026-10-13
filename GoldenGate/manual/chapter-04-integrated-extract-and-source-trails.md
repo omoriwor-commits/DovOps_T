@@ -1,10 +1,8 @@
 # Chapter 4 — Integrated Extract Configuration and Source Trail Management
 
 > **Status:** Oracle 26ai vendor-referenced teaching chapter. **No new Extract created, database changed or command executed.** All deployment names, aliases, trail prefixes and parameter blocks in this chapter are reconstructed teaching examples.  
-> **Sources:** Training Day 7 (database prerequisites), Day 9 (Extract, distribution, trails and DBA_CAPTURE), Day 10 (lag/checkpoints/trail consistency), Day 11 (parameter files), Day 15 (Admin Client); independent Oracle 26ai documentation.  
-> **Prerequisite reading:** [Chapter 3 — Oracle Database Preparation](chapter-03-oracle-database-preparation.md). Original training documents remain in the [source archive](https://drive.google.com/drive/folders/1fyt1EcAJWA-Q4UFKDzesz4nqDc6e1wl5).
 
-## Learning objectives
+## Scope and operational checks
 
 1. Explain the function of an **integrated Extract** and how it interacts with Oracle database capture infrastructure.
 2. Distinguish a GoldenGate *deployment administration connection* from a *source database login*.
@@ -39,7 +37,7 @@ Integrated Extract operates with Oracle's integrated capture infrastructure to e
        Replicat (Chapter 6)
 ```
 
-**Teaching point:** A running Extract proves neither the distribution path nor the target Replicat is delivering correct data. Logs, checkpoint progression, trail sequence and target-row validation are different evidence.
+**Operational note:** A running Extract proves neither the distribution path nor the target Replicat is delivering correct data. Logs, checkpoint progression, trail sequence and target-row validation are different evidence.
 
 ## 2. Preconditions and explicit decisions
 
@@ -206,7 +204,7 @@ ls -lh "$OGG_DATA_HOME"
 
 **Security and recovery:** Avoid indiscriminate trail cleanup, force repositioning, `DELETE EXTRACT` or `UNREGISTER EXTRACT` as first-response troubleshooting. Each can compromise capture continuity and must have a validated recovery path.
 
-## 10. Teaching lab: isolate what each command proves
+## 10. Validation checklist
 
 **Exercise A — Read-only reconnaissance**
 
@@ -225,7 +223,7 @@ ls -lh "$OGG_DATA_HOME"
 6. Collect status, stats, errors, trail sequence and source transaction identifiers.
 7. Do **not** call the source-to-target replication successful until the later apply chapter verifies target rows.
 
-**Instructor questions:** Why does registration precede Extract creation? What is different between `ADD EXTTRAIL` and the resulting physical trail file? Can `INFO EXTRACT` alone demonstrate that Replicat applied changes? What is the risk of `BEGIN NOW` during an already populated source-to-target migration?
+**Review questions:** Why does registration precede Extract creation? What is different between `ADD EXTTRAIL` and the resulting physical trail file? Can `INFO EXTRACT` alone demonstrate that Replicat applied changes? What is the risk of `BEGIN NOW` during an already populated source-to-target migration?
 
 **Answers:** Integrated capture needs a database registration; trail configuration only reserves/binds the trail while files are written later; no, capture status does not prove target apply; start boundary must align with a consistent initial data baseline.
 
@@ -256,7 +254,6 @@ Final evidence label: Vendor example / reconstructed / tested with attached outp
 - [Oracle 26ai — ADD EXTRACT](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-extract.html)
 - [Oracle 26ai — ADD EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-exttrail.html)
 - [Oracle 26ai — Add a Trail](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/extract-add-trail.html)
-- [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md)
 
 **Completion state:** Vendor syntax/reference checked; original training material preserved; example configuration reconstructed and clearly labeled; fresh lab registration/capture/validation **pending**.
 
