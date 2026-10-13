@@ -1,13 +1,13 @@
 # Oracle Cloud Infrastructure — Database and Network Engineering
 
-OCI architecture and operational references supporting database migrations, connectivity, compute access and hybrid-cloud integration.
+OCI architecture, networking and database migration projects.
 
-## Engineering references
+## Implementation projects
 
-- [OCI Engineering Field Guide](engineering/README.md) — VCN routing, public/private network boundaries, SSH and bastion access.
-- [Oracle 19c→26ai GoldenGate migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) — independently documented database migration and replication project.
-- [Enterprise Multicloud Database Platform](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure networking, GoldenGate service investigations, and database platform artifacts.
+- [Oracle 26ai → OCI Migration with GoldenGate 26ai](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate) — local Oracle 26ai on Oracle Linux 9.8 to an OCI Oracle 26ai target. The target hosting model will be specified in the project record.
+- [Oracle 19c → 26ai Migration with GoldenGate 26ai (OL 7.9 → OL 9.8)](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) — separate database-version and operating-system migration.
+- [Enterprise Multicloud Database Platform](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) — OCI–Azure connectivity, GoldenGate configuration and database platform investigations.
 
-## Engineering scope
+## Operational references
 
-Identity and compartment controls, virtual cloud networks, subnets, NSGs, Compute, database connectivity and recovery operations. Executed configurations and sanitized verification outputs belong in the linked implementation repositories; reference procedures are maintained separately.
+- [OCI Engineering Field Guide](engineering/README.md) — VCNs, subnets, routing, NAT, restricted SSH and Compute access.
