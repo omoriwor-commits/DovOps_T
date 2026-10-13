@@ -4,7 +4,7 @@
 >
 > **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 
-## Objectives
+## Scope and configuration controls
 
 Readers should be able to locate and back up a process parameter file; explain directive scope; configure a safe row filter; map a renamed column; distinguish expected from unexpected collisions; and bring a new table into an existing capture/apply pipeline without transaction gaps.
 
@@ -12,10 +12,10 @@ Readers should be able to locate and back up a process parameter file; explain d
 
 A GoldenGate process parameter file describes what a specific Extract or Replicat should capture/apply and how. A separate GLOBALS configuration can affect broader environment-level settings. In Microservices deployments, parameter/configuration files are normally associated with a deployment runtime home, rather than the installation binary home.
 
-reference material identified a site-specific location resembling:
+A commonly used deployment configuration location resembles:
 `$DEPLOYMENT_HOME/etc/conf/ogg/`.
 
-**Verify your installation's actual home and use supported administration interfaces.** The training directory is a location example, not a universal filesystem path.
+**Verify your installation's actual home and use supported administration interfaces.** Deployment directory layout varies; verify the actual runtime configuration home.
 
 ### Safe change-control sequence
 
@@ -32,7 +32,7 @@ reference material identified a site-specific location resembling:
 
 ## 2. Understand scoped directives
 
-From reference material:
+Relevant DML-selection directives include:
 
 ```text
 GETINSERTS
@@ -47,13 +47,13 @@ IGNORETRUNCATES
 
 These govern whether corresponding operations are selected for extraction or replication, subject to their exact documented placement and supported process types.
 
-**Teaching example:** If a broad IGNOREUPDATES directive applies before two TABLE statements, its effect may be broader than the DBA intended. Do not assume a directive is always limited to the nearest subsequent line. Identify the documentation-defined scope, defaults and reset/opposing directives.
+**Configuration example:** If a broad IGNOREUPDATES directive applies before two TABLE statements, its effect may be broader than the DBA intended. Do not assume a directive is always limited to the nearest subsequent line. Identify the documentation-defined scope, defaults and reset/opposing directives.
 
 Always confirm DDL, TRUNCATE and DML support individually. A claim that GETTRUNCATES is universally enabled would be unsafe.
 
 ## 3. WHERE and FILTER — selective replication
 
-reference material discusses WHERE for relatively simple selection conditions and FILTER for more complex row/operation logic. Both require testing with before and after images as appropriate.
+WHERE supports simple row selection; FILTER supports more advanced conditions subject to the relevant process and image semantics. Both require testing with before and after images as appropriate.
 
 **Conceptual filtering example** (exact release-specific expressions and column case need validation):
 
@@ -63,7 +63,7 @@ TABLE APP_SRC.ORDERS, WHERE (REGION = 'US');
 
 This is an configuration illustration, **not** an endorsed general rule for a live application. An UPDATE that changes whether a row meets a WHERE condition can produce different results from naïvely filtering one after-image. Understand which DML and image is evaluated.
 
-The training also presents FILTER with IGNORE INSERT and string functions. Preserve the original as a reference but do not treat that classroom clause as tested 26ai syntax. Verify operator spelling, function signatures and specific operation behavior against the current Oracle parameter manual.
+Validate FILTER functions, operator spelling, and operation-specific semantics against the installed GoldenGate release before using them. Verify operator spelling, function signatures and specific operation behavior against the current Oracle parameter manual.
 
 ### Filter acceptance test
 
@@ -78,7 +78,7 @@ Check Extract/Replicat reports, not just final row count. Use separate transport
 
 ## 4. COLMAP and USEDEFAULTS
 
-reference material introduces `COLMAP` for columns whose source/target names differ, and `USEDEFAULTS` for same-name columns.
+Use `COLMAP` to define target-to-source column mappings and `USEDEFAULTS` to map compatible same-name columns.
 
 ```text
 MAP APP_SRC.CUSTOMERS,
@@ -97,7 +97,7 @@ Oracle describes `COLMAP (USEDEFAULTS, target_column = source_expression)` and s
 
 Reference: [Oracle 26ai Parameters and Functions Reference (PDF)](https://docs.oracle.com/en/database/goldengate/core/26/reference/reference-oracle-goldengate.pdf).
 
-## 5. Collision handling — correction to reference material
+## 5. Collision handling and apply correctness
 
 **Oracle GoldenGate 26ai defaults to NOHANDLECOLLISIONS.**
 
@@ -208,11 +208,11 @@ Rollback plan and result:
 Evidence: vendor reference / lab verified with attached logs / pending
 ```
 
-## Sources and limits
+## Verification notes
 
 - **reference-derived:** Days 11–12 and 16–17 concepts and original examples.
 - **Vendor-verified correction:** NOHANDLECOLLISIONS default; scoped collision logic; per-table onboarding assumptions; COLMAP syntax.
-- **Reconstructed:** lab process names, table names, mapping examples and classroom exercises.
+- **Examples:** Process identifiers, schema/table names and lab scenarios are illustrative.
 - **Not tested here:** actual source/target configuration, collision experiments, new-table capture or successful mappings.
 
 ### Oracle references
