@@ -1,219 +1,153 @@
-# Chapter 1 — Oracle GoldenGate Architecture, Deployment Models and Technical Prerequisites
+# Chapter 1 — GoldenGate Architecture and Deployment Prerequisites
 
-> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
-> **Scope:** Oracle GoldenGate 26ai Microservices Architecture (MA), with comparisons to Classic Architecture and user-documented Oracle migration labs.  
+**Scope:** Oracle GoldenGate 26ai Microservices Architecture (MA), Oracle-to-Oracle replication design, and deployment readiness. Diagrams are reference topologies; deployment evidence is maintained in the linked project records.
 
-## Engineering scope
+## 1. Replication architecture
 
-This chapter establishes the architecture, deployment options, prerequisites and verification standards needed before implementing GoldenGate replication. The design review must:
-
-1. Describe the problem GoldenGate solves and distinguish logical CDC replication from physical standby recovery.
-2. Trace a committed change through **Extract → trail → Distribution Service → Receiver Service → trail → Replicat**.
-3. Identify the administrative responsibility of Service Manager, Administration Service, Distribution Service, Receiver Service, Performance Metrics Service and Admin Client.
-4. Compare local capture, remote capture, local apply, remote apply and hub arrangements.
-5. Explain the effect of multitenant databases, supplemental logging, network paths, privileges, storage and instantiation strategy on a deployment design.
-6. Gather a **read-only** baseline safely before changing a source or target database.
-7. Specify what evidence would establish that a replication design has actually worked.
-
-## 1. What GoldenGate does and does not do
-
-Oracle GoldenGate moves selected database changes between systems. An Extract process captures changes, persists change records to trails, and a Replicat process applies changes to the target according to mapping and apply rules. The design supports logical change data capture, cross-version or cross-platform integration **when the specific source and target combinations are certified**, and planned migration.
-
-It is not itself a substitute for database backups, and it is not equivalent to Data Guard physical redo apply. A GoldenGate pipeline can be **running** while rows are missing, duplicate, filtered, unmapped or delayed. Always verify the destination, not just process uptime.
-
-**Validation boundary:** Extract health confirms neither downstream transport nor target correctness. Verify mapping, instantiation and target data independently.
-
-## 2. Main replication data flow
+Oracle GoldenGate captures selected logical changes from a source and applies them to a target. It supports migration and change data capture where the exact database/software combination is certified. It does **not** replace RMAN backups or Oracle Data Guard physical standby recovery.
 
 ```text
-  SOURCE ORACLE DB (redo / committed changes)
-                  |
-                  v
-           [EXTRACT process]
-                  |
-                  v
-         [SOURCE LOCAL TRAIL]
-                  |
-                  v
-       [DISTRIBUTION SERVICE]
-                  |
-           authenticated transport
-                  |
-                  v
-          [RECEIVER SERVICE]
-                  |
-                  v
-         [TARGET LOCAL TRAIL]
-                  |
-                  v
-           [REPLICAT process]
-                  |
-                  v
-            TARGET DATABASE
+Oracle source database redo
+          |
+    Integrated Extract
+          |
+      Source trail
+          |
+  Distribution Service
+          | authenticated transport
+    Receiver Service
+          |
+      Target trail
+          |
+        Replicat
+          |
+    Target database
 ```
 
-This diagram is a **representative two-deployment configuration**, not a rule that every architecture needs all the depicted services. A single deployment or certain remote-capture/remote-apply designs may place components differently. Classic Architecture commonly uses a data pump and Collector in comparable transport roles. Oracle GoldenGate 26ai also supports configured **Distribution Service Path and Receiver Service Path filters**; filtering may occur at capture, transport or apply. See [Chapter 5](chapter-05-distribution-and-receiver-services.md).
+This is a two-deployment MA topology. Actual Extract/Replicat placement can vary. A RUNNING process does not guarantee correctness; each stage needs checkpoint, trail, and target-row evidence.
 
-### Transaction walkthrough
+### Transaction flow
 
-Suppose an application commits `UPDATE hr.employees SET salary = ... WHERE employee_id = ...`. At a high level:
+1. Oracle records a committed source change in redo.
+2. Integrated Extract captures the configured logical operation and writes it to a local trail.
+3. Distribution sends the trail stream to the target Receiver, where a target trail is written.
+4. Replicat reads the target trail and applies the mapped change.
+5. The DBA confirms target consistency **after catch-up**, accounting for intentional filtering or transformations.
 
-1. The source database records the transaction in its redo stream.
-2. Extract captures the configured logical changes and writes them into a GoldenGate trail.
-3. If transporting between deployments, Distribution reads that source trail and Receiver accepts the stream.
-4. Replicat reads the target trail and executes the corresponding target operation under its configured mapping.
-5. Validation compares the source and target **after the pipeline has caught up**, accounting for intended transformations and any supported capture/apply limitations.
+Initial data instantiation and capture-start positioning are separate requirements; CDC alone will not populate preexisting source rows.
 
-**Important:** This is a conceptual explanation, not a commitment that every redo record, in-flight transaction or unsupported object operation is processed identically.
+## 2. Microservices responsibilities
 
-## 3. Services and tools: who does what?
-
-| Component | Responsibility | What to inspect when troubleshooting |
+| Component | Responsibility | Operational check |
 |---|---|---|
-| Service Manager | Monitors and controls deployment services; manages local deployments | Is the deployment listed? Are its services started? Are ports/configuration correct? |
-| Administration Service | Creates, configures, controls and reports on Extract and Replicat; credentials and parameter configuration | Is the process registered, running and on the correct checkpoint? What does its report say? |
-| Distribution Service | Transports source trail data using distribution paths | Does the path read the intended source trail, and is it connected? |
-| Receiver Service | Handles incoming trails and receiver-side path information | Is the destination receiving and writing the correct trail? |
-| Performance Metrics Service | Collects and exposes operational and performance metrics | Are lag, throughput and errors consistent with observed transactions? |
-| Admin Client | Command-line administrative interface for Microservices | Are you connected to the intended endpoint/deployment before issuing commands? |
-| Extract | Captures configured source changes to a trail | Source registration/logging, read checkpoint and process report |
-| Replicat | Applies trail records to a target | Target access, mapping, checkpoint, collision/error reports |
+| Service Manager | Manages deployment services | Service state, deployment inventory and listener ports |
+| Administration Service | Configures/controls Extract and Replicat | Parameters, reports, checkpoints and database connections |
+| Distribution Service | Streams source trail records via Paths | Source trail, path progress and endpoint |
+| Receiver Service | Receives trail records on target | Receiver status, target trail and sequence |
+| Performance Metrics Service | Exposes performance metrics | Trends in lag, throughput, and failures |
+| Admin Client | CLI administration for deployments | Correct authenticated deployment context |
+| Extract | Captures source changes | Capture registration, input/recovery checkpoints |
+| Replicat | Applies target changes | Mapping, target privileges, apply errors and checkpoint |
 
-**Terminology:** Use Oracle's documented service names: Administration Service, Distribution Service, Receiver Service and Performance Metrics Service. Avoid conflating services with their underlying processes.
+Oracle documentation: [Microservices Architecture components](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html).
 
-**Reference:** [Oracle GoldenGate 26ai — Microservices components](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html).
+## 3. Classic versus Microservices
 
-## 4. Classic versus Microservices
-
-| Design attribute | Classic Architecture | Microservices Architecture |
+| Area | Legacy Classic | Microservices |
 |---|---|---|
-| Primary administration | GGSCI, Manager and process utilities | Browser-based service interfaces, REST APIs, Admin Client |
-| Replication | Extract/trail/Replicat | Extract/trail/Replicat (under deployment services) |
-| Network trail transport | Often data pump / Collector | Distribution Service / Receiver Service |
-| Operational considerations | Host-oriented process management | Service/deployment inventory, API-based management, separate service health |
+| Administration | GGSCI, Manager, OS processes | Administration Service, REST/WebUI, Admin Client |
+| Data capture and apply | Extract, trails, Replicat | Extract, trails, Replicat under deployments |
+| Inter-host transport | Data pump and Collector | Distribution and Receiver services |
+| Operations | Manager and process lifecycle | Service health plus process/path checkpoints |
 
-**Do not infer:** Microservices is not restricted to Oracle databases merely because an introductory course slide used Oracle examples. Consult the exact GoldenGate build and support matrix.
+For 26ai deployments, use the certified architecture and Oracle release guidance. Mixed connectivity to **existing older Classic deployments** requires explicit interoperability and transport-security review; see [Chapter 10](chapter-10-security-credentials-and-interoperability.md).
 
-## 5. Placement architecture: six deployment patterns
+## 4. Six process-placement patterns
 
-These are **location patterns**; they do not by themselves certify a source/target pair, define network connectivity, or specify the exact number of deployments.
-
-| Pattern | Extract placement | Replicat placement | Typical consideration |
+| Pattern | Extract placement | Replicat placement | Design trade-off |
 |---|---|---|---|
-| 1. Local/local | On source host | On target host | Additional software on both database hosts |
-| 2. Local/remote | On source host | Remote connection from source-side host to target DB | Single-host management, network dependency for apply |
-| 3. Remote/local | Remote connection to source DB from target-side host | On target host | Reduced GoldenGate software on source; source capture support must be verified |
-| 4. Hub remote/remote | Intermediate hub | Same hub | Central administration and concentrated failure domain |
-| 5. Hub remote/local | Hub | Target host | Central capture with local target apply |
-| 6. Local/hub remote | Source host | Intermediate hub | Local capture, remote apply from hub |
+| Local / local | Source host | Target host | Software installed at each database host |
+| Local / remote | Source host | Remotely connects to target | Source-host concentration, network dependence |
+| Remote / local | Target-side host, remote source capture | Target host | Less source-host software; verify remote capture support |
+| Hub / hub | Intermediate hub | Intermediate hub | Central administration and shared failure domain |
+| Hub / local | Hub | Target host | Central capture, local target apply |
+| Local / hub | Source host | Intermediate hub | Local capture and remote target apply |
 
-See the separately maintained [six deployment methodologies](../six-deployment-methodologies.md), which contains further trade-offs.
+These are **placement patterns**, not standalone claims of certification or network readiness. For detailed placement implications see [Deployment Methodologies](../six-deployment-methodologies.md).
 
-### Recorded implementation and reference topology
+### Project context
 
-The separately documented Oracle 19c-to-26ai lab records **remote Integrated Extract** connecting to a 19c source from GoldenGate 26ai and **Integrated Replicat** on the target side. The recorded process names include `EXT19C` and `REP26AI`. Historical DML/DDL success was **reported**, but this chapter does not assert that exact parameter files and comprehensive machine output were preserved.
+The separately recorded [Oracle 19c→26ai migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) describes remote Integrated Extract `EXT19C` and target Integrated Replicat `REP26AI`. Available evidence does not contain every original parameter and command transcript, so that project should not be presented as a fully reproduced runbook.
 
-Source project: [Oracle 19c-to-26ai GoldenGate migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate).
+The separate [OCI→Azure project](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) documents source capture and trail-delivery milestones; complete SQL Server apply has not been verified in the published record.
 
-A separate OCI-to-Azure heterogeneous replication lab had working source capture and trail delivery milestones, while **end-to-end SQL Server Replicat apply was not verified**. Never blend these two projects into a single proof.
+## 5. Prerequisite design review
 
-## 6. Preinstallation design and prerequisite checklist
+| Area | Required decision or evidence |
+|---|---|
+| Product support | Exact source/target Oracle versions, GoldenGate builds, platforms and support matrix |
+| Database | CDB/PDB, roles, open modes, connection services and privileges |
+| Scope | Tables, keys, supported DML/DDL, LOB requirements and exclusions |
+| Redo and logging | ARCHIVELOG, required supplemental logging and retention |
+| Storage | Binary homes, deployment homes, trail volume and checkpoint-aware purging |
+| Security | OS/service/database identities, TLS/WSS, key/credential recovery |
+| Network | Reachability, firewall ports, DNS, service endpoints, certificates |
+| Migration baseline | Consistent initial load, capture registration and SCN/CSN coordination |
+| Operations | Monitoring, planned outage, service lifecycle, failover and fallback |
+| Acceptance | Target DML reconciliation, measured lag and signed-off recovery criteria |
 
-Before modifying either database, collect and approve the following:
+### Read-only Oracle inventory
 
-| Layer | Questions to answer | Expected evidence |
-|---|---|---|
-| Compatibility | What exact Oracle DB, GoldenGate, OS and platform releases are supported together? | Oracle release-specific certification/support references |
-| Database topology | Single-tenant vs CDB/PDB; physical/logical source/target? | Database identities, containers, roles and open modes |
-| Replication scope | Which schemas/tables, keys, DML and DDL? Any exclusions/LOBs? | Signed-off source/target object inventory |
-| Availability | What outage window, recovery objective and fallback? | Approved deployment/cutover plan |
-| Logging | Is ARCHIVELOG enabled when required? Are supplemental log groups adequate? | SQL evidence and expected downstream key columns |
-| Permissions | Which database credentials and administrative privileges? | Approved minimum-privilege access plan; no public secrets |
-| Software directories | Separate installed binary home and writeable runtime/deployment homes? | Filesystem and ownership plan |
-| Networking | Source DB/TNS path, GoldenGate service paths, DNS, ports, routing, TLS? | Connectivity tests and firewall approvals |
-| Capacity | Redo volume, trail retention, storage, CPU, network throughput? | Measured baseline and headroom estimates |
-| Initial load | How are existing rows copied consistently with ongoing capture? | Documented capture/start position and target instantiation design |
-| Operations | How will restart, alerting, purge, backups and credential recovery be handled? | Runbook, monitoring and escalation path |
-
-### Read-only discovery exercise (Oracle SQL)
-
-Run this in a **lab** with access to the appropriate CDB root or PDB, noting the exact container and privileges. These are inspection queries, not installation commands.
+Use a suitably privileged SQL*Plus/SQLcl session; record the exact source database and container.
 
 ```sql
--- Identify current container (where supported).
 SHOW CON_NAME;
+SHOW USER;
 
--- Database role and logging.
-SELECT name, db_unique_name, database_role, open_mode, log_mode
+SELECT name, db_unique_name, database_role, open_mode, log_mode,
+       supplemental_log_data_min
 FROM v$database;
 
--- Minimal supplemental logging indicator.
-SELECT supplemental_log_data_min
-FROM v$database;
-
--- GoldenGate replication initialization parameter.
 SHOW PARAMETER enable_goldengate_replication;
 
--- Multitenant PDB status: run from an appropriate CDB context.
+-- Run from an appropriate CDB administrative session.
 SELECT con_id, name, open_mode
 FROM v$pdbs
 ORDER BY con_id;
 ```
 
-**Why:** Configuration and privilege choices differ depending on database role, multitenant context and enabled logging. A working connection string alone does not verify capture support.
+These commands provide inventory only. Do not alter ARCHIVELOG, initialization parameters, logging or credentials without a planned database change. Privilege and syntax decisions differ between Oracle Database 19c and AI Database 26ai.
 
-**Expected results:** The queries return actual database-specific rows and parameter values; *no fixed example output is fabricated*. Record them in a redacted lab evidence file and stop if privileges are insufficient.
+## 6. Fault-isolation order
 
-**Do not run yet:** ARCHIVELOG mode changes, force logging, blanket supplemental logging, `DBMS_GOLDENGATE_AUTH`, credential creation or `enable_goldengate_replication` changes until installation, downtime impact and DBA authorization have been reviewed in their own runbooks.
+If the Extract is RUNNING but a target row is missing, verify:
 
-## 7. Engineering operating standards
+1. The source change was committed on a selected table.
+2. Extract registration, required logging and capture checkpoints are correct.
+3. The expected local trail advanced.
+4. Distribution reads that trail and Receiver delivers the matching target trail.
+5. Replicat consumes the trail without unresolved errors.
+6. Table mappings, key columns, filters and initial-load positions are correct.
+7. Source and target data agree after the agreed catch-up boundary.
 
-- Separate vendor-documented behavior, illustrative configuration, and executed lab evidence.
-- Every writable command needs the **host/database, operating account, container, prerequisites, rollback/impact and validation query**.
-- Process uptime is not the same thing as replication correctness.
-- Network transport, data transformations and source/target keys must be included in the test plan.
-- Save a sanitized topology sheet, a release matrix, real outputs and change timestamps. Never publish credentials or proprietary VM handouts.
+Avoid diagnosing the entire pipeline from a single INFO status field.
 
-## 8. Read-only fault-isolation procedure
+## 7. Implementation acceptance
 
-**Scenario:** Extract is RUNNING but target data has not changed.
+- [ ] Source/target certification and topology recorded.
+- [ ] Source and target CDB/PDB identities verified.
+- [ ] Key columns, logging and credentials approved.
+- [ ] Initial-load and change-capture boundary specified.
+- [ ] Storage and retention plan checked against expected outages.
+- [ ] End-to-end verification procedure defines exact expected rows and checkpoints.
+- [ ] Changes and recovery actions have an owner and rollback plan.
 
-Investigate in this order:
-1. Was the test transaction committed on a table in the Extract capture scope?
-2. Is required logging active for that table and is the capture checkpoint advancing?
-3. Is the correct local trail receiving new records?
-4. Is Distribution reading the same trail and is Receiver writing a target trail?
-5. Does Replicat read the correct trail and is it running without apply errors?
-6. Do table maps and key columns target the correct database objects?
-7. Is there a pending initial-load/instantiation issue or an intentional filter?
-8. After catch-up, do source and target rows actually agree?
-
-**Diagnostic response:** Investigate the chain from source to target; the precise failing boundary requires logs, process reports, configuration and transaction evidence. Do not assume that the process marked RUNNING proves successful apply.
-
-## 9. Design review questions
-
-1. What is a trail file and why does it matter for restart/recovery?
-2. Which service manages Extract and Replicat configuration?
-3. Can a Distribution Path itself filter trail records?
-4. What trade-off arises when remote capture places GoldenGate on the target-side host?
-5. What does `ARCHIVELOG` status tell you, and what does it **not** prove about supplemental logging?
-6. Why must an initial-load snapshot be coordinated with the replication start point?
-
-**Review findings:** Trail persists logical changes between capture and apply; Administration Service manages the processes; Oracle 26ai Distribution Service Paths may filter trail content when path filtering is explicitly configured; remote capture depends on source access/support and network; ARCHIVELOG indicates archived redo behavior but not adequate table-level row identification; an inconsistent snapshot/start boundary can create gaps or duplicate apply.
-
-## 10. Architecture readiness checklist
-
-- [ ] Deployment engineer can draw a full source-to-target data flow.
-- [ ] Deployment engineer can explain the five deployment services and Admin Client.
-- [ ] Deployment engineer can contrast Classic and Microservices administration.
-- [ ] Deployment engineer can identify a valid topology for an **explicit certified scenario**.
-- [ ] Deployment engineer has captured read-only database prerequisite outputs.
-- [ ] Deployment engineer can identify what remains unverified before executing configuration.
+**Validation evidence:** Attach actual environment inventory and transaction-test output to the project record when available; this architecture reference does not itself establish execution.
 
 ## Oracle references
 
-- [Oracle GoldenGate 26ai — Components of Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html)
-- [Oracle GoldenGate 26ai — About Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-oracle-goldengate-microservices-architecture.html)
-- [Oracle GoldenGate 26ai — Documentation table of contents](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/toc.htm)
+- [Microservices components](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html)
+- [Microservices overview](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-oracle-goldengate-microservices-architecture.html)
+- [Oracle GoldenGate 26ai documentation](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/index.html)
 
-**Next chapter:** Installation planning, supported platform checks, filesystem and security model, software installation and Microservices deployment with OGGCA. That chapter must distinguish safely executable checks from deployment-changing commands and document the actual response file before declaring a procedure tested.
+**Next:** [Chapter 2 — Installation and Microservices Deployment](chapter-02-installation-and-microservices-deployment.md).
