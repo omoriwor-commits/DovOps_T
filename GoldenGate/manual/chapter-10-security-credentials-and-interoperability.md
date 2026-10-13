@@ -1,8 +1,8 @@
 # Chapter 10 — Security, Credentials and Classic–Microservices Interoperability
 
-> Evidence status: Oracle GoldenGate 26ai vendor-referenced teaching manual. No new lab execution. Instructor Days 4, 7, 15 are the source material; vendor corrections are explicitly identified.
+> **Reference scope:** Oracle-documented security procedures and illustrative configurations; executed tests are tracked separately.
 
-## Learning objectives
+## Scope and security requirements
 
 Distinguish operating-system, GoldenGate service, database and transport identities; implement least privilege, TLS/WSS and credential aliases; understand trail encryption and secret recovery; compare Classic↔Microservices mixed topologies; plan a supported phased migration.
 
@@ -158,7 +158,7 @@ Classic/MA migration compatibility decision:
 Extract, path and Replicat checkpoints:
 Target validation and reconciliation:
 Observed errors and remediation:
-Status: Vendor reference / instructor-derived / lab verified
+Status: Vendor reference / reference-derived / lab verified
 ~~~
 
 **Source classification:** Days 4/7/15: instructor material; Oracle 26ai documentation: vendor support and restrictions; synthetic identifiers: examples; **actual lab validation: pending**.
