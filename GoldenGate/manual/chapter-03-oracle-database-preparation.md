@@ -1,12 +1,11 @@
 # Chapter 3 — Prepare Oracle Databases for GoldenGate 26ai
 
-> **Document status:** Teaching/reference chapter. Oracle documentation consulted; no SQL has been executed for this chapter. **Do not treat source examples as historical lab commands.**
+> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 >
-> **Provenance:** Original GoldenGate training Days 7–9 (CDB-level parameter, global user, privileges, supplemental logging, ARCHIVELOG, credential aliases, Extract preparation). Vendor-reviewed changes and cautions are explicitly separated below.
 >
 > **Scope:** Oracle-to-Oracle logical replication. Confirm exact supported source/target versions and GoldenGate release before deployment.
 
-## Learning objectives
+## Scope and acceptance criteria
 
 1. Distinguish CDB/root versus PDB configuration and privileges.
 2. Diagnose role, open mode, logging, database identity, keys and GoldenGate settings with read-only SQL.
@@ -19,7 +18,7 @@
 
 The source Oracle database generates redo; a configured Extract captures eligible changes and writes trails. GoldenGate depends on compatible database mode, redo availability, adequate supplemental identification columns, privileges, and a planned extraction position. A target database needs the appropriate Replicat connectivity, permissions and object definitions; it does not necessarily require identical capture-side logging unless replication may reverse or that feature requires it.
 
-**Training source:** Day 7 introduced `enable_goldengate_replication`, C##-prefixed common accounts, `DBMS_GOLDENGATE_AUTH`, supplemental logging and ARCHIVELOG; Day 8 expanded supplemental logging; Day 9 showed `DBA_CAPTURE` for integrated Extract verification.
+**Training source:** reference material introduced `enable_goldengate_replication`, C##-prefixed common accounts, `DBMS_GOLDENGATE_AUTH`, supplemental logging and ARCHIVELOG; reference material expanded supplemental logging; reference material showed `DBA_CAPTURE` for integrated Extract verification.
 
 **Vendor review:** Oracle's 26ai guidance distinguishes database-level minimal/subset replication logging and schema/table logging; not every environment should turn on unconditional ALL-column logging. [Oracle: Transaction Log Settings and Requirements](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/prepare-transaction-logs-settings-and-requirements-ogg-oracle.html).
 
@@ -88,7 +87,7 @@ Assess redo volume, bulk-load performance, standby behavior and maintenance plan
 
 ## 5. Enable GoldenGate replication capability
 
-Training Day 7 records:
+reference examples records:
 
 ```sql
 ALTER SYSTEM SET enable_goldengate_replication = TRUE;
@@ -163,7 +162,7 @@ Reference: [Oracle — Configure Source/Target and Replication Administrator](ht
 
 ## 8. Credential aliases and connection validation
 
-Day 7 describes adding a database credential under the GoldenGate Administration Service **DB Connections** area. This separates a reusable alias from repeated plaintext passwords in process configuration.
+reference material describes adding a database credential under the GoldenGate Administration Service **DB Connections** area. This separates a reusable alias from repeated plaintext passwords in process configuration.
 
 Example of a **nonsecret** Admin Client pattern:
 
@@ -175,7 +174,7 @@ DBLOGIN USERIDALIAS gg_source
 
 ## 9. Integrated Extract readiness
 
-Day 9 provides:
+reference material provides:
 
 ```sql
 SELECT capture_name FROM dba_capture;
@@ -183,7 +182,7 @@ SELECT capture_name FROM dba_capture;
 
 It helps inspect database-side registered capture processes, but a zero-row result before Extract registration is not itself a failure. Verification after setup should also cover registered capture state, the intended PDB/source scope, process checkpoints, logging, correct trail path and successful DML on replicated tables. No Extract has been created by following this chapter.
 
-## 10. Safe practice lab and instructor guide
+## 10. Validation procedure
 
 **Scenario:** Two Oracle multitenant databases will replicate changes from an application schema in a source PDB to a target PDB. The engineer must prepare an approval package *without changing anything*.
 
@@ -220,7 +219,5 @@ A reader must never infer a completed database change or production-ready pipeli
 - [Oracle 26ai Configure Source and Target Databases](https://docs.oracle.com/en/database/goldengate/core/26/ggmah/task-1-configure-source-and-target-databases.html)
 - [Oracle 26ai ADD TRANDATA Reference](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-trandata.html)
 - [Oracle 26ai Before Adding Extract and Replicat](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/configure-ogg-adding-extract-and-replicat.html)
-- [GoldenGate source-training archive (Drive)](https://drive.google.com/drive/folders/1fyt1EcAJWA-Q4UFKDzesz4nqDc6e1wl5)
-- [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md)
 
 **Next chapter:** Administration Service, credential configuration, Integrated Extract registration and source trails with process parameters, actual validation and troubleshooting.
