@@ -4,7 +4,7 @@
 
 ## Scope and migration criteria
 
-After completing this chapter, learners can distinguish existing-data instantiation from continuous CDC, explain SCN and CSN, select Data Pump or file-based initial load, align baseline and change capture, choose correct Replicat positioning, test row consistency, plan cutover and rollback, and identify invalid shortcut assumptions.
+This chapter covers existing-data instantiation, continuous CDC, SCN/CSN boundaries, Data Pump and file-based initial load, Replicat positioning, consistency checks, migration cutover and rollback.
 
 ## 1. Initial load and CDC solve different problems
 
