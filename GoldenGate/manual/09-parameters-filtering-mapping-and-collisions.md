@@ -6,7 +6,7 @@
 
 ## Scope and configuration controls
 
-Readers should be able to locate and back up a process parameter file; explain directive scope; configure a safe row filter; map a renamed column; distinguish expected from unexpected collisions; and bring a new table into an existing capture/apply pipeline without transaction gaps.
+This page covers parameter-file management, directive scope, row filtering, column mapping, collision handling and safe table onboarding without transaction gaps.
 
 ## 1. What is a parameter file?
 
