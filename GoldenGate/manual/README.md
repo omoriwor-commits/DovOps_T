@@ -22,6 +22,8 @@
 
 10. [Chapter 10 — Security and Interoperability](chapter-10-security-credentials-and-interoperability.md) — accounts, TLS, credentials, and mixed-mode integration.
 
+11. [Chapter 11 — Performance, High Availability and Automation](chapter-11-performance-high-availability-and-automation.md) — bottleneck diagnostics, parallelism, managed processes, XAG, retention and exercises.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
