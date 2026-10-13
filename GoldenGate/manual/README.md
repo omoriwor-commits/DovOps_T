@@ -60,7 +60,7 @@ Example invocation patterns (verify against the installed release):
 ./oggca.sh -silent -responsefile /path/to/deployment.rsp
 ```
 
-A complete OGGCA runbook additionally needs the actual sanitized response-file keys, location of executable, Service Manager registration method, deployment service configuration, encrypted administration access and health checks. The training archive does **not** contain these complete inputs.
+A complete OGGCA runbook additionally needs the actual sanitized response-file keys, location of executable, Service Manager registration method, deployment service configuration, encrypted administration access and health checks. These inputs must be collected from the actual deployment before the procedure is considered executable.
 
 ## 3. Database prerequisites and logging
 
@@ -78,7 +78,7 @@ SELECT capture_name
 FROM dba_capture;
 ```
 
-Example configuration statement from training:
+Illustrative configuration statement:
 
 ```sql
 -- CHANGE CONTROL REQUIRED: Oracle database setting, not a read-only check.
@@ -96,7 +96,7 @@ cd "$GG_HOME/bin"
 ./adminclient
 ```
 
-Illustrative Admin Client inspection commands recorded in training:
+Illustrative Admin Client inspection commands:
 
 ```text
 INFO ALL
@@ -133,7 +133,7 @@ A consistent source snapshot and transactional capture must be aligned to an **e
 SELECT current_scn FROM v$database;
 ```
 
-Do not generalize training `AFTERCSN` examples into a zero-downtime cutover recipe. Validate supported start syntax and semantics, source/target consistency, reconciliation, cutover gates, rollback capability and downtime commitments.
+Do not generalize `AFTERCSN` examples into a zero-downtime cutover recipe. Validate supported start syntax and semantics, source/target consistency, reconciliation, cutover gates, rollback capability and downtime commitments.
 
 ## 7. Filtering, column mapping, and new tables
 
@@ -179,5 +179,5 @@ For adding a new table, coordinate supplemental logging, capture inclusion, cons
 - Record complete sanitized OUI and OGGCA response files from an actual supported lab deployment.
 - Publish tested Extract and Replicat parameter files and command transcripts.
 - Document initial-load strategy with instantiation verification and restart recovery.
-- Cross-link the [Oracle 19c → 26ai historical migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) without representing these training examples as its exact historical syntax.
+- Cross-link the [Oracle 19c → 26ai migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) without suggesting that illustrative commands reproduce the project's original executed configuration.
 
