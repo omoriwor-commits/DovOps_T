@@ -5,6 +5,7 @@
 ## Teaching chapters
 
 1. [Chapter 1 — Architecture, Deployment Models and Technical Prerequisites](chapter-01-architecture-and-prerequisites.md) — architecture, read-only SQL reconnaissance, instructor exercises and evidence standards.
+2. [Chapter 2 — Installation and Microservices Deployment](chapter-02-installation-and-microservices-deployment.md) — prerequisites, installation options, OGGCA, Service Manager lifecycle, security and lab validation.
 
 ## Evidence and quality gate
 
