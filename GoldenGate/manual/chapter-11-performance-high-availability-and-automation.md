@@ -198,7 +198,7 @@ Saved sanitized evidence files:
 Chapter lab status: NOT EXECUTED HERE
 ```
 
-## 12. Teaching assessment
+## 12. Operational acceptance review
 
 1. Why does increasing parallelism not always improve apply performance?
 2. What is the difference between end-to-end latency and INFO ALL lag?
