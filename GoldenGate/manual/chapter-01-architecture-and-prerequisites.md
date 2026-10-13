@@ -1,9 +1,7 @@
 # Chapter 1 — Oracle GoldenGate Architecture, Deployment Models and Technical Prerequisites
 
-> **Document status:** Vendor-referenced teaching chapter, **not lab-validated as a whole**.  
+> **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 > **Scope:** Oracle GoldenGate 26ai Microservices Architecture (MA), with comparisons to Classic Architecture and user-documented Oracle migration labs.  
-> **Audience:** Oracle DBAs, database platform engineers, instructors and technical trainees.  
-> **Source provenance:** Consolidated original instructor recap sessions 1, 2, 3 and 6, plus related sessions 7–9, 13 and 15–17; checked against Oracle 26ai product documentation. No original course handouts or credentials reproduced.
 
 ## Learning outcomes
 
@@ -190,7 +188,7 @@ Ask the student to list checks in order:
 7. Is there a pending initial-load/instantiation issue or an intentional filter?
 8. After catch-up, do source and target rows actually agree?
 
-**Instructor answer:** Investigate the chain from source to target; the precise failing boundary requires logs, process reports, configuration and transaction evidence. Do not assume that the process marked RUNNING proves successful apply.
+**Diagnostic response:** Investigate the chain from source to target; the precise failing boundary requires logs, process reports, configuration and transaction evidence. Do not assume that the process marked RUNNING proves successful apply.
 
 ## 9. Knowledge check
 
@@ -217,7 +215,5 @@ Ask the student to list checks in order:
 - [Oracle GoldenGate 26ai — Components of Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-components-oracle-goldengate-microservices-architecture.html)
 - [Oracle GoldenGate 26ai — About Microservices Architecture](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-oracle-goldengate-microservices-architecture.html)
 - [Oracle GoldenGate 26ai — Documentation table of contents](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/toc.htm)
-- [Original training archive, Days 1–17](https://drive.google.com/drive/folders/1fyt1EcAJWA-Q4UFKDzesz4nqDc6e1wl5), access controlled by owner
-- [Source quality and unsafe-guidance audit](../KNOWLEDGE-QUALITY-AUDIT.md)
 
 **Next chapter:** Installation planning, supported platform checks, filesystem and security model, software installation and Microservices deployment with OGGCA. That chapter must distinguish safely executable checks from deployment-changing commands and document the actual response file before declaring a procedure tested.
