@@ -3,7 +3,7 @@
 > **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
 > **Prerequisite:** [Chapter 4 — Integrated Extract and Source Trails](chapter-04-integrated-extract-and-source-trails.md).  
 
-## Outcomes
+## Scope and verification
 
 After studying this chapter, the reader can explain transport roles, identify trail endpoints, distinguish source-initiated and target-initiated paths, configure a controlled path using the Microservices GUI or Admin Client, interpret lag/checkpoints, identify networking and authentication faults, and collect transport evidence without claiming the target has applied the data.
 
@@ -61,7 +61,7 @@ Before creating any path, establish these **actual values** for the selected dep
 | Network policy | Approved route, hostname resolution, firewall ports | Connectivity test from **initiating** side |
 | Recovery policy | Retention, backlog monitoring, incident response | Required source and target trail availability |
 
-**Do not substitute training VM IPs or passwords** for verified current addresses or credentials.
+**Do not substitute unverified host addresses or credentials** for verified current addresses or credentials.
 
 ### Safe Linux observations
 
@@ -92,7 +92,7 @@ An approved TLS connectivity test can use `openssl s_client -connect host:port -
 
 Vendor: [Distribution Service Path](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-distribution-path.html).
 
-## 5. Admin Client command example (not executed)
+## 5. Admin Client configuration example
 
 Oracle 26ai documents the following structure for a Distribution Path:
 
@@ -112,7 +112,7 @@ ADD DISTPATH src_to_tgt
 | `TARGET wss://...` | Identify the secured target Receiver Service and target trail |
 | `AUTHENTICATION USERIDALIAS ...` | Use a configured credential alias without including a password |
 
-Oracle also documents alternative OAuth and certificate methods. Avoid teaching URLs containing user:password, even though certain legacy examples show such syntax.
+Oracle also documents alternative OAuth and certificate methods. Avoid URLs containing user:password, even though certain legacy examples show such syntax.
 
 Vendor: [ADD DISTPATH — Oracle 26ai CLI](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-distpath.html).
 
@@ -150,7 +150,7 @@ Target-initiated mode changes which host opens the connection; it does not elimi
 
 ## 8. Filtering — an important 26ai correction
 
-**Do not teach that Distribution Service always forwards every record unchanged.** Oracle GoldenGate 26ai documents **filter rules on Distribution Service Paths and Receiver Service Paths**, including object-based, DML/DDL and some column-based criteria. This corrects an overgeneralization in earlier teaching material.
+**Distribution Paths are not always unfiltered.** Oracle GoldenGate 26ai documents **filter rules on Distribution Service Paths and Receiver Service Paths**, including object-based, DML/DDL and some column-based criteria. Verify rules against the configured path and expected target operations.
 
 Filtering is not automatically active; it must be explicitly configured, understood and tested. A change filtered at transport might never reach Replicat, despite normal path health. Before enabling any filter:
 
@@ -189,13 +189,13 @@ Oracle 26ai path pages expose source/target URIs, encryption, checkpoints, LCR a
 
 **Never** correct a lag or sequence gap by deleting trail files, starting at NOW, forcing a new CSN, or recreating a path without a continuity and instantiation plan.
 
-## 11. validation exercises and assessment
+## 11. Operational validation scenarios
 
-### Exercise A — architecture only (no changes)
+### Scenario A — topology review
 
 Draw source-initiated and target-initiated diagrams. Given a DMZ restriction permitting **target→source** but not **source→target**, explain which direction would work and which ports/authentication/trust must be tested.
 
-### Exercise B — isolated lab (change controlled)
+### Scenario B — controlled lab validation
 
 1. Produce at least one actual committed source DML transaction and confirm Extract writes source trail.
 2. Record source and target service endpoints and negotiated TLS trust.
@@ -204,7 +204,7 @@ Draw source-initiated and target-initiated diagrams. Given a DMZ restriction per
 5. Pause/restart the approved transport path and verify continuous checkpoint progression without loss.
 6. Save redacted logs/screenshots. **Do not claim target-row replication yet** until Replicat and reconciliation are tested.
 
-### Exercise C — diagnose two ambiguous outcomes
+### Scenario C — ambiguous transport outcomes
 
 - **Case 1:** Extract counts grow while Distribution counts remain zero. Diagnose the source trail binding and path position.
 - **Case 2:** Distribution counts grow and target trail advances, but target rows remain unchanged. Diagnose downstream Replicat/apply, not network transport.
@@ -232,9 +232,9 @@ Target Replicat apply: NOT COVERED BY THIS CHAPTER
 Quality label: illustrative configuration / vendor reference / lab-tested with attached evidence
 ```
 
-## Source classification and next chapter
+## Implementation status and next chapter
 
-- **reference-derived:** basic reference material/9/10 data flow; reference material interoperability concepts.
+- **Reference coverage:** transport paths, Receiver service, checkpoints, filtering and Classic interoperability; test results must be documented separately.
 - **Oracle-documented:** ADD/START/INFO DISTPATH, target-initiated paths, transport filtering, monitoring controls.
 - **Reconstructed:** example URIs, test path, test credential alias.
 - **Not yet tested here:** any newly configured GoldenGate environment or transport path.
