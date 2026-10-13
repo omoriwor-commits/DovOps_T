@@ -1,6 +1,6 @@
 # Chapter 7 — Initial Load, SCN/CSN Instantiation and Near-Zero-Downtime Migration
 
-> **Evidence classification:** Instructor-derived concepts (Days 13–14) + vendor-verified Oracle GoldenGate 26ai practices. **Not executed in a lab for this chapter.** Do not mistake sample commands or numbers for actual historical evidence.
+> **Reference scope:** Oracle-documented procedures and illustrative examples. Lab results are recorded separately.
 
 ## Learning outcomes
 
@@ -29,7 +29,7 @@ Cutover:                                                 quiesce/switch
 - **Capture registration SCN:** database position relevant to integrated capture registration.
 - **Replicat checkpoint:** durable apply progress; not proof of correct snapshot alignment.
 
-Training Day 14 records this diagnostic:
+Training reference material records this diagnostic:
 
 ```sql
 SHOW CON_NAME;
@@ -97,7 +97,7 @@ Official reference: https://docs.oracle.com/en/database/goldengate/core/26/gclir
 
 ## 5. Method B — file-based GoldenGate initial load
 
-Day 13 provided an Initial Load Extract with RMTHOST/RMTFILE and TABLE statements, plus a corresponding Replicat MAP example. Preserve them as instructor examples, not proof of successful loading.
+reference material provided an Initial Load Extract with RMTHOST/RMTFILE and TABLE statements, plus a corresponding Replicat MAP example. Preserve them as instructor examples, not proof of successful loading.
 
 ```text
 EXTRACT LOAD1
@@ -108,7 +108,7 @@ TABLE PDB1.GGTRAINING1.DEPT11;
 TABLE PDB1.GGTRAINING1.EMP11;
 ```
 
-**Caution:** sample paths, port, remote-file method and credentials require release-specific verification. The Day 13 statement that MSA initial load involves no Distribution Service is not universal: Oracle's precise-instantiation procedure also documents an initial-load trail moved through Distribution Paths. The supported topology determines the method.
+**Caution:** sample paths, port, remote-file method and credentials require release-specific verification. The reference material statement that MSA initial load involves no Distribution Service is not universal: Oracle's precise-instantiation procedure also documents an initial-load trail moved through Distribution Paths. The supported topology determines the method.
 
 **Procedure logic, not a ready-to-run script:**
 
@@ -170,7 +170,7 @@ Official reference: https://docs.oracle.com/en/database/goldengate/core/26/gclir
 | Trails or redo missing | Retention policy, source checkpoint and backup recoverability | Blind reposition to NOW |
 | Rollback after target writes | Target-only commits, reverse synchronization, split-brain risk | Flipping connection strings without data plan |
 
-## 9. Instructor-led exercise
+## 9. Operational review scenario
 
 Three source tables have snapshot boundaries at hypothetical SCNs 900, 950 and 1000, while Extract started earlier.
 
@@ -205,7 +205,7 @@ Lab validation: NOT EXECUTED IN THIS CHAPTER
 
 ## Provenance and Oracle references
 
-**Original course:** Day 13 GoldenGate Hub/file-based initial load, Day 14 basic SCN/AFTERCSN migration sketch. Both are preserved separately. They are **not** evidence of a complete migration or a safe standalone cutover procedure.
+**Original course:** reference material GoldenGate Hub/file-based initial load, reference material basic SCN/AFTERCSN migration sketch. Both are preserved separately. They are **not** evidence of a complete migration or a safe standalone cutover procedure.
 
 **Oracle 26ai guidance:**
 
