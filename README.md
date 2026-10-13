@@ -88,6 +88,10 @@ Monitoring, validation, runbooks, and recovery testing
 | Database CI/CD with GitHub Actions | Planned |
 | Prometheus / Grafana monitoring | Planned |
 
+## Technical knowledge archive
+
+The [Oracle Database Engineering Knowledge Base](KNOWLEDGE-BASE.md) organizes reusable architecture decisions, procedures, incident analysis, and historical technical experience. New records follow the [technical documentation template](docs/TECHNICAL-RECORD-TEMPLATE.md).
+
 ## Repository guide
 
 | Location | Material |
