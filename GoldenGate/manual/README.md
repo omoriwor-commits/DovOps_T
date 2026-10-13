@@ -12,6 +12,8 @@
 
 5. [Chapter 5 — Distribution and Receiver Services](chapter-05-distribution-and-receiver-services.md) — secure network path setup, trail transport, filtering and monitoring.
 
+6. [Chapter 6 — Integrated Replicat and Validation](chapter-06-integrated-replicat-and-validation.md) — checkpoint table, Integrated Replicat, SQL DML tests, reconciliation and troubleshooting.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
