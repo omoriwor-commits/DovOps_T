@@ -254,7 +254,7 @@ Evidence file references (sanitized):
 
 - **Vendor-confirmed:** Integrated Replicat mode, ADD REPLICAT syntax, checkpoint table guidance, GUI steps.
 - **reference-derived:** Replicat process overview, log/lag/collision discussion, initial-load distinction.
-- **Reconstructed:** all test schema names, process names, statements and expected states.
+- **Examples:** Schema/process identifiers and expected results are illustrative; actual execution evidence belongs in the lab record.
 - **Pending:** new lab execution; real Replicat process report; row-by-row reconciliation.
 
 ## Oracle references
