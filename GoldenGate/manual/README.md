@@ -18,6 +18,8 @@
 
 8. [Chapter 8 — Monitoring, Lag, Checkpoints and Incident Recovery](chapter-08-monitoring-lag-checkpoints-and-recovery.md) — diagnostics, heartbeat, retention, troubleshooting and recovery exercises.
 
+9. [Chapter 9 — Parameters, Filtering, Column Mapping and Collision Handling](chapter-09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and teaching labs.
+
 ## Evidence and quality gate
 
 Before treating training notes as executable guidance, consult the [GoldenGate Knowledge Quality Audit](../KNOWLEDGE-QUALITY-AUDIT.md). The audit identifies reusable concepts, source-derived examples, duplicated training material, and commands requiring correction or vendor/lab verification.
