@@ -59,7 +59,7 @@ reference examples describe Oracle Universal Installer (GUI and silent modes). T
 ./runInstaller -silent -responseFile /secure/path/installer.rsp
 ```
 
-**Required evidence:** software package and checksum; compatible platform version; actual installer command; installation log; installed build and filesystem ownership. The instructor's recaps **do not contain the full OUI response file**, so this chapter does not invent one.
+**Required evidence:** software package and checksum; compatible platform version; actual installer command; installation log; installed build and filesystem ownership. Earlier example guidances **do not contain the full OUI response file**, so this chapter does not invent one.
 
 ## 5. OGGCA interactive configuration
 
@@ -82,7 +82,7 @@ Oracle's documented 26ai invocation is:
 "$OGG_HOME/bin/oggca.sh" -silent -responseFile /secure/path/oggdeploy.rsp
 ```
 
-**Correction to reference material instructor recap:** Oracle documents the capital F spelling, `-responseFile`. Use a complete, version-appropriate [official sample response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html). The recaps do not supply the filled response-file parameters, so this command is *not* independently runnable as given.
+**Correction to reference material Earlier example guidance:** Oracle documents the capital F spelling, `-responseFile`. Use a complete, version-appropriate [official sample response-file template](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html). The recaps do not supply the filled response-file parameters, so this command is *not* independently runnable as given.
 
 Document the exact configuration option, deployment identities and paths, Service Manager mode, TLS/password policy and admin secret handling before executing in a throwaway lab. Reference: [Add deployment in silent mode](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deploy-silent-deployment.html).
 
