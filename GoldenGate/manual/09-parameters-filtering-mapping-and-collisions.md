@@ -191,22 +191,6 @@ Example process and alias names are invented. These commands do not alter replic
 
 ## 10. Evidence checklist
 
-```text
-Change ticket / lab date:
-Oracle and GoldenGate exact versions:
-Source/target deployment and object names:
-Previous Extract and Replicat parameter SHA/diff:
-New directives and documented default/scope:
-Supplemental logging and object definitions:
-Source/target baseline status:
-Instantiated table CSN or equivalent consistent method:
-Approved process stop/start and checkpoint positions:
-INSERT/UPDATE/DELETE expected and observed results:
-Target row counts/checksum:
-Errors encountered and documented resolution:
-Rollback plan and result:
-Evidence: vendor reference / lab verified with attached logs / pending
-```
 
 ## Verification notes
 

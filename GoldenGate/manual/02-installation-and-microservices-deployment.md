@@ -164,7 +164,6 @@ Correlate PIDs, port ownership, process ancestry, configured homes and logs. Do 
 - [ ] Service restart/recovery behavior recorded from controlled testing.
 - [ ] No end-to-end replication claim made until Extract, transport, Replicat and target rows are validated.
 
-**Evidence to attach:** redacted response file, installed build, service status, deployment inventory, logs, authorized restart results, and any unresolved errors. Pending results must remain marked pending.
 
 ## Oracle references
 

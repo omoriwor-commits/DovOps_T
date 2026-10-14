@@ -250,30 +250,6 @@ Consult [08](08-monitoring-lag-checkpoints-and-recovery.md) before any restart, 
 
 **Operational acceptance:** all mandatory safety controls must pass: no credential disclosure, no unexplained replication gap, a verified initial baseline and successful INSERT/UPDATE/DELETE validation with retained evidence.
 
-## 7. Evidence submission template
-
-```text
-Lab owner / date / timezone:
-GoldenGate exact build and Oracle DB source/target releases:
-Host OS and source/target deployments:
-Network/TLS verification and OS user model:
-Oracle CDB/PDB identifiers and logging state:
-Database account privilege verification:
-Source/target object inventory, PKs and supplemental logging:
-Captured OGGCA configurations (sanitized; no secrets):
-Extract registration, process parameters, trail prefix/checkpoint:
-Distribution/Receiver endpoint/path and trail checks:
-Instantiation baseline, export/import and SCN/CSN records:
-Replicat type, parameters, checkpoint and start position:
-INSERT: source committed / target SQL evidence:
-UPDATE: source committed / target SQL evidence:
-DELETE: source committed / target SQL evidence:
-Restart/recovery scenario, reports and checkpoint evidence:
-Unresolved errors and approved corrective actions:
-Data reconciliation and pass/fail decision:
-Evidence state: VERIFIED WITH OUTPUT / PARTIAL / PENDING:
-Reviewer signoff and revision notes:
-```
 
 ## 8. Final project deliverables
 

@@ -180,23 +180,6 @@ For scripts, use secure secrets management or restricted authentication profiles
 
 ## 11. Performance lab — reusable evidence worksheet
 
-```text
-Change/lab date and operator:
-GoldenGate exact release/source/target database versions:
-Deployment mode: manual / systemd / XAG:
-Test workload and transaction/key dependency profile:
-Source commit rate; source/target hardware:
-Before: Extract lag / path lag / Replicat lag / heartbeat lag:
-Before: transactions/sec, CPU, I/O, locks, inbound apply stats:
-Baseline row-count/checksum and error reports:
-Change requested, parameter and Oracle reference:
-Approval, rollback and restart/dependency plan:
-After: same metrics in matched workload interval:
-After: target reconciliation, error and checkpoint verification:
-Outcome: improved / unchanged / regressed / inconclusive:
-Saved sanitized evidence files:
-Lab results: Pending controlled measurement and supporting evidence
-```
 
 ## 12. Operational acceptance criteria
 

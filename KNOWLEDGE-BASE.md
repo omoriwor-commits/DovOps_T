@@ -30,4 +30,4 @@ This is a cross-repository index of technical references, procedures, incidents,
 
 ## Documentation standard
 
-New technical material is documented through the [technical record template](docs/TECHNICAL-RECORD-TEMPLATE.md). Original execution records remain in their project repositories and are linked from this index to avoid conflicting copies.
+Original execution records remain in their project repositories and are linked from this index to avoid conflicting copies.

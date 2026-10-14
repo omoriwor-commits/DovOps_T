@@ -161,7 +161,7 @@ Observed errors and remediation:
 Status: Vendor reference / reference-derived / lab verified
 ~~~
 
-**Verification:** Oracle 26ai documentation establishes documented support and restrictions. Example identifiers are placeholders; lab validation remains pending.
+**Verification:** Oracle 26ai documentation establishes documented support and restrictions. Example identifiers are placeholders; lab validation is not recorded here.
 
 ## Oracle references
 

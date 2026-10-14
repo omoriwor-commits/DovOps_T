@@ -69,7 +69,7 @@ Azure GoldenGate hub (OL9.8)
 Azure SQL Server 2022 / OGGTargetDB.HOLA.FOX
 ```
 
-I completed the OCI-to-Azure implementation and personally verified INSERT, UPDATE and DELETE replication through GoldenGate into Azure SQL Server 2022. The archived September checkpoint records earlier VPN/BGP, Extract, trail, SQL Server ODBC and Replicat preparation work; final sanitized target-side validation output will be published after the rerun. [Implementation incidents and resolution history](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/project-history/project-history-and-troubleshooting.md) preserve the obstacles encountered.
+I completed the OCI-to-Azure implementation and verified INSERT, UPDATE and DELETE replication through GoldenGate into Azure SQL Server 2022. The archived September checkpoint records earlier VPN/BGP, Extract, trail, SQL Server ODBC and Replicat preparation work; final sanitized target-side validation output will be published after the rerun. [Implementation incidents and resolution history](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/project-history/project-history-and-troubleshooting.md) preserve the obstacles encountered.
 
 ### RMAN backup and recovery
 
@@ -124,7 +124,7 @@ Monitoring, validation, runbooks, and recovery testing
 
 ## Technical knowledge archive
 
-The [Oracle Database Engineering Knowledge Base](KNOWLEDGE-BASE.md) organizes reusable architecture decisions, procedures, incident analysis, and engineering experience. New records follow the [technical documentation template](docs/TECHNICAL-RECORD-TEMPLATE.md).
+The [Oracle Database Engineering Knowledge Base](KNOWLEDGE-BASE.md) organizes reusable architecture decisions, procedures, incident analysis, and engineering experience.
 
 ## Repository guide
 

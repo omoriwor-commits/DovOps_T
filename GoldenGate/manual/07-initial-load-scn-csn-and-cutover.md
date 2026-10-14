@@ -184,24 +184,6 @@ Three source tables have snapshot boundaries at hypothetical SCNs 900, 950 and 1
 
 ## 10. Real-lab evidence worksheet
 
-```text
-Migration date / source and target Oracle versions:
-GoldenGate exact release and deployment:
-Instantiation method:
-Source Extract registration and capture start position:
-Consistent snapshot/export boundaries, including per-table CSNs:
-Data Pump or initial-load process logs:
-Target baseline verification, counts/checksums:
-Replicat instantiation/positioning configuration:
-Final source transaction and capture checkpoint:
-Distribution/Receiver and target apply checkpoints:
-Conflict/error reports and resolution:
-Approved go/no-go and application switch time:
-First target production write and measured downtime:
-Rollback cutoff and target-only change strategy:
-Evidence reference and owner:
-Lab validation status: Pending execution and recorded results
-```
 
 ## Oracle references and validation requirements
 
