@@ -92,9 +92,6 @@ Do not upload a `.ppk` or other private key to GitHub.
 
 Use `ssh -vvv` locally for controlled debugging, but redact user/host identifiers and avoid posting complete sensitive logs.
 
-## 8. Verification evidence
-
-
 ## Oracle references
 
 - Compute key provisioning: https://docs.oracle.com/en-us/iaas/Content/Compute/Tasks/creatinginstance.htm
