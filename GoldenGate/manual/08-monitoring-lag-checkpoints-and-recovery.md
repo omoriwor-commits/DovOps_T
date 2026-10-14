@@ -240,4 +240,4 @@ Evidence files and sanitized links:
 - [Purging Archive Logs](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/purging-archive-logs.html)
 - [Automate Maintenance Tasks — Purge Trails](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/automate-maintenance-tasks-1.html)
 
-**Next:** Topic 09 — Parameters, filtering, column mapping, conflict handling and safely adding new replicated tables.
+**Next:** [09 — Parameters, Filtering, Mapping and Collisions](09-parameters-filtering-mapping-and-collisions.md)
