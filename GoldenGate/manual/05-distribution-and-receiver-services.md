@@ -232,14 +232,14 @@ Target Replicat apply: Covered in 06 — Integrated Replicat and Validation
 Validation record: configured path, source/target checkpoints, receiver trail sequence and observed delivery results
 ```
 
-## Status and next topic
+## Status
 
 - **Reference coverage:** transport paths, Receiver service, checkpoints, filtering and Classic interoperability; test results must be documented separately.
 - **Oracle-documented:** ADD/START/INFO DISTPATH, target-initiated paths, transport filtering, monitoring controls.
 - **Examples:** URI, path and alias identifiers are placeholders.
 - **Not yet tested here:** any newly configured GoldenGate environment or transport path.
 
-**Next:** Topic 06 — Replicat setup, target apply, checkpoints and end-to-end INSERT/UPDATE/DELETE validation.
+
 
 ## Official references
 
@@ -250,3 +250,5 @@ Validation record: configured path, source/target checkpoints, receiver trail se
 - [Receiver Service Paths](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-receiver-service-paths.html)
 - [Monitor Path Information and Statistics](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-monitor-distribution-paths.html)
 - [Distribution Service path filtering/actions](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/distribute-using-path-actions.html)
+
+**Next:** [06 — Integrated Replicat and Validation](06-integrated-replicat-and-validation.md)
