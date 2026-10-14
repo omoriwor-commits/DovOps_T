@@ -71,7 +71,7 @@ Run in an approved container with sufficient rights. Preserve *real* output as r
 
 ### Gate A — Install and deploy GoldenGate
 
-Using [Topic 02](02-installation-and-microservices-deployment.md), install the certified software and configure Service Manager, a source deployment and a target deployment with OGGCA. Use independently secured administrative access, valid TLS, isolated runtime paths and approved startup modes.
+Using [02](02-installation-and-microservices-deployment.md), install the certified software and configure Service Manager, a source deployment and a target deployment with OGGCA. Use independently secured administrative access, valid TLS, isolated runtime paths and approved startup modes.
 
 **Examples only** (the software package/response files must be present and verified):
 
@@ -86,7 +86,7 @@ cd "$OGG_HOME/bin"
 
 ### Gate B — Prepare the databases
 
-Use [Topic 03](03-oracle-database-preparation.md). Verify source redo/archive strategy, least-privilege capture account, table keys and supplemental logging. Configure a separate target apply account and compatible schema/table definitions. GoldenGate 26ai software may connect to **Oracle 19c or 26ai databases** subject to certification; their database privilege procedures differ. Do not assume blanket DBA grants or reuse one release's privilege script.
+Use [03](03-oracle-database-preparation.md). Verify source redo/archive strategy, least-privilege capture account, table keys and supplemental logging. Configure a separate target apply account and compatible schema/table definitions. GoldenGate 26ai software may connect to **Oracle 19c or 26ai databases** subject to certification; their database privilege procedures differ. Do not assume blanket DBA grants or reuse one release's privilege script.
 
 Illustrative source-admin command choices after approved database login:
 
@@ -102,7 +102,7 @@ Names are placeholders, syntax must match the actual multitenant configuration. 
 
 ### Gate C — Initial data and precise instantiation strategy
 
-**This is the primary correctness gate.** Use [Topic 07](07-initial-load-scn-csn-and-cutover.md). Decide *before starting apply* whether the lab baseline is an intentionally empty, quiesced target or a nonempty source table needing a consistent copy.
+**This is the primary correctness gate.** Use [07](07-initial-load-scn-csn-and-cutover.md). Decide *before starting apply* whether the lab baseline is an intentionally empty, quiesced target or a nonempty source table needing a consistent copy.
 
 For a nonempty Oracle source, use an Oracle-supported instantiation procedure such as Data Pump automatic per-table CSN instantiation: establish capture first, set PREPARECSN as documented, export/import the consistent source baseline, verify target instantiation metadata and only then choose Replicat filtering/starting position. Do not use a random `CURRENT_SCN` as the baseline boundary or start Replicat at NOW to bypass backlog.
 
@@ -112,7 +112,7 @@ Oracle references: [Precise instantiation](https://docs.oracle.com/en/database/g
 
 ### Gate D — Integrated Extract and source trail
 
-Use [Topic 04](04-integrated-extract-and-source-trails.md) and Oracle's exact instructions to register integrated capture before creating its Extract. Confirm the approved start boundary.
+Use [04](04-integrated-extract-and-source-trails.md) and Oracle's exact instructions to register integrated capture before creating its Extract. Confirm the approved start boundary.
 
 **Illustrative Admin Client structure, not ready-to-run production commands:**
 
@@ -129,13 +129,13 @@ ADD EXTTRAIL ea, EXTRACT EXTLAB, MEGABYTES 200
 
 ### Gate E — Transport to target
 
-Use [Topic 05](05-distribution-and-receiver-services.md) to add a source Distribution Service Path to the secured target Receiver Service. Confirm source trail `ea`, destination trail `eb`, TLS/certificate trust, path checkpoint and physical target trail creation. A target-initiated Receiver Path is an alternative when topology requires it.
+Use [05](05-distribution-and-receiver-services.md) to add a source Distribution Service Path to the secured target Receiver Service. Confirm source trail `ea`, destination trail `eb`, TLS/certificate trust, path checkpoint and physical target trail creation. A target-initiated Receiver Path is an alternative when topology requires it.
 
 **Gate E pass:** test record leaves source trail, path reports movement, target trail sequence advances and the Receiver reports no unresolved errors. Transport alone does *not* prove apply.
 
 ### Gate F — Integrated Replicat and checkpoint table
 
-Use [Topic 06](06-integrated-replicat-and-validation.md). Confirm target DB alias, target table, valid instantiation boundary, Replicat type and checkpoint table. Oracle's Microservices Replicat procedure identifies DB Connections, supplemental logging, checkpoint table and heartbeat as setup prerequisites.
+Use [06](06-integrated-replicat-and-validation.md). Confirm target DB alias, target table, valid instantiation boundary, Replicat type and checkpoint table. Oracle's Microservices Replicat procedure identifies DB Connections, supplemental logging, checkpoint table and heartbeat as setup prerequisites.
 
 **Illustrative Admin Client structure:**
 
@@ -224,7 +224,7 @@ LAG REPLICAT REPLAB
 STATS REPLICAT REPLAB
 ```
 
-Consult [Topic 08](08-monitoring-lag-checkpoints-and-recovery.md) before any restart, trail purge, checkpoint reposition or recovery. Record all errors before attempting corrections.
+Consult [08](08-monitoring-lag-checkpoints-and-recovery.md) before any restart, trail purge, checkpoint reposition or recovery. Record all errors before attempting corrections.
 
 ## 6. Operational acceptance checklist
 
