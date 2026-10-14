@@ -94,19 +94,6 @@ Use `ssh -vvv` locally for controlled debugging, but redact user/host identifier
 
 ## 8. Verification evidence
 
-~~~text
-Windows SSH client version:
-New key algorithm (not secret contents):
-Instance image, shape and compartment:
-Public/private subnet:
-Public IP (redacted if required):
-Authorized source CIDR for TCP/22:
-Host fingerprint verification method:
-SSH login result:
-Authorized-key lifecycle review:
-Outstanding issue:
-Status: PENDING / VERIFIED WITH EVIDENCE
-~~~
 
 ## Oracle references
 
