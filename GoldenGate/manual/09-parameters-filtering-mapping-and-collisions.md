@@ -223,4 +223,4 @@ Evidence: vendor reference / lab verified with attached logs / pending
 - [Parameters and Functions Reference](https://docs.oracle.com/en/database/goldengate/core/26/reference/reference-oracle-goldengate.pdf)
 - [Before Adding Extract and Replicat](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/configure-ogg-adding-extract-and-replicat.html)
 
-**Next: Topic 10 — Security, Credentials and Classic–Microservices Interoperability.**
+**Next:** [10 — Security and Interoperability](10-security-credentials-and-interoperability.md)
