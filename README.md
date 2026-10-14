@@ -23,7 +23,7 @@ SQL Server 2022 / Azure
 
 ## Engineering projects
 
-### Migration 1 — Oracle Database Upgrade, OS Migration & GoldenGate Replication
+### Migration 1 — Oracle 19c → 26ai Upgrade, OS Migration & GoldenGate Replication
 
 [Migration architecture and implementation notes](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate)
 
@@ -37,7 +37,7 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
 
 **Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, CREATE TABLE and DROP TABLE replication. Sanitized configuration and test output will be added to the project repository.
 
-### Migration 2 — Oracle On-Premises to OCI Cloud Migration & GoldenGate Replication
+### Migration 2 — Oracle 26ai On-Premises to OCI Migration & GoldenGate Replication
 
 [Implementation and rerun playbook](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate)
 
@@ -52,7 +52,7 @@ Source Oracle 26ai                          Self-managed Oracle 26ai
 Initial load: RMAN / Data Pump
 ```
 
-### Migration 3 — Oracle-to-SQL Server Cross-Cloud Heterogeneous Migration & GoldenGate Replication
+### Migration 3 — Oracle 26ai (OCI) to Azure SQL Server 2022: Heterogeneous Cross-Cloud Migration & GoldenGate Replication
 
 [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 
