@@ -212,8 +212,6 @@ Lab results: Pending controlled measurement and supporting evidence
 
 - **Technical background:** general Microservices roles, lag monitoring, autostart/restart discussions.
 - **Oracle-verified reference:** integrated apply options, diagnostics, managed process profiles, XAG restrictions, automated maintenance and heartbeat concepts.
-- **Reconstructed:** capacity scenario, all example process names, test exercises and runbook decision trees.
-- **Not verified here:** any new performance improvement, failover, automated workflow or real measured throughput.
 
 ## Official documentation
 

@@ -181,23 +181,15 @@ Correlate process IDs, port ownership, service mode, deployment home and logs. D
 
 Related project: https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/goldengate/troubleshooting/goldengate-26ai-oggca-daemon-registration-troubleshooting.md
 
-## 9. Lab validation scenarios
+## 9. Troubleshooting scenarios
 
-**Exercise A — process health vs correctness:** INFO ALL shows Extract/Replicat RUNNING. Target table lacks last committed row. Identify four more pieces of evidence needed before declaring a root cause.
+**RUNNING but missing rows:** source transaction/query, current Extract trail/position, transport path and Receiver positions, Replicat report/checkpoint, mapping/filters and actual target query. RUNNING is not the conclusion.
 
-**Answer:** source transaction/query, current Extract trail/position, transport path and Receiver positions, Replicat report/checkpoint, mapping/filters and actual target query. RUNNING is not the conclusion.
+**Recovery checkpoint:** Extract may need the earlier redo to recover/assemble the long-running transaction. Retain it until all Oracle/GoldenGate consumers and recovery policies permit purge.
 
-**Exercise B — recovery checkpoint:** Extract reads current archive sequence 500 but its recovery checkpoint is sequence 498 because a source transaction remains open. Why is deleting 498 dangerous?
+**Trail retention:** source/target trail data needed by the downstream checkpoint may be deleted before apply resumes. Use a checkpoint-aware maintenance design plus tested retention/recovery policy.
 
-**Answer:** Extract may need the earlier redo to recover/assemble the long-running transaction. Retain it until all Oracle/GoldenGate consumers and recovery policies permit purge.
-
-**Exercise C — retention:** A Purge Trails task is configured to ignore checkpoints and retain only one hour. Replicat is stopped for maintenance lasting six hours. What fails?
-
-**Answer:** source/target trail data needed by the downstream checkpoint may be deleted before apply resumes. Use a checkpoint-aware maintenance design plus tested retention/recovery policy.
-
-**Exercise D — latency:** Extract lag is small and Replicat lag is near zero, yet end-to-end application update is delayed. What else might matter?
-
-**Answer:** distribution/receiver delay, heartbeat design, application commit and observation timestamps, mapping/filtering, source/target clock quality, and whether the transaction actually reached the target.
+**End-to-end latency:** distribution/receiver delay, heartbeat design, application commit and observation timestamps, mapping/filtering, source/target clock quality, and whether the transaction actually reached the target.
 
 ## 10. Incident evidence template
 
@@ -226,7 +218,6 @@ Evidence files and sanitized links:
 - **Operational scope:** Process status, parameter review, trail checkpoints, reports and recovery controls.
 - **Oracle-documented:** INFO/LAG/STATS distinctions; heartbeat; Extract recovery checkpoint; checkpoint-aware purging.
 - **Examples:** Process names and the decision tree are illustrative; the linked DEP1 event is documented separately.
-- **Not verified here:** any newly gathered lag measurement, executed restart, trail purge or database reconciliation.
 
 ## Official Oracle GoldenGate 26ai references
 

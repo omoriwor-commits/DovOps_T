@@ -285,9 +285,6 @@ Store sanitized topology diagrams, release and compatibility records, parameter 
 
 - **Reference procedures:** Architecture, configuration and recovery instructions are supported by the linked Oracle documentation.
 - **Vendor-reference:** official Oracle 26ai Extract/Replicat/path/instantiation workflows.
-- **Historical:** linked Oracle 19c→26ai migration and other lab outcomes described in their own repositories.
-- **Reconstructed:** sample lab topology, dummy identifiers, test DML, Operational acceptance review and acceptance plan.
-- **Not performed now:** full deployment, source and target changes, new replication success, downtime test or recovery exercise.
 
 ### Oracle documentation
 
