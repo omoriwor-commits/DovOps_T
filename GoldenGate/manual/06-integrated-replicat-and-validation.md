@@ -264,4 +264,4 @@ Evidence file references (sanitized):
 - [Before Adding Extract and Replicat Processes — checkpoint table](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/configure-ogg-adding-extract-and-replicat.html)
 - [Configure Oracle GoldenGate Environment](https://docs.oracle.com/en/database/goldengate/core/26/ggmah/task-2-configure-oracle-goldengate-environment.html)
 
-**Next:** Topic 07 — Initial Load, SCN/CSN Instantiation and Migration Cutover.
+**Next:** [07 — Initial Load, SCN/CSN and Cutover](07-initial-load-scn-csn-and-cutover.md)
