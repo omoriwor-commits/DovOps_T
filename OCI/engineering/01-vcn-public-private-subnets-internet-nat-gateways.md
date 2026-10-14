@@ -117,17 +117,6 @@ The NAT gateway is not a bastion and cannot be used for unsolicited inbound SSH.
 - [ ] NSG and route-table screenshots are sanitized.
 - [ ] Trial resources and associated gateways/IPs/volumes are deleted when no longer needed.
 
-~~~text
-Compartment / date:
-VCN and subnet IDs (redacted):
-Bastion/private VM image:
-Route/NSG verification:
-SSH test:
-NAT HTTPS test:
-Private public-IP check:
-Cost/cleanup status:
-Result: PENDING / VERIFIED WITH EVIDENCE
-~~~
 
 ## Oracle references
 
