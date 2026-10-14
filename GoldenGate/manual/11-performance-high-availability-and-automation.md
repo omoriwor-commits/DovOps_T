@@ -226,4 +226,4 @@ Lab results: Pending controlled measurement and supporting evidence
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/automate-maintenance-tasks-1.html
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/monitor-monitor-lag.html
 
-**Next: [12 — End-to-End Implementation Lab](12-end-to-end-implementation-lab.md).**
+**Next:** [12 — End-to-End Implementation Lab](12-end-to-end-implementation-lab.md)
