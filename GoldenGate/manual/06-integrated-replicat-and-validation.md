@@ -70,7 +70,7 @@ Do not treat the checkpoint table as an application table or replicate its rows 
 
 ## 4. Target trail identification and initial position
 
-Topic 05 configured delivery into a target trail. Record the **actual destination trail** and its checkpoint/sequence. The prefix in the Replicat ADD command must match the delivered target trail, not automatically the source Extract's prefix. Example: source ea -> target eb; Replicat reads eb.
+05 configured delivery into a target trail. Record the **actual destination trail** and its checkpoint/sequence. The prefix in the Replicat ADD command must match the delivered target trail, not automatically the source Extract's prefix. Example: source ea -> target eb; Replicat reads eb.
 
 A preexisting target data set requires a consistent instantiation boundary. The default BEGIN NOW is **not** a substitute for a documented initial-load method and may skip required transactions. Establish source snapshot, capture start, instantiated target state and Replicat initial checkpoint together; record specific CSN/SCN or sequence/RBA decisions with DBA review.
 
