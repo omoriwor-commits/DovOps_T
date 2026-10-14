@@ -77,6 +77,8 @@ Full and incremental backup, restore, and point-in-time recovery scenarios. Reus
 
 ### Oracle RAC / ASM — two-node local lab
 
+[Two-node RAC build and troubleshooting runbook](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/runbooks/oracle-rac/oracle19c-2node-rac-build-and-troubleshooting.md) — full Oracle 19c Grid, ASM and RAC database build, tested and reused.
+
 [October 2026 node startup investigation](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md)
 
 Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
