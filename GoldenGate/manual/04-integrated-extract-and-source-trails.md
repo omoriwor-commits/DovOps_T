@@ -1,4 +1,4 @@
-# 04 — Integrated Extract and Source Trail Management
+# 04 — Integrated Extract and Source Trails
 
 **Scope:** Oracle GoldenGate 26ai Microservices and Oracle source databases. Identifiers (`EXTLAB`, `gg_source`, `ea`, `HR.EMPLOYEES`) are placeholders. See the separately documented [Oracle 19c → 26ai migration project](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate) for recorded `EXT19C` remote integrated capture and `REP26AI` apply.
 
@@ -186,4 +186,4 @@ Source capture outcome: VERIFIED / FAILED / NOT TESTED
 - [INFO EXTTRAIL](https://docs.oracle.com/en/database/goldengate/core/26/gclir/info-exttrail.html)
 - [Deployment Directories](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deployment-directories.html)
 
-**Next:** [Topic 05 — Distribution and Receiver Services](05-distribution-and-receiver-services.md).
+**Next:** [05 — Distribution and Receiver Services](05-distribution-and-receiver-services.md)
