@@ -7,17 +7,13 @@ Reference procedures for GoldenGate Microservices architecture, installation, ca
 01. [Architecture and Deployment Prerequisites](01-architecture-and-prerequisites.md) — architecture, read-only SQL reconnaissance, validation exercises and evidence standards.
 02. [Installation and Microservices Deployment](02-installation-and-microservices-deployment.md) — prerequisites, installation options, OGGCA, Service Manager lifecycle, security and lab validation.
 03. [Oracle Database Preparation](03-oracle-database-preparation.md) — CDB/PDB scope, ARCHIVELOG, privileges, supplemental logging, credentials and SQL verification.
-04. [Integrated Extract and Source Trail Management](04-integrated-extract-and-source-trails.md) — capture registration, parameters, trails and checkpoint diagnostics.
-
+04. [Integrated Extract and Source Trails](04-integrated-extract-and-source-trails.md) — capture registration, parameters, trails and checkpoint diagnostics.
 05. [Distribution and Receiver Services](05-distribution-and-receiver-services.md) — secure network path setup, trail transport, filtering and monitoring.
 06. [Integrated Replicat and Validation](06-integrated-replicat-and-validation.md) — checkpoint table, Integrated Replicat, SQL DML tests, reconciliation and troubleshooting.
-
 07. [Initial Load, SCN/CSN and Cutover](07-initial-load-scn-csn-and-cutover.md) — Data Pump instantiation, file-based load, positioning, validation, and cutover/rollback.
 08. [Monitoring, Checkpoints and Recovery](08-monitoring-lag-checkpoints-and-recovery.md) — diagnostics, heartbeat, retention, troubleshooting and recovery exercises.
-
 09. [Parameters, Filtering, Mapping and Collisions](09-parameters-filtering-mapping-and-collisions.md) — safe changes, table onboarding and validation exercises.
 10. [Security and Interoperability](10-security-credentials-and-interoperability.md) — accounts, TLS, credentials, and mixed-mode integration.
-
 11. [Performance, High Availability and Automation](11-performance-high-availability-and-automation.md) — bottleneck diagnostics, parallelism, managed processes, XAG, retention and exercises.
 12. [End-to-End Implementation Lab](12-end-to-end-implementation-lab.md) — end-to-end lab plan, safety gates, DML validation, recovery exercises and acceptance criteria.
 
