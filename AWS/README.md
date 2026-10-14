@@ -1,27 +1,3 @@
-# AWS Lab Projects
+# AWS
 
-This folder is reserved for Amazon Web Services learning notes and future database/cloud exercises.
-
-## Planned Organization
-
-```text
-AWS/
-├── README.md
-├── networking/
-├── compute/
-├── identity/
-├── storage/
-└── database/
-```
-
-## Focus Areas
-
-- VPC networking
-- EC2
-- IAM
-- S3
-- RDS
-- PostgreSQL
-- cloud migration and connectivity
-
-AWS is planned as a later expansion target for the multi-cloud database platform lab.
+AWS database engineering: EC2, RDS for Oracle, VPC networking and IAM, extending my Oracle migration path to a second cloud. Sanitized configuration and output are added here as each build is completed.
