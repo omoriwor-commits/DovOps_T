@@ -172,4 +172,4 @@ Status: Vendor reference / reference-derived / lab verified
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-connecting-classic-ma.html
 - https://docs.oracle.com/en/database/goldengate/core/26/coredoc/migration-utility-migrate-classic-ma.html
 
-**Next:** Topic 11 — GoldenGate Performance Tuning, High Availability and Operational Automation.
+**Next:** [11 — Performance, High Availability and Automation](11-performance-high-availability-and-automation.md)
