@@ -21,7 +21,7 @@ Source Oracle 26ai                          Self-managed Oracle 26ai
 Initial load: RMAN / Data Pump
 ```
 
-### RMAN backup and recovery — lab exercises
+### RMAN backup and recovery
 
 Full and incremental backup, restore, and point-in-time recovery scenarios. Reusable commands and sanitized validation records are being consolidated.
 
@@ -37,7 +37,7 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
    -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
 ```
 
-**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, and DDL replication in the lab. Sanitized configuration and test output will be added to the project repository.
+**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, CREATE TABLE and DROP TABLE replication. Sanitized configuration and test output will be added to the project repository.
 
 ### OCI Oracle 26ai → Azure SQL Server 2022 — hub-based replication
 
@@ -96,7 +96,7 @@ Monitoring, validation, runbooks, and recovery testing
 | Capability | Position |
 |---|---|
 | Local Oracle 19c, 23/26ai and GoldenGate labs | Available for continued validation |
-| Oracle migration and RMAN exercises | Completed lab work; evidence consolidation underway |
+| Oracle migrations and RMAN recovery | Completed lab work; evidence consolidation underway |
 | OCI–Azure VPN, Extract, and SQL connectivity | Completed and validated |
 | SQL Server Replicat end-to-end apply | Completed; final apply logs to be archived during rerun |
 | Oracle health-check automation | Data Guard Bash and RAC Python scripts published; validation in progress |
