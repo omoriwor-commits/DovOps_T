@@ -216,4 +216,4 @@ Lab validation status: Pending execution and recorded results
 - https://docs.oracle.com/en/database/goldengate/core/26/gclir/set-instantiation-csn.html
 - https://docs.oracle.com/en/database/goldengate/core/26/gclir/start-replicat.html
 
-**Next:** Topic 08 — GoldenGate Monitoring, Lag, Checkpoints, Trail Retention and Incident Recovery.
+**Next:** [08 — Monitoring, Checkpoints and Recovery](08-monitoring-lag-checkpoints-and-recovery.md)
