@@ -74,7 +74,7 @@ For a controlled source/target lab, create two rows (one matching the filter, on
 - DELETE of both matching and nonmatching rows.
 - Restart/recovery and source-target reconciliation according to **intended** filter semantics.
 
-Check Extract/Replicat reports, not just final row count. Use separate transport-filter checks if Topic 05 path filters are configured.
+Check Extract/Replicat reports, not just final row count. Use separate transport-filter checks if 05 path filters are configured.
 
 ## 4. COLMAP and USEDEFAULTS
 
