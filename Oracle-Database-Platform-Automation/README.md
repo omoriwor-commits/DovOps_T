@@ -4,7 +4,7 @@
 
 ## Mission
 
-**Starting point:** Before this project, I built and validated the OCI → Azure SQL Server CDC pipeline end-to-end and completed two Oracle-to-Oracle GoldenGate migrations. This project rebuilds that work as a repeatable, automated platform and publishes the evidence.
+**Starting point:** Before this project, I took one Oracle workload through three GoldenGate 26ai migrations: 19c → 26ai on-prem, on-prem → OCI, and OCI → Azure SQL Server 2022. This project rebuilds that path as a repeatable, automated platform and publishes the evidence.
 
 Build a repeatable, automated, secure, observable and recoverable enterprise Oracle database platform using the **DevOps syllabus** as the learning and implementation framework.
 

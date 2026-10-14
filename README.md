@@ -4,9 +4,40 @@ Oracle database engineering portfolio covering **migration, replication, backup 
 
 These are independent hands-on lab projects. The current goal is to bring the strongest existing Oracle DBA work into one repeatable, version-controlled **Oracle Database Platform Automation** platform using DevOps practices.
 
+## Migration path
+
+I took one Oracle workload through three GoldenGate 26ai migrations:
+
+```text
+Oracle 19c / OL 7.9 (on-prem)
+   | 1. Upgrade + OS migration (remote capture, local apply)
+   v
+Oracle 26ai / OL 9.8 (on-prem)
+   | 2. On-prem to cloud (local capture, remote apply)
+   v
+Oracle 26ai / OCI Compute
+   | 3. Cross-cloud, heterogeneous (Azure hub: remote capture, remote apply)
+   v
+SQL Server 2022 / Azure
+```
+
 ## Engineering projects
 
-### Oracle 26ai → OCI Compute — GoldenGate local capture / remote apply
+### Migration 1 — Oracle 19c → Oracle AI Database 26ai — GoldenGate migration
+
+[Migration architecture and implementation notes](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate)
+
+```text
+Oracle 19c / PRODBHR (Oracle Linux 7.9)
+   -> Remote Integrated Extract EXT19C
+   -> GoldenGate trail
+   -> Integrated Replicat REP26AI
+   -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
+```
+
+**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, CREATE TABLE and DROP TABLE replication. Sanitized configuration and test output will be added to the project repository.
+
+### Migration 2 — Oracle 26ai → OCI Compute — GoldenGate local capture / remote apply
 
 [Implementation and rerun playbook](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate)
 
@@ -21,25 +52,7 @@ Source Oracle 26ai                          Self-managed Oracle 26ai
 Initial load: RMAN / Data Pump
 ```
 
-### RMAN backup and recovery
-
-Full and incremental backup, restore, and point-in-time recovery scenarios. Reusable commands and sanitized validation records are being consolidated.
-
-### Oracle 19c → Oracle AI Database 26ai — GoldenGate migration
-
-[Migration architecture and implementation notes](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate)
-
-```text
-Oracle 19c / PRODBHR (Oracle Linux 7.9)
-   -> Remote Integrated Extract EXT19C
-   -> GoldenGate trail
-   -> Integrated Replicat REP26AI
-   -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
-```
-
-**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, CREATE TABLE and DROP TABLE replication. Sanitized configuration and test output will be added to the project repository.
-
-### OCI Oracle 26ai → Azure SQL Server 2022 — hub-based replication
+### Migration 3 — OCI Oracle 26ai → Azure SQL Server 2022 (heterogeneous, hub-based)
 
 [Enterprise Multi-Cloud Database Platform Lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab)
 
@@ -57,6 +70,10 @@ Azure SQL Server 2022 / OGGTargetDB.HOLA.FOX
 ```
 
 I completed the OCI-to-Azure implementation. The archived September checkpoint verifies VPN/BGP, Extract, trails, SQL Server ODBC connectivity and Replicat preparation; final target-side test logs will be captured during the rerun.
+
+### RMAN backup and recovery
+
+Full and incremental backup, restore, and point-in-time recovery scenarios. Reusable commands and sanitized validation records are being consolidated.
 
 ### Oracle RAC / ASM — two-node local lab
 
