@@ -184,4 +184,4 @@ This page provides reference commands and verification criteria. No new database
 - [ADD TRANDATA](https://docs.oracle.com/en/database/goldengate/core/26/gclir/add-trandata.html)
 - [Prerequisites before Extract and Replicat](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/configure-ogg-adding-extract-and-replicat.html)
 
-**Next:** [Topic 04 — Integrated Extract and Source Trails](04-integrated-extract-and-source-trails.md).
+**Next:** [04 — Integrated Extract and Source Trails](04-integrated-extract-and-source-trails.md)
