@@ -4,6 +4,8 @@
 
 ## Mission
 
+**Starting point:** Before this project, I built and validated the OCI → Azure SQL Server CDC pipeline end-to-end and completed two Oracle-to-Oracle GoldenGate migrations. This project rebuilds that work as a repeatable, automated platform and publishes the evidence.
+
 Build a repeatable, automated, secure, observable and recoverable enterprise Oracle database platform using the **DevOps syllabus** as the learning and implementation framework.
 
 **Career target:** Database Platform Engineer / Oracle Database Engineer with DevOps and Cloud Automation skills.
@@ -15,7 +17,7 @@ Build a repeatable, automated, secure, observable and recoverable enterprise Ora
 ```text
 OCI: Oracle Database 26ai (source)
        |
-       | Planned site-to-site VPN / BGP
+       | Site-to-site IPsec VPN / BGP
        | One-way heterogeneous CDC
        v
 Azure: GoldenGate 26ai services
@@ -31,7 +33,7 @@ Local supporting lab: Oracle RAC / ASM
 Future extensions: AWS, then advanced AI automation
 ```
 
-**Important:** The arrow shows the intended *logical* one-way data flow. Do not infer that the VPN, BGP, or end-to-end Replicat has been validated until evidence is recorded.
+**Status:** The pipeline shown was completed in my earlier lab. Within this project it will be rebuilt with Terraform, Ansible and CI/CD.
 
 ## DevOps syllabus mapped to project deliverables
 
@@ -58,7 +60,7 @@ Future extensions: AWS, then advanced AI automation
 
 ## Execution order by career impact
 
-1. **GoldenGate first:** finish and validate Replicat apply; prove INSERT/UPDATE/DELETE propagation, latency and reconciliation. Preserve working source deployment `DEP1`; verify target deployment details before making changes.
+1. **GoldenGate:** rebuild the completed OCI → Azure pipeline inside this project and publish sanitized evidence (INSERT/UPDATE/DELETE, lag, reconciliation, restart). Rerun and document the two completed Oracle-to-Oracle migrations.
 2. **Terraform + Ansible:** build a repeatable Oracle Linux/database environment with infrastructure-as-code and configuration management.
 3. **Database CI/CD:** version SQL/PLSQL and automate controlled schema deployments through GitHub Actions.
 4. **Platform operations:** security, observability, RMAN, Data Guard, RAC/ASM and failure/recovery testing.
@@ -119,4 +121,4 @@ Status legend: **Done** = verified evidence; **In progress** = actively implemen
 
 ## Next checkpoint
 
-**Priority:** complete GoldenGate target Replicat and capture repeatable end-to-end CDC test evidence. Then begin Terraform/Ansible provisioning automation.
+**Priority:** rebuild the GoldenGate pipeline in this project and publish evidence, then begin Terraform/Ansible provisioning automation.

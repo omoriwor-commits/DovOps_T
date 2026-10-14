@@ -202,7 +202,7 @@ The pipeline should provision an ephemeral Oracle Database Free test database lo
 
 ## Phase 11 — GoldenGate Heterogeneous CDC
 
-**Focus:** Complete the existing heterogeneous CDC pipeline:
+**Focus:** Rebuild my previously completed heterogeneous CDC pipeline within this project and publish its evidence:
 
 ```text
 Oracle Database 26ai (OCI)
@@ -211,6 +211,8 @@ Oracle GoldenGate 26ai (Azure)
         ↓
 SQL Server 2022 (Azure)
 ```
+
+Also rerun and document my two completed Oracle-to-Oracle GoldenGate migrations: 19c → 26ai (OL 7.9 → 9.8) and 26ai → OCI Compute.
 
 Validate INSERT, UPDATE, DELETE, DDL where appropriate, lag monitoring, failure/restart, checkpoint behavior, recovery, data validation, and documentation.
 
