@@ -26,7 +26,7 @@ Oracle target database / PDBTGT (example)
 
 This represents two **separate GoldenGate deployments** in a disposable lab. The source and target database releases must each be certified with the selected GoldenGate build. The example database names, users, addresses, process names, trail prefixes, paths and credentials are fictional.
 
-**Historical project separation:** Your independently documented Oracle 19c→26ai lab describes remote integrated capture via EXT19C and apply via REP26AI; this planned lab is not its recovered original transcript. The OCI→Azure heterogenous lab is also a different project with incomplete end-to-end SQL Server apply evidence.
+**Related work:** My completed Oracle 19c → 26ai migration used remote integrated capture (EXT19C) and Integrated Replicat (REP26AI). My OCI Oracle → Azure SQL Server project is documented separately in the enterprise-multicloud-database-platform-lab repository.
 
 ## 2. Preflight worksheet (before changes)
 
