@@ -150,4 +150,4 @@ Avoid diagnosing the entire pipeline from a single INFO status field.
 - [Microservices overview](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/overview-oracle-goldengate-microservices-architecture.html)
 - [Oracle GoldenGate 26ai documentation](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/index.html)
 
-**Next:** [Topic 02 — Installation and Microservices Deployment](02-installation-and-microservices-deployment.md).
+**Next:** [02 — Installation and Microservices Deployment](02-installation-and-microservices-deployment.md)
