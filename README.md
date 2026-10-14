@@ -81,7 +81,7 @@ Full and incremental backup, restore, and point-in-time recovery scenarios. Reus
 
 Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
 
-Operational code: [RAC health-check Python script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/oracle-rac/rac_health_fixed.py). The [incident report](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md) records the outstanding cluster-wide validation.
+Operational code: [RAC health-check Python script](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/scripts/oracle-rac/rac_health_check.py). The [incident report](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md) records the outstanding cluster-wide validation.
 
 ### Oracle Data Guard — health-check automation
 
