@@ -1,7 +1,7 @@
 # 05 — Distribution and Receiver Services
 
 > **Reference scope:** Vendor documentation and illustrative configurations. Executed changes require separately retained logs and validation evidence.
-> **Prerequisite:** [Topic 04 — Integrated Extract and Source Trails](04-integrated-extract-and-source-trails.md).  
+> **Prerequisite:** [04 — Integrated Extract and Source Trails](04-integrated-extract-and-source-trails.md).  
 
 ## Scope and verification
 
