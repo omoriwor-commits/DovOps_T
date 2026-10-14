@@ -173,4 +173,4 @@ Correlate PIDs, port ownership, process ancestry, configured homes and logs. Do 
 - [Response file example](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/reference-oggca-sample-file-silent-deployment.html)
 - [Service Manager lifecycle](https://docs.oracle.com/en/database/goldengate/core/26/coredoc/deploy-start-stop-sm.html)
 
-**Next:** [Topic 03 — Oracle Database Preparation](03-oracle-database-preparation.md).
+**Next:** [03 — Oracle Database Preparation](03-oracle-database-preparation.md)
