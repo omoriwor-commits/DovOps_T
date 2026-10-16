@@ -12,6 +12,18 @@ Build a repeatable, automated, secure, observable and recoverable enterprise Ora
 
 **Method:** Learn → Build → Test → Prove → Document → Publish.
 
+## Portfolio layout
+
+This project is one of three linked repositories:
+
+| Repository | Holds |
+|---|---|
+| oracle-db-platform-automation (this repo) | Roadmap, automation (Terraform, Ansible, CI/CD), runbooks and incident reports |
+| [enterprise-data-platform-labs](https://github.com/omoriwor-commits/enterprise-data-platform-labs) | Migrations 1 and 2: Oracle 19c → 26ai, and on-premises 26ai → OCI |
+| [enterprise-multicloud-database-platform-lab](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab) | Migration 3: OCI Oracle 26ai → Azure SQL Server 2022 |
+
+Migration evidence lives in its own repository and is linked here, not copied.
+
 ## One integrated architecture
 
 ```text
