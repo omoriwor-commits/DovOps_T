@@ -58,13 +58,50 @@ Future extensions: AWS, then advanced AI automation
 
 **Phase numbers describe the syllabus, not a rigid execution order.**
 
-## Execution order by career impact
+## Execution Order (controlling)
 
-1. **GoldenGate:** rebuild the completed OCI → Azure pipeline inside this project and publish sanitized evidence (INSERT/UPDATE/DELETE, lag, reconciliation, restart). Rerun and document the two completed Oracle-to-Oracle migrations.
-2. **Terraform + Ansible:** build a repeatable Oracle Linux/database environment with infrastructure-as-code and configuration management.
-3. **Database CI/CD:** version SQL/PLSQL and automate controlled schema deployments through GitHub Actions.
-4. **Platform operations:** security, observability, RMAN, Data Guard, RAC/ASM and failure/recovery testing.
-5. **Integrated demonstration:** document the full pipeline; add AWS/Kubernetes/AI only when the core is demonstrably working.
+Phase numbers follow the DevOps syllabus. They are **not** the build order.
+This section is the single controlling execution order for both README.md
+and ROADMAP.md. Pacing is by competency: a stage is complete only when its
+**Done when** criteria are met and evidence is committed.
+
+### Stage 1 — Core Platform v1 (target: ~8 weeks)
+
+| Order | Target week | Work | Phase | Status |
+|---|---|---|---|---|
+| 1 | 1 | Close Phase 0: rename repo, protect `main`, budget alerts, lab inventory, security rules | 0 | In progress |
+| 2 | 1 | Close RAC node 2 incident: re-enable SELinux, verify `crsctl`/`srvctl`, record timestamped output | 10B | In progress |
+| 3 | 2 | Oracle health checks (database, listener, tablespace, RMAN), scheduled, ShellCheck-clean; all work via PRs | 1–2 | Planned |
+| 4 | 3–4 | Rebuild GoldenGate 26ai pipeline (OCI Oracle → Azure SQL Server): DML, row-count validation, lag, restart | 11 | Planned |
+| 5 | 5 | Terraform OCI VCN + compute modules; remote state in Object Storage; clean apply/destroy | 4–5 | Planned |
+| 6 | 6 | Ansible configures the fresh server and installs Oracle with no manual steps; idempotent rerun | 6 | Planned |
+| 7 | 7 | GitHub Actions: ShellCheck, `terraform validate` + TFLint, ansible-lint on every PR | 3 (partial) | Planned |
+| 8 | 8 | Grafana dashboard (availability, tablespace, backup status); 5-minute recorded demo | 9A (partial), 12 (partial) | Planned |
+
+**Stage 1 done when:** a new OCI server can be provisioned, configured and
+health-checked from this repository, every PR runs the pipeline, the
+GoldenGate pipeline has published evidence, and a recorded demo exists.
+
+### Stage 2 — Platform Operations
+
+1. Database CI/CD with SQLcl Liquibase and an ephemeral Oracle Database Free test database (Phase 3, full)
+2. RMAN automated restore testing and recovery reports (Phase 9C)
+3. Security hardening and secrets via Vault (Phase 9B)
+4. Data Guard automation, switchover and failover tests (Phase 10A)
+5. Rerun and document migrations 1 and 2: 19c → 26ai and on-premises → OCI (Phase 11)
+
+### Stage 3 — Containers and Integration
+
+1. Docker: Oracle Database Free container, Trivy scanning (Phase 7)
+2. Kubernetes + Helm for supporting services (Phase 8)
+3. Integrated capstone: full rebuild from runbooks, final architecture, demo (Phase 12)
+
+### Stage 4 — Extensions (only after Phase 12)
+
+AWS extension, then Phase II advanced platform engineering and agentic AI.
+
+**Certifications:** OCI Architect Associate after Stage 1 week 5;
+HashiCorp Terraform Associate after Stage 1.
 
 ## Target project directory structure
 
@@ -121,4 +158,4 @@ Status legend: **Done** = verified evidence; **In progress** = actively implemen
 
 ## Next checkpoint
 
-**Priority:** rebuild the GoldenGate pipeline in this project and publish evidence, then begin Terraform/Ansible provisioning automation.
+Stage 1, Order 1 — close Phase 0.

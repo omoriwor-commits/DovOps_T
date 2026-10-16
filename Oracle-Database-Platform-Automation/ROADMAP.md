@@ -1,6 +1,6 @@
 # Oracle Database Platform — Master Roadmap
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Baseline / controlling roadmap  
 **Target role:** Oracle Database Automation / Platform Engineer
 
@@ -9,13 +9,50 @@
 
 **Pacing:** Phases advance by competency, not by calendar. Each phase is complete only when its **Done when** criteria are met and documented.
 
-| Window | Phases |
-|---|---|
-| ~Weeks 1–12 | Phases 0–9 |
-| Following ~4–6+ weeks | Phases 10A–12 |
-| After the core platform | Phase II |
+## Execution Order (controlling)
 
-**Certifications:** OCI Architect Associate during Phases 4–5; HashiCorp Terraform Associate optional after Phase 5.
+Phase numbers follow the DevOps syllabus. They are **not** the build order.
+This section is the single controlling execution order for both README.md
+and ROADMAP.md. Pacing is by competency: a stage is complete only when its
+**Done when** criteria are met and evidence is committed.
+
+### Stage 1 — Core Platform v1 (target: ~8 weeks)
+
+| Order | Target week | Work | Phase | Status |
+|---|---|---|---|---|
+| 1 | 1 | Close Phase 0: rename repo, protect `main`, budget alerts, lab inventory, security rules | 0 | In progress |
+| 2 | 1 | Close RAC node 2 incident: re-enable SELinux, verify `crsctl`/`srvctl`, record timestamped output | 10B | In progress |
+| 3 | 2 | Oracle health checks (database, listener, tablespace, RMAN), scheduled, ShellCheck-clean; all work via PRs | 1–2 | Planned |
+| 4 | 3–4 | Rebuild GoldenGate 26ai pipeline (OCI Oracle → Azure SQL Server): DML, row-count validation, lag, restart | 11 | Planned |
+| 5 | 5 | Terraform OCI VCN + compute modules; remote state in Object Storage; clean apply/destroy | 4–5 | Planned |
+| 6 | 6 | Ansible configures the fresh server and installs Oracle with no manual steps; idempotent rerun | 6 | Planned |
+| 7 | 7 | GitHub Actions: ShellCheck, `terraform validate` + TFLint, ansible-lint on every PR | 3 (partial) | Planned |
+| 8 | 8 | Grafana dashboard (availability, tablespace, backup status); 5-minute recorded demo | 9A (partial), 12 (partial) | Planned |
+
+**Stage 1 done when:** a new OCI server can be provisioned, configured and
+health-checked from this repository, every PR runs the pipeline, the
+GoldenGate pipeline has published evidence, and a recorded demo exists.
+
+### Stage 2 — Platform Operations
+
+1. Database CI/CD with SQLcl Liquibase and an ephemeral Oracle Database Free test database (Phase 3, full)
+2. RMAN automated restore testing and recovery reports (Phase 9C)
+3. Security hardening and secrets via Vault (Phase 9B)
+4. Data Guard automation, switchover and failover tests (Phase 10A)
+5. Rerun and document migrations 1 and 2: 19c → 26ai and on-premises → OCI (Phase 11)
+
+### Stage 3 — Containers and Integration
+
+1. Docker: Oracle Database Free container, Trivy scanning (Phase 7)
+2. Kubernetes + Helm for supporting services (Phase 8)
+3. Integrated capstone: full rebuild from runbooks, final architecture, demo (Phase 12)
+
+### Stage 4 — Extensions (only after Phase 12)
+
+AWS extension, then Phase II advanced platform engineering and agentic AI.
+
+**Certifications:** OCI Architect Associate after Stage 1 week 5;
+HashiCorp Terraform Associate after Stage 1.
 
 **Learning baseline:** Coding Macaw AI-Powered DevOps syllabus (Linux, Git/GitHub, CI/CD, AWS, Terraform, Azure, Docker, Kubernetes, Ansible, SRE, DevSecOps), applied to database platform engineering.
 
