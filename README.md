@@ -79,6 +79,8 @@ Full and incremental backup, restore, and point-in-time recovery scenarios. Reus
 
 [Two-node RAC build and troubleshooting runbook](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/runbooks/oracle-rac/oracle19c-2node-rac-build-and-troubleshooting.md) — full Oracle 19c Grid, ASM and RAC database build, tested and reused.
 
+[Oracle 26ai two-node RAC build runbook (draft)](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/runbooks/oracle-rac/oracle26ai-2node-rac-build-runbook.md) — adapted from the tested 19c runbook; validation on Oracle Linux 9 is pending.
+
 [October 2026 node startup investigation](Oracle-Database-Platform-Automation/incident-reports/2026-10-rac-node2-startup-investigation.md)
 
 Cluster and operating-system troubleshooting across VirtualBox, Oracle Linux, Clusterware, and ASM. Node OS availability was restored; database and cluster-wide recovery checks are part of the next validation pass.
