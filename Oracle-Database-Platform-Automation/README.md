@@ -106,7 +106,7 @@ HashiCorp Terraform Associate after Stage 1.
 ## Target project directory structure
 
 ```text
-DovOps_T/
+oracle-db-platform-automation/
 └── Oracle-Database-Platform-Automation/
     ├── README.md                  # this authoritative roadmap
     ├── docs/
