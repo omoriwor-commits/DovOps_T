@@ -6,7 +6,7 @@ This is a cross-repository index of technical references, procedures, incidents,
 - [Six deployment methodologies](GoldenGate/six-deployment-methodologies.md): process placement patterns, selection criteria and the selected migration topology.
 - [Oracle 19c to 26ai migration](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-19c-to-26ai-goldengate): remote Integrated Extract and target apply.
 - [Microservices troubleshooting](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/goldengate/troubleshooting/goldengate-26ai-oggca-daemon-registration-troubleshooting.md).
-- [Heterogeneous CDC checkpoints](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/tree/main/docs/checkpoints): dated build checkpoints for Migration 3, completed with end-to-end INSERT/UPDATE/DELETE apply.
+- [Heterogeneous CDC checkpoints](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/tree/main/docs/checkpoints): dated build checkpoints for Migration 3 (VPN/BGP, Extract, trails, Replicat preparation). End-to-end apply was completed afterward; target-side logs will be published after the rerun.
 
 ## RAC, ASM and Grid Infrastructure
 - [Two-node RAC runbook](https://github.com/omoriwor-commits/enterprise-multicloud-database-platform-lab/blob/main/docs/runbooks/oracle-rac/oracle19c-2node-rac-build-and-troubleshooting.md).

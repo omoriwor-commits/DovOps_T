@@ -1,6 +1,6 @@
 # Oracle Database Platform Automation
 
-> **Canonical project roadmap — one integrated project, not separate Oracle/DevOps/multi-cloud projects.**
+> **Project overview: one integrated project, not separate Oracle/DevOps/multi-cloud projects.** The controlling roadmap is [ROADMAP.md](ROADMAP.md).
 
 ## Mission
 
@@ -12,7 +12,7 @@ Build a repeatable, automated, secure, observable and recoverable enterprise Ora
 
 **Method:** Learn → Build → Test → Prove → Document → Publish.
 
-## One integrated architecture
+## Architecture v1
 
 ```text
 OCI: Oracle Database 26ai (source)
@@ -58,57 +58,18 @@ Future extensions: AWS, then advanced AI automation
 
 **Phase numbers describe the syllabus, not a rigid execution order.**
 
-## Execution Order (controlling)
+## Execution order
 
-Phase numbers follow the DevOps syllabus. They are **not** the build order.
-This section is the single controlling execution order for both README.md
-and ROADMAP.md. Pacing is by competency: a stage is complete only when its
-**Done when** criteria are met and evidence is committed.
-
-### Stage 1 — Core Platform v1 (target: ~8 weeks)
-
-| Order | Target week | Work | Phase | Status |
-|---|---|---|---|---|
-| 1 | 1 | Close Phase 0: rename repo, protect `main`, budget alerts, lab inventory, security rules | 0 | In progress |
-| 2 | 1 | Close RAC node 2 incident: re-enable SELinux, verify `crsctl`/`srvctl`, record timestamped output | 10B | In progress |
-| 3 | 2 | Oracle health checks (database, listener, tablespace, RMAN), scheduled, ShellCheck-clean; all work via PRs | 1–2 | Planned |
-| 4 | 3–4 | Rebuild GoldenGate 26ai pipeline (OCI Oracle → Azure SQL Server): DML, row-count validation, lag, restart | 11 | Planned |
-| 5 | 5 | Terraform OCI VCN + compute modules; remote state in Object Storage; clean apply/destroy | 4–5 | Planned |
-| 6 | 6 | Ansible configures the fresh server and installs Oracle with no manual steps; idempotent rerun | 6 | Planned |
-| 7 | 7 | GitHub Actions: ShellCheck, `terraform validate` + TFLint, ansible-lint on every PR | 3 (partial) | Planned |
-| 8 | 8 | Grafana dashboard (availability, tablespace, backup status); 5-minute recorded demo | 9A (partial), 12 (partial) | Planned |
-
-**Stage 1 done when:** a new OCI server can be provisioned, configured and
-health-checked from this repository, every PR runs the pipeline, the
-GoldenGate pipeline has published evidence, and a recorded demo exists.
-
-### Stage 2 — Platform Operations
-
-1. Database CI/CD with SQLcl Liquibase and an ephemeral Oracle Database Free test database (Phase 3, full)
-2. RMAN automated restore testing and recovery reports (Phase 9C)
-3. Security hardening and secrets via Vault (Phase 9B)
-4. Data Guard automation, switchover and failover tests (Phase 10A)
-5. Rerun and document migrations 1 and 2: 19c → 26ai and on-premises → OCI (Phase 11)
-
-### Stage 3 — Containers and Integration
-
-1. Docker: Oracle Database Free container, Trivy scanning (Phase 7)
-2. Kubernetes + Helm for supporting services (Phase 8)
-3. Integrated capstone: full rebuild from runbooks, final architecture, demo (Phase 12)
-
-### Stage 4 — Extensions (only after Phase 12)
-
-AWS extension, then Phase II advanced platform engineering and agentic AI.
-
-**Certifications:** OCI Architect Associate after Stage 1 week 5;
-HashiCorp Terraform Associate after Stage 1.
+The build order, stage targets and status live in one place: [ROADMAP.md, Execution Order](ROADMAP.md#execution-order-controlling). Phase 0 work is in [phase-00-foundation](phase-00-foundation/README.md).
 
 ## Target project directory structure
 
 ```text
 oracle-db-platform-automation/
 └── Oracle-Database-Platform-Automation/
-    ├── README.md                  # this authoritative roadmap
+    ├── README.md                  # project overview
+    ├── ROADMAP.md                 # controlling roadmap and execution order
+    ├── incident-reports/
     ├── docs/
     │   ├── architecture/
     │   ├── roadmap/
@@ -149,7 +110,7 @@ Status legend: **Done** = verified evidence; **In progress** = actively implemen
 ## Project governance
 
 - **One project identity:** Oracle Database Platform Automation.
-- **One master roadmap:** this document.
+- **One master roadmap:** [ROADMAP.md](ROADMAP.md).
 - **One learning framework:** DevOps syllabus applied to Oracle database platform engineering.
 - **One primary data pipeline:** OCI Oracle → Azure GoldenGate → Azure SQL Server (one-way CDC).
 - Oracle DBA, GoldenGate, RAC, Data Guard, RMAN, DevOps, cloud, and automation are **workstreams/phases within this project**, not competing project identities.
