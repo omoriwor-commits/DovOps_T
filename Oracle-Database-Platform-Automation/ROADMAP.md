@@ -21,7 +21,7 @@ rather than repeating it. Pacing is by competency: a stage is complete only when
 | Order | Target week | Work | Phase | Status |
 |---|---|---|---|---|
 | 1 | 1 | Close Phase 0: protect `main`, budget alerts, lab inventory, security/naming/documentation standards (repo rename done Oct 2026) | 0 | In progress |
-| 2 | 1 | Close RAC node 2 incident: re-enable SELinux, verify `crsctl`/`srvctl`, record timestamped output | 10B | In progress |
+| 2 | 1 | Rebuild the two-node RAC on Oracle 26ai and apply the node 2 incident checks: SELinux enforcing, `crsctl`/`srvctl` verified, timestamped output recorded | 10B | Planned |
 | 3 | 2 | Oracle health checks (database, listener, tablespace, RMAN), scheduled, ShellCheck-clean; all work via PRs | 1–2 | Planned |
 | 4 | 3–4 | Rebuild GoldenGate 26ai pipeline (OCI Oracle → Azure SQL Server): DML, row-count validation, lag, restart | 11 | Planned |
 | 5 | 5 | Terraform OCI VCN + compute modules; remote state in Object Storage; clean apply/destroy | 4–5 | Planned |

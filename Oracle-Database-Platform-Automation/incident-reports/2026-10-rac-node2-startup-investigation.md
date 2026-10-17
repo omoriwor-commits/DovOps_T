@@ -4,6 +4,7 @@
 **Environment:** Two-node Oracle RAC lab on Oracle Linux / VirtualBox  
 **Incident period:** October 2026  
 **Status:** Node 2 operating system reported healthy; full RAC resource recovery not independently verified in the available record  
+**Update (October 2026):** I deleted the 19c RAC VMs before full cluster recovery was verified, so this incident is closed as unverified. The checks below carry forward to the planned Oracle 26ai RAC rebuild.  
 **Type:** Independent lab incident, **not** an employer production outage
 
 ## Executive summary

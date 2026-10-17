@@ -15,7 +15,7 @@ Last reviewed: October 2026
 | 19c standby (hostname TODO) | Physical standby | Oracle Linux 7.9 | Oracle 19c Data Guard | TODO |
 | 26ai host (hostname TODO) | Migration 1 target, Migration 2 source | Oracle Linux 9.8 | Oracle AI Database 26ai (`PDB23AI`), GoldenGate 26ai | TODO |
 
-RAC shared storage: three VirtualBox shared disks for OCR, DATA and FRA (20 GB, 40 GB and 20 GB).
+Former RAC shared storage (deleted with the nodes): three VirtualBox shared disks for OCR, DATA and FRA (20 GB, 40 GB and 20 GB).
 
 ## Cloud accounts
 
