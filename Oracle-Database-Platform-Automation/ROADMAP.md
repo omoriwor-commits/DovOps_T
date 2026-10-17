@@ -12,15 +12,15 @@
 ## Execution Order (controlling)
 
 Phase numbers follow the DevOps syllabus. They are **not** the build order.
-This section is the single controlling execution order for both README.md
-and ROADMAP.md. Pacing is by competency: a stage is complete only when its
+This section is the single controlling execution order; README.md links here
+rather than repeating it. Pacing is by competency: a stage is complete only when its
 **Done when** criteria are met and evidence is committed.
 
 ### Stage 1 — Core Platform v1 (target: ~8 weeks)
 
 | Order | Target week | Work | Phase | Status |
 |---|---|---|---|---|
-| 1 | 1 | Close Phase 0: rename repo, protect `main`, budget alerts, lab inventory, security rules | 0 | In progress |
+| 1 | 1 | Close Phase 0: protect `main`, budget alerts, lab inventory, security/naming/documentation standards (repo rename done Oct 2026) | 0 | In progress |
 | 2 | 1 | Close RAC node 2 incident: re-enable SELinux, verify `crsctl`/`srvctl`, record timestamped output | 10B | In progress |
 | 3 | 2 | Oracle health checks (database, listener, tablespace, RMAN), scheduled, ShellCheck-clean; all work via PRs | 1–2 | Planned |
 | 4 | 3–4 | Rebuild GoldenGate 26ai pipeline (OCI Oracle → Azure SQL Server): DML, row-count validation, lag, restart | 11 | Planned |

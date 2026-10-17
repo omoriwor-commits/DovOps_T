@@ -1,6 +1,6 @@
 # Oracle Database Platform Engineering
 
-Oracle database engineering portfolio covering **migration, replication, backup and recovery, high availability, troubleshooting, and automation** across Oracle Cloud Infrastructure (OCI), Azure, and local VirtualBox environments.
+Oracle database lab portfolio focused on **migration and GoldenGate replication** across Oracle Cloud Infrastructure (OCI), Azure and local VirtualBox environments, with RAC, Data Guard and RMAN lab work and a DevOps automation project in progress.
 
 These are independent hands-on lab projects. The current goal is to bring the strongest existing Oracle DBA work into one repeatable, version-controlled **Oracle Database Platform Automation** platform using DevOps practices.
 
@@ -35,13 +35,13 @@ Oracle 19c / PRODBHR (Oracle Linux 7.9)
    -> Oracle AI Database 26ai / PDB23AI (Oracle Linux 9.8)
 ```
 
-**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested INSERT, UPDATE, DELETE, CREATE TABLE and DROP TABLE replication. Sanitized configuration and test output will be added to the project repository.
+**Engineering decision:** Run GoldenGate off-box on the newer Oracle Linux environment rather than install GoldenGate 26ai on the older source OS. Tested DML (INSERT, UPDATE, DELETE) and DDL (CREATE TABLE, DROP TABLE) replication. Sanitized configuration and test output will be added to the project repository.
 
 ### Migration 2 — Oracle 26ai On-Premises to OCI Migration & GoldenGate Replication
 
 [Implementation and rerun playbook](https://github.com/omoriwor-commits/enterprise-data-platform-labs/tree/main/migrations/oracle-26ai-to-oci-goldengate)
 
-Local Oracle 26ai (OL 9.8) → self-managed Oracle 26ai on OCI Compute (OL 9.8). I used **RMAN and Data Pump for the initial load**, then GoldenGate 26ai for CDC with **local capture at the source-side GoldenGate tier and remote apply to OCI**. INSERT, UPDATE, DELETE and DROP were tested.
+Local Oracle 26ai (OL 9.8) → self-managed Oracle 26ai on OCI Compute (OL 9.8). I used **RMAN and Data Pump for the initial load**, then GoldenGate 26ai for CDC with **local capture at the source-side GoldenGate tier and remote apply to OCI**. I tested DML (INSERT, UPDATE, DELETE) and DDL (CREATE TABLE, DROP TABLE) replication, and confirmed each change reached the OCI target.
 
 ```text
 LOCAL LAB / OL9.8                           OCI COMPUTE / OL9.8
