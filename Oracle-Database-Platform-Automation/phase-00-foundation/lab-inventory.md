@@ -9,8 +9,8 @@ Last reviewed: October 2026
 | Host | Role | OS | Database / software | Status |
 |---|---|---|---|---|
 | Physical host | Runs all local VMs | TODO | VirtualBox version TODO; CPU / RAM / disk TODO | Active |
-| `racnode1` | RAC node 1 | Oracle Linux TODO | Oracle 19c Grid Infrastructure, ASM, RAC | Active |
-| `racnode2` | RAC node 2 | Oracle Linux TODO | Oracle 19c Grid Infrastructure, ASM, RAC | Active; see the [October 2026 incident](../incident-reports/2026-10-rac-node2-startup-investigation.md) |
+| `racnode1` | Former RAC node 1 | Oracle Linux TODO | Previous Oracle 19c Grid Infrastructure, ASM, RAC | Deleted; 26ai rebuild planned |
+| `racnode2` | Former RAC node 2 | Oracle Linux TODO | Previous Oracle 19c Grid Infrastructure, ASM, RAC | Deleted; 26ai rebuild planned; see the [October 2026 incident](../incident-reports/2026-10-rac-node2-startup-investigation.md) |
 | 19c primary (hostname TODO) | Migration 1 source | Oracle Linux 7.9 | Oracle 19c, PDB `PRODBHR` | TODO |
 | 19c standby (hostname TODO) | Physical standby | Oracle Linux 7.9 | Oracle 19c Data Guard | TODO |
 | 26ai host (hostname TODO) | Migration 1 target, Migration 2 source | Oracle Linux 9.8 | Oracle AI Database 26ai (`PDB23AI`), GoldenGate 26ai | TODO |
